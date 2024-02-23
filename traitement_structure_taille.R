@@ -15,7 +15,7 @@
 datawd <- "C:/workspace/pechelec/data/"
 setwd("C:/workspace/pechelec")
 
-CY <- 2022
+CY <- 2023
 library(stringr)
 datawdy=str_c(datawd,CY,"/")
 
@@ -39,10 +39,11 @@ InfoAnguille <- sqlQuery(channel, "SELECT * FROM InfoANguille", errors = TRUE)
 save(InfoAnguille,file=str_c(datawdy,"InfoAnguille.Rdata"))
 
 #sqlTables(channel)[sqlTables(channel)$TABLE_TYPE=="TABLE",]
+options(stringsAsFactors = FALSE)
 query="select * from PointPrelMetier"
-t_ptPrel=sqlQuery(channel, query, errors = TRUE)
-t_op=killfactor(merge(t_ptPrel,t_ope,by.x="Id_PtPrelMetier",by.y="Op_Id_PtPrelMetier"))
-t_ops=killfactor(merge(t_op,t_sta,by.x="Pm_Id_PointPrel",by.y="Sr_Id_PointPrel")) # operation ptprel station
+t_ptPrel <- sqlQuery(channel, query, errors = TRUE)
+t_op <- merge(t_ptPrel,t_ope,by.x="Id_PtPrelMetier",by.y="Op_Id_PtPrelMetier")
+t_ops <- merge(t_op,t_sta,by.x="Pm_Id_PointPrel",by.y="Sr_Id_PointPrel") # operation ptprel station
 #str(t_ops)
 
 write.table(t_ops,sep=";",file="c:/temp/tops.csv",row.names=FALSE)
