@@ -11,21 +11,19 @@
 # et manque des données poissons d'une opération
 # le fichier est à copier depuis C:/WamaVB/File
 # attention le fichier fonctionne sur un R 32 bits
-#setwd("C:/Users/brice.sauvaget/workspace/various/")
-#setwd("C:/workspace/p/pechelec")
-datawd <- "C:/workspace/pdata/pechelec/data/"
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-setwd("C:/Users/brice.sauvaget/workspace/p/pechelec")
-datawd <- "C:/workspace/pdata/pechelec/data/"
-CY <- 2021
+
+datawd <- "C:/workspace/pechelec/data/"
+setwd("C:/workspace/pechelec")
+
+CY <- 2022
 library(stringr)
 datawdy=str_c(datawd,CY,"/")
 
 library(RODBC)
 library(stacomirtools)
 #channel=odbcConnectAccess2007("Wama.mdb",uid = "", pwd = "nsldgmi")
-
-channel=odbcConnectAccess2007("T:/12-PoleMAB/Socle/Migrateurs/pechelec/Wama.mdb",uid = "", pwd = "nsldgmi")
+file.exists("T:/12-PoleMAB/Socle/Migrateurs/pechelec/Wama.mdb")
+channel <- odbcConnectAccess("T:/12-PoleMAB/Socle/Migrateurs/pechelec/Wama.mdb",uid = "", pwd = "nsldgmi")
 
 #channel=odbcConnectAccess2007("pechelec//Wama.mdb",uid = "", pwd = "nsldgmi")
  query <- "select * from Opera"
