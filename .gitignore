@@ -47,3 +47,16 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+*.gz
+*.aux
+*.bbl
+*.blg
+*.spl
+*.out
+*.toc
+*.log
+*.run.xml
+*.bcf
+.project
+

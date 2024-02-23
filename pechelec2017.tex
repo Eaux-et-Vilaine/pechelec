@@ -1,0 +1,1151 @@
+% !arara: pdflatex:  { action: nonstopmode, synctex: True }
+% arara: bibtex
+% !arara: makeglossaries
+% arara: pdflatex: {action: nonstopmode, synctex: True }
+% arara: pdflatex: {action: nonstopmode, synctex: True }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%  Scientific Report (Quick Draft) for LaTeX 
+%%    By Andrej Korenic
+%%    Tested in ScribTeX online and TeX Maker Version 3.1 (July 24th 2011)
+%%    Created : November 2011
+%%    Modified: 2012 2016 2017
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%
+%%
+%% This file has content of the `elsarticle-template',
+%% It is modified version by me, dedicated to scientists that want quick 
+%% template for their scientific reports...
+%%
+%%
+%% Copyright 2009 Elsevier Ltd (original copyright notes)
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%%============================================================
+%%============================================================
+%% HOW TO USE IT
+%%
+%% All lines begining with %% are comments and they should stay
+%% commented!!! Lines with only one % can be un-commented if you want
+%% to use that function.
+%%
+%% Read instructions carefully!\documentclass[a4paper]{article}
+%%============================================================
+%%============================================================
+%% DOCUMENT CLASS SETUP
+%%
+%% choose document class = type of the document...
+%% Here you have Elsevier article, but you can override
+%% page settings later!
+\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%\documentclass[preprint,authoryear,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%\documentclass[final,authoryear,1p,times]{elsarticle}
+%\documentclass[final,authoryear,1p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,3p,times]{elsarticle}
+%\documentclass[final,authoryear,3p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,5p,times]{elsarticle}
+%\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+\usepackage{float}
+\usepackage[section]{placeins}  %The placeins package provides the command \FloatBarrier
+%%============================================================
+%%============================================================
+%% PACKAGE SETUP
+\usepackage{Sweave}
+%\SweaveOpts{pdf=TRUE, echo=FALSE, fig=FALSE, eps=FALSE, tidy=T, width=4,
+%height=4, keep.source=TRUE}
+\usepackage{fixltx2e} %textsubscript
+%% Input and language packages.
+\usepackage[latin1]{inputenc} %encodage du fichier source
+\usepackage[T1]{fontenc}  %gestion des accents (pour les pdf) 
+\usepackage{aeguill} % guillemets
+%\usepackage[english]{babel}
+\usepackage[francais]{babel}
+\addto\captionsfrench{\def\tablename{Tableau}}
+\usepackage{amsmath} %equation
+%% Parskip is the extra vertical space inserted before a paragraph. It has a natural length of zero but should be a rubber length so that it may be stretched in a flushbottom environment. To increase \parskip to skip a line between paragraphs one could use \addtolength{\parskip} {\baselineskip}.
+\usepackage{parskip}
+\usepackage{latexsym} % pour les carrés
+%% Sets space between lines.
+\usepackage{setspace} 
+\usepackage{supertabular}
+
+\usepackage{caption} % pour éviter les problème de place entre le header et le tableau
+\captionsetup[table]{skip=5pt}
+
+%% If you use PostScript figures in your article
+%% use the graphics package for simple commands
+%\usepackage{graphics}
+%% or use the graphicx package for more complicated commands (places the float at precisely the location in the LaTeX code [H]).
+\usepackage{graphicx} \usepackage{float}
+%% or use the epsfig package if you prefer to use the old commands.
+%\usepackage{epsfig}
+
+%% Using captions in floating environment. Note: might not work with other packages.
+%\usepackage{caption}
+
+%% Making numbered and bulleted lists.
+\usepackage{enumerate}
+
+
+%\definecolor{marron}{rgb}{0.64,0.16,0.16}
+%% Math packages
+%\usepackage{amsmath, amssymb}
+
+%% The amsthm package provides extended theorem environments.
+%\usepackage{amsthm}
+
+%% The verbatim environment, \begin{verbatim} ... \end{verbatim}, permits us to insert large sections of reformatted text in a LaTeX file (including block of comments). It is very handy for inserting large chunks of code in a document, for example, literal TeX code or the Maple code you sweated over and now want to comment on.
+%\usepackage{verbatim}
+
+%% Add hyperlinks, so that you can click on references, theorem numbers etc. to jump to the place where they are in the paper (at least for the DVI and PDF versions), it seems that \documentclass{article} does not work with hyperref; use instead \documentclass{amsart}. Note: first test it with Elsevier template!
+\usepackage{hyperref} 
+\hypersetup{pdftex, 
+colorlinks=true, 
+linkcolor=blue, 
+citecolor=blue, 
+filecolor=blue, 
+urlcolor=blue, 
+pdftitle= {Suivi de l'anguille jaune (\textit{Anguilla anguilla}, L.) en pêche
+électrique sur le bassin de la Vilaine de 1998 à 2017.},
+pdfauthor={Cédric Briand}, pdfsubject={anguille}, pdfkeywords={anguille} {pêche électrique} {marquage} }
+
+
+
+%% The numcompress package shorten the last page in references.
+%% `nodots' option removes dots from firstnames in references.
+%\usepackage[nodots]{numcompress}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+%% If you are printing how many pages you submitted...
+\usepackage{lastpage}
+
+%% The \url{...} command does all the work: It sets the enclosed expression in the appropriate typewriter style font, it takes care of any necessary linebreaking, and it chooses break points intelligently (e.g., between components of an address), and it ensures that special symbols such as the tilde symbol or the "at" symbol get typeset correctly.
+\usepackage{url}
+
+%% A new implementation of LATEX's tabular and array environment.
+ \usepackage{array}
+ 
+\usepackage{longtable}
+
+
+
+%%============================================================
+%%============================================================
+%% BIBLIOGRAPHY SETUP
+
+%% natbib.sty is loaded by default. However, natbib options can be
+%% provided with \biboptions{...} command. Following options are
+%% valid:
+
+%%   round  -  round parentheses are used (default)
+%%   square -  square brackets are used   [option]
+%%   curly  -  curly braces are used      {option}
+%%   angle  -  angle brackets are used    <option>
+%%   semicolon  -  multiple citations separated by semi-colon (default)
+%%   colon  - same as semicolon, an earlier confusion
+%%   comma  -  separated by comma
+%%   authoryear - selects author-year citations (default)
+%%   numbers-  selects numerical citations
+%%   super  -  numerical citations as superscripts
+%%   sort   -  sorts multiple citations according to order in ref. list
+%%   sort&compress   -  like sort, but also compresses numerical citations
+%%   compress - compresses without sorting
+%%   longnamesfirst  -  makes first citation full author list
+%%
+%%  e.g. \biboptions{longnamesfirst,comma}
+
+%\biboptions{round,colon,sort}
+
+
+%%============================================================
+%%============================================================
+%% PAGE SETUP
+%% Use this section to override Elsevier article page settings!!!
+
+	%% Easier way...
+	\usepackage[a4paper, inner=1.5cm, outer=1.5cm, top=2cm, bottom=3cm]{geometry}
+	%% The hard way involves setting all the desired values manually. Here are some values that can be set: 
+	%% Dimensions of the PDF file.
+	%\pdfpageheight \pdfpagewidth
+	%% Length of margin at top of page above all printing. 1 inch is added to this value.
+	%\topmargin   
+	%% Left margin on even numbered pages. 1 inch is added to this value.
+	%\evensidemargin  
+	%% Left margin on odd numbered pages. 1 inch is added to this value.
+	%\oddsidemargin
+	%% Height of the page header.
+	%\headheight
+	%% Distance from bottom of header to the body of text on a page.
+	%\headsep
+	%% Distance from top of main text box to the baseline of the first line of text in the Fetmain text box.
+	%\topskip 
+	%% Height and width of main text box.
+	%\textheight \textwidth
+	%% Distance from bottom of body to the bottom of the footer.
+	%\footskip
+	%% Distance between paragraphs.
+	%\parskip
+	%% Amount of indentation at the first line of a paragraph.
+	%\parindent
+	%% Uncomment if don't want page numbers.
+	%\pagestyle{empty}
+	%% Uncomment for 1.5 spacing between lines...
+	%\renewcommand{\baselinestretch}{1.5}
+	%% or use some of these
+		%\singlespacing
+		%\onehalfspacing
+		%\doublespacing
+		%\setstretch{1.1}
+	%% Sets up hyphenation threshold.
+	%\hyphenpenalty=675 \tolerance=950
+
+
+
+
+%%============================================================
+%%============================================================
+%% DEFINING NEW COMMANDS AND ABBREVIATIONS
+%% Use this section to define new commands that you will use in
+%% your report.
+
+%% Makes a path to your graphics' folder.
+\graphicspath{{../../pdata/pechelec/image/}}
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\DD}{D\&D}
+\newcommand{\oxygen}{O$ _2 $}
+
+\renewcommand{\labelitemi}{--}
+
+
+
+
+%% Add extra space to multi-line equation environments
+%\setlength{\jot}{9pt}
+
+% use \mbox{...} for no separation of the defined word
+
+%%===============================================%%
+%%==========    END OF THE PREAMBLE    ==========%%
+
+
+
+
+%%============================================================
+%%============================================================
+%%============================================================
+% BEGINNING OF THE TEXT BODY
+
+%% You can write here small footer that will go on the first page, together with
+%% the date stamp; comment the line if you don't want that!
+%\footme{Submitted to Someone Somewhere\hspace{2mm}(\pageref{LastPage} pages)} \datestamp{Andrej Korenic, 27$^{th}$ October, 2011}
+
+\begin{document}
+
+\begin{frontmatter}
+
+	%% Title, authors and addresses
+
+	%% use the tnoteref command within \title for footnotes;
+	%% use the tnotetext command for the associated footnote;
+	%% use the fnref command within \author or \address for footnotes;
+	%% use the fntext command for the associated footnote;
+	%% use the corref command within \author for corresponding author footnotes;
+	%% use the cortext command for the associated footnote;
+	%% use the ead command for the email address,
+	%% and the form \ead[url] for the home page:
+	%%
+	%% \title{Title\tnoteref{label1}}
+	%% \tnotetext[label1]{}
+	%% \author{Name\corref{cor1}\fnref{label2}}
+	%% \ead{email address}
+	%% \ead[url]{home page}
+	%% \fntext[label2]{}
+	%% \cortext[cor1]{}
+	%% \address{Address\fnref{label3}}
+	%% \fntext[label3]{}
+
+	\title{Suivi de l'anguille jaune (\textit{Anguilla anguilla}, L.) en pêche
+électrique sur le bassin de la Vilaine de 1998 à 2017.\\
+Monitoring of yellow eel (\textit{Anguilla anguilla,} L.) by
+electrofishing in the Vilaine watershed from 1998 to 2017.
+}
+
+	%% use optional labels to link authors explicitly to addresses:
+	\author[iav]{Cédric Briand}
+	\author[iav]{Brice Sauvaget}	
+	\author[iav]{Gérard Eriau}	
+	\address[iav]{EPTB Vilaine, boulevard de Bretagne, 56130 La Roche Bernard}
+	%\author[label1,label2]{Andrej Korenic}
+	%\address[label1]{My address}
+	%\address[label2]{second address}
+
+\begin{abstract}
+    Les densités ont été évaluées par pêche électrique  sur des
+ affluents de petite taille à des distances croissantes de l'estuaire.     
+    Elles ont d'abord augmenté de 1998 à 2001 avec la réouverture du
+    bassin versant de la Vilaine à l'anguille. Elles ont ensuite diminué significativement à partir de 2003, jusqu'à un
+    niveau minimum en 2011. Cette tendance a traduit la dégradation des
+    recrutements fluviaux de civelles. A cette période, les opérations de
+    transport de civelles n'ont pas compensé cette baisse.  
+    
+    A partir de la mise en place du plan de gestion anguille,  le recrutement
+    fluvial de civelles sur le bassin versant a été très fortement augmenté.
+    On observe bien en réponse une augmentation des abondances de jeunes
+    classes d'âge sur l'aval du bassin (zone < 50 Km), à partir de 2013. Plus
+    tard, on observe une augmentation des âges un et deux sur la partie intermédiaire du bassin à partir de 2015-2016. Toutefois,
+    l'augmentation globale du recrutement fluvial ne se traduit pas par une
+    augmentation des densités sur les affluents considérés. Les densités
+    diminuent de nouveau en 2017,  et globalement les niveaux de densité
+    atteints restent bien en deçà des niveaux observés sur la période
+    1998-2002. Le biomasses sont en déclin continu quels que soient les
+    secteurs.
+    
+    Enfin, les pêches électriques sont aussi l'occasion d'une opération de
+    marquage-recapture qui permet d'obtenir de précieuses informations sur la
+    croissance des anguilles jaunes dans les cours d'eaux. Ces informations sont
+    synthétisées et analysées.
+    
+    L'ensemble des résultats est discuté, au regard des objectifs du plan
+    régional de gestion des poissons migrateurs et de la compréhension de la
+    dynamique du stock d'anguille à l'échelle du bassin de la Vilaine.\\
+\vspace{1cm}
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Abstract}\vspace{5mm}
+
+\begin{itshape}
+  Densities are collected on small tributaries located at increasing distance
+  from the estuary. They have first increased from 1998 to 2001  with the re-opening of a
+  migratory pathway for eel in the Vilaine watershed. They have then diminished rapidly from 2003 untill a low level in 2011, and
+  this trend is a consequence of the degradation of glass eel fluvial
+  recruitment. At this
+  time, temptative transport operations have not buffered the decline.
+  
+  From the start of implementation of the eel management plan, glass eel fluvial
+  recruitment on the Vilaine basin has been largely increased. We do observe 
+  an increase in young age classes in the downstream par of the basin (area <50 rkm) from 2013.   
+  Later, in 2015-2016 we observe an increase of
+  age one and two in the medium part of the basin (50-100 rKm). Densities are
+  decreasing again in 2017 in all parts of the basin, and as a whole, the
+  density levels remain well beyond those observed in 1998-2002. Biomass show a
+  continuous decline in all sectors.
+  
+  Finally, electrofishing operations are also offering the means for a
+  marking-recapture operation which allows to gather valuable information on
+ eel growth in the Vilaine tributaries. This information in analysed and
+ synthetized. 
+ 
+ The whole result are discussed, in the perspective of the regional plan of
+ management of migratory species and to understand the eel stock dynamics a the
+ scale of the vilaine watershed.
+\end{itshape}
+\end{abstract}
+
+\begin{keyword}
+% keywords here, in the form: keyword \sep keyword
+anguille \sep pêche électrique \sep marquage \sep pit-tag
+    \textit{Yellow eel} \sep \textit{electrofishing}   \sep
+     \textit{marking recapture} \sep \textit{pit tag}  	
+\end{keyword}
+
+\end{frontmatter}
+%---------------------------------------------------------------------
+
+%% Switch on the line numbers for the whole article at this place.
+%\linenumbers
+
+%% Here you can put your table of contents and also give it a new name.		
+%\newpage
+\renewcommand{\contentsname}{Sommaire:}
+\tableofcontents
+
+%% Switch on the line numbers for the whole article at this place.
+%\linenumbers
+
+%% Main text is going here.
+
+\bigskip
+
+\section*{Introduction}
+\label{Introduction}
+\section{Matériel et méthodes}
+
+
+
+Pour cette étude, le bassin versant a été séparé en trois
+classes de distance (rkm = kilomètres de rivière) :
+\begin{description}
+\item [la zone aval] située
+à moins de 50 kilomètres de rivière du barrage
+d'Arzal (50 rkm) est formée principalement
+par des affluents connectés au bief aval de la Vilaine sous influence
+directe du barrage d'Arzal. Le cours principal de la
+Vilaine forme un bief de 30-150 m de large, en connexion avec les
+marais de Redon.
+\item [la zone intermédiaire] est composée de secteurs
+situés entre 50 et 100 kilomètres de rivière du barrage
+d'Arzal (50-100 rkm). Les affluents échantillonnés
+comportent le Canut Sud, séparé de la Vilaine aval par un barrage,
+et le ruisseau de l'Aron accessible après deux
+barrages. Le troisième, le ruisseau des Arches, est plus difficile
+d'accès pour les anguilles. Il est localisé sur
+l'Oust et est séparé par 6 barrages de navigation
+de la Vilaine aval. Cet axe a été entièrement équipé de
+passes à anguilles en 2003.
+\item [la zone amont] (100 rkm) comprend des affluents connectés à
+l'axe de la Vilaine. Les points
+d'échantillonnage sont localisés entre 110 et 165
+kilomètres du barrage d'Arzal. En 1999 et 2000, 13
+passes à anguilles ont été construites sur les barrages de
+navigation de la Vilaine, facilitant l'accès aux
+affluents du Canut Nord et de la Chèze. Elles ont aussi facilité
+l'accès au Chevré situé en amont de Rennes, bien
+que trois barrages soient restés non équipés pour
+l'accès à cette rivière. Une passe à anguilles
+située sur le troisième barrage de la Vilaine (la Molière) a
+été arrachée durant la crue de l'hiver 2000 et
+reconstruite en 2006.
+\end{description}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{carte.png}
+\caption[Vue schématique du bassin de la Vilaine]{Vue schématique du bassin de
+la Vilaine, les trois zones colorées correspondent aux trois classes de
+distance de l'estuaire.}
+\label{fig_carte}
+\end{figure}
+\subsection{Méthode de pêche}
+
+Sur 46 stations de pêche électrique
+prospectées sur le bassin versant de la Vilaine chaque année entre
+fin août et novembre de 1998 à 2005
+(BRIAND \textit{ et
+al.}, 2006), une sélection de 19 stations
+situées sur 10 affluents a été conservée à partir de 2007
+(Figure \ref{fig_carte}). La
+méthode de pêche est standardisée. Les pêches électriques
+sont effectuées à l'aide d'un
+matériel de type Héron. Le courant utilisé est continu. Les secteurs de pêche
+couvrent approximativement une surface de pêche de 100 m$^2$.
+Ils sont délimités et marqués de manière à prospecter le
+même secteur d'une campagne de pêche sur
+l'autre. Une attention particulière a été portée à la continuité des
+équipes de pêche depuis le début des opérations et que le protocole de pêche
+soit équivalent d'une année sur l'autre.
+L'anode est placée à intervalles réguliers de
+manière à prospecter l'ensemble de la surface du
+secteur de pêche. Une fois le courant appliqué,
+l'électrode est maintenue en place pendant au minimum
+30 secondes, plus si une anguille détectée n'est
+pas encore capturée. La capture des anguilles est effectuée par
+deux pêcheurs, équipés d'une épuisette large
+à cadre métallique avec le bord inférieur droit de 60 cm de large
+avec des mailles de 2 mm ; et d'une petite épuisette
+à main ronde ou carrée avec des mailles de 2 mm. Cet équipement
+peut varier en fonction des circonstances. Les grandes épuisettes
+sont surtout efficaces dans les secteurs où le débit est important
+et la visibilité réduite. Lorsque le débit est faible ou nul, les
+grandes épuisettes ne sont pas utilisées. Les épuisettes
+secondaires peuvent être remplacées par des petites épuisettes
+rectangulaires utilisées dans la biométrie lorsque le cours
+d'eau pêché est en étiage sévère, et
+qu'il est nécessaire de
+ \og chasser \fg les anguillettes dans les
+interstices des pierres sur les radiers. Les stations pêchées font
+l'objet d'un inventaire complet de la
+faune piscicole présente. Le nombre d'anguilles
+collectées par point est noté par un opérateur en rive, qui est
+également chargé de contrôler le temps de pêche.
+
+\subsection{Traitement des données}
+Les migrations vers le fleuve sont analysées en faisant la somme :
+\begin{itemize}
+\item des montées de civelles aux passes,
+\item des migrations d'anguilles jaunes,
+\item des opérations de transport qu'elles soient effectuées par l'IAV ou par le
+CRPMEM. Dans tous les cas, les mortalités lors des transports ne sont pas
+inclues,
+\item des migrations dans l'écluse.
+\end{itemize}
+
+Les densités sont évaluées comme suit :
+
+\begin{equation*}
+D=\frac{N_{CS}}{surface}
+\end{equation*}
+
+où $N_{CS}$ correspond aux nombres évalues par la
+méthode des enlèvements successifs de Carle\&Strubb
+\citep{ogle_fsa_2013,carle_new_1978} à partir des effectifs pêchés sur chaque 
+station $N$ et la surface correspond à la surface mouillée de la
+station de pêche.
+L'efficacité de pêche $\Phi$ est calculée à partir de l'effectif
+Carle\&Strubb $N_{CS}$ et de l'effectif au premier passage
+$N_{p1}$ :
+\begin{equation*}
+\Phi=\frac{N_{p1}}{N_{CS}}
+\end{equation*}
+Les biomasses d'anguilles estimées
+$B_e$
+par station sont calculées à partir des biomasses
+\begin{equation*}
+B_e=B\times \frac{D}{N}
+\end{equation*}
+
+Les densités de chaque classe de taille $\tau$ sont calculées comme
+suit :
+
+\begin{equation*}
+ D_{\tau}=N_{\tau} \times \frac{N_{CS}}{N \times surface}= N_{\tau} \times \frac{D}{N}
+\end{equation*}
+
+
+Les densités par classe d'âge sont calculées grâce à la clé
+taille-âge élaborée par Mounaix \citep{mounaix_intercalibration_1992} complétée par
+des anguilles prélevées en 1998 et 1999 dans les cours
+d'eaux \citep{briand_effect_2006}.
+
+\subsection{Analyses statistiques}
+Les densités d'anguilles sont log transformées pour
+normaliser la distribution (Shapiro-Wilks p{\textgreater}0.1). Une
+analyse de variance simple est appliquée en utilisant la formule :
+\begin{equation*}
+\log (D){\approx}a+s+m+\epsilon_s
+\end{equation*}
+pour laquelle la station $s$ correspond à la station de pêche, le mois $m$
+correspond au mois divisé en deux catégories avant septembre et après octobre,
+et l'année $a$ correspond à l'année de pêche. 
+Les données sont analysées par un modèle linéaire mixte \citep{pinheiro_nlme_2013} avec un
+lien identité et une distribution normale, pour lequel une variation de la
+variance en fonction de la station est appliquée $\epsilon_s=N(0,{\sigma_{s}}^2)
+~s=1,\dots,19$ \citep{zuur_mixed_2009}. La significativité des différentes
+variables -classe de distance à la mer, affluent, station ou mois- est évaluée à
+l'aide du critère d'Akaike (AIC) ou du ratio des log-vraissemblance lorsque les modèles sont structurellement emboités. Un test
+post hoc de Tukey est appliqué aux densités pour grouper les années semblables.
+L'évolution de la densité en anguilles et des biomasses est analysée par zone (classe de
+distance du barrage) et par âge. Les tendances de densité sont analysées ainsi
+que la moyenne par secteur de distance. Cette moyenne est comparée à la valeur de référence de 0.3
+anguille.m$^{-2}$ fixée par le PLAGEPOMI pour les parties aval des cours
+d'eaux.
+\subsection{Marquage recapture des anguilles}
+Le marquage des anguilles a été effectué par pit tag à l'aide d'un injecteur
+manuel sur toutes les anguilles de plus 30 cm capturées sur les stations. Les
+pits tags ont été placés dans la cavité abdominale.
+Ils sont passés dans l'alcool avant d'être implantés. Les anguilles de taille susceptible d'être recapturées après avoir
+été marquées > 30 cm ont été testées pour le marquage. 
+Sur certaines stations, une prospection est effectuée en dehors de la station
+pour rechercher les anguilles de plus de 30 cm, les tester pour un marquage
+éventuel, et les marquer. Ces anguilles sont alors traitées à part dans les
+données de pêche mais sont intégrées aux stations de pêche.
+
+
+\section{Résultats}
+
+
+\subsection{Recrutement estuarien}
+Les captures totales de la pêcherie sont passées de 57 tonnes en
+1981 à  2.6 tonnes en 2009 (Tableau \ref{tableau_captures}). Avant l'adoption du
+plan de gestion, les captures étaient essentiellement contraintes par la durée de la saison de pêche
+\citep{briand_dynamique_2009}. Après cette date, elles sont plus le reflet des
+contraintes du quota et du marché pour la civelle, avec la fermeture à l'export
+pour la CITES à partir de 2010. 
+\small
+\begin{table}[htpb]
+\centering
+\caption{Captures de la pêcherie de civelles d'Arzal de 1995 à 2016, sources : 
+1= Affaires Maritimes (données mareyeurs), 
+2= De Casamajor & Briand 2009 (OFIMER),
+3= Comité des pêches maritimes Auray-Vannes,
+4=télécapêche Vilaine (Comité des pêches maritimes Auray-Vannes). 
+La date d'arrêt correspond à la date de fermeture de la pêche en fin de saison.}
+\label{tableau_captures}
+\begin{tabular}{llll}
+\toprule
+Année & Capture (t) & Source & Arrêt \\ 
+\midrule
+1995  & 29.50  &  1 & 30-avr \\
+1996  & 22.40  &  1 & 15-avr \\
+1997  & 22.60  &  1 & 30-avr \\
+1998  & 17.50  &  1 & 06-avr \\
+1999  & 14.93  &  1 & 05-avr \\
+2000  & 13.94  &  1 & 15-avr \\
+2001  & 7.93   &  1 & 30-mars \\
+2002  & 14.51  &  1 & 23-mars \\
+2003  & 9.14 &  1   & 23-mars \\
+2004  & 7.26 &  1  & 27-mars \\
+2005  & 6.72 &  1  & 20-mars \\
+2006  & 6.99 &  1  & 23-mars \\
+2007  & 6.78 &  1  & 11-mars \\
+2008  & 4.57 (4.2) & 3 (2) & 11-mars\\
+2009  & 2.61 & 3  & 31-mars \\
+2010  & 3.03 & 3 & 30-avril \\
+2011  & 3.92 & 3  & 30-avril \\
+2012  & 2.99 & 3  & 30-avril \\
+2013  & 2.10 & 4  & 30 avril \\
+2014  & 2.68 & 4  & 30 avril \\
+2015  & 4.86 & 4  & 30 avril \\
+2016  & 4.62 & 4 & 30 avril \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+\normalsize
+\subsection{Recrutement fluvial}
+
+Le recrutement fluvial vers le bassin versant
+est composé majoritairement du stade civelle, variant annuellement de
+$0.026$ en 2010 à
+$7.049$ millions de civelle par an en 
+2013. 
+Le nombre d'anguilles jaunes comptées sur les passes a varié de
+$878$ à  $144~992$
+entre la plus mauvaise année 2005 et la meilleure
+2013. Les données reportées pour le recrutement
+d'anguille jaune sur le bassin sont présentées différemment avec un calcul par
+cohorte, qui prend en compte l'âge des anguilles lors de leur passage. Les
+effectifs d'anguilles jaunes varient alors entre
+$6~350$ et $160~399$ 
+(Figure \ref{figure2recrutement}) \citep{briand_gestion_2017}.
+Entre 2000 et 2005, les captures lors des pêches expérimentales ont lissé la chute du recrutement
+fluvial sans la compenser pleinement (Figure
+\ref{figure2recrutement}). L'augmentation de la
+migration des anguilles jaunes après 2005 est concomitante avec
+l'arrêt des pêches scientifiques de civelles
+après la saison de pêche professionnelle (en bleu sur la Figure
+\ref{figure2recrutement}). Les faibles migrations de civelles de 2009,
+2011 et 2015 sont la conséquence de la fermeture tardive de la saison de pêche
+professionnelle (figure \ref{figure2recrutement}).
+Entre 2012 et 2016 l'augmentation du recrutement fluvial reflète à la fois
+l'augmentation du recrutement global (Figure \ref{figure_recrutement}), les
+transports, la diminution forte de la pêche, et les manoeuvres d'écluse au
+barrage d'Arzal. La même figure est reportée en kg pour les civelles (figure \ref{figure2recrutement_kg})
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/figure2recrutement.pdf}
+\caption[Tendance des densités modèle]{Migrations d'anguilles
+jaunes (\textmd{{}-{}-${\Delta}$-{}-}) et de civelles
+(\textmd{{}-}o\textmd{{}-}) en effectif sur la passe au barrage d'Arzal,
+civelles pêchées et transportées ($\star$) et estimation de la migration de civelles
+lors des man{\oe}uvres d'écluse entre 1996 et 2011 ($\Box$). En vert, somme du
+recrutement fluvial de civelles.}
+\label{figure2recrutement}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/figure2recrutement_kg.pdf}
+\caption[Tendance des densités modèle]{Migrations de civelles (en kg)
+(\textmd{{}-}o\textmd{{}-}) sur la passe au barrage d'Arzal, civelles pêchées
+et transportées ($\star$) et estimation de la migration de civelles
+lors des man{\oe}uvres d'écluse entre 1996 et 2011 ($\Box$). En vert, somme du
+recrutement fluvial (anguilles jaunes non comprises).}
+\label{figure2recrutement_kg}
+\end{figure}
+
+\subsection{Tendances de la population d'anguille}
+
+Pour l'analyse des résultats obtenus par pêche
+électrique depuis 1998, seules les stations prospectées à chaque
+campagne ont été conservées, soit 19 au total (9 pour le Morbihan
+et 10 pour l'Ille-et-Vilaine).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\small
+\input{../../pdata/pechelec/table/2017/tableau2_dens_eff_annee.tex}
+\normalsize
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+L'efficacité de pêche varie entre 0.51 et
+0.75 (Tableau \ref{tableau2_dens_eff_annee}). 
+
+La densité moyenne par station est
+passée de 0.75 (+-0.38) anguille.m$^{-2}$ en 1998 
+à 0.88 (+-0.42) anguille.m$^{-2}$ en 2000 
+avant de chuter rapidement à 0.34 (+-0.1) anguille.m$^{-2}$ en 2003. 
+Après un minimum de 0.17
+(+-0.07) anguille.m$^{-2}$ en 2011, elle augmente
+jusqu'en 2014 à 0.46
+(+-0.29) anguille.m$^{-2}$
+(Tableau \ref{tableau2_dens_eff_annee} et Figure \ref{dens_annee}) et elle
+reste approximativement à cette valeur jusqu'en 2016, avant de chuter de
+nouveau en 2017 à 0.21
+(+-0.11) anguille.m$^{-2}$.\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+ \includegraphics[width=0.5\textwidth]{2017/dens_annee.pdf} 
+\caption[Tendance des densités modèle]{Classement des densités en fonction des
+années, test Post hoc de Tukey sur le modèle $log(dens) \sim a +s +
+\epsilon(ss)$, avec $\epsilon(s) \sim N(0,\sigma_s^2)$ a=année, s=stations,
+groupes classés au seuil de 0.05. Les moyennes du tableau
+\ref{tableau2_dens_eff_annee} sont représentées par des croix rouges.
+\footnote{Attention dans la lecture du
+graphique, les pêches électriques ont eu lieu tous les ans de 1998
+à 2003, puis tous les 2 ans ensuite. L'axe des
+abscisses des figures ne tient pas compte de ce changement
+d'échelle.}}
+\label{dens_annee}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+L'examen des résidus du modèle glm (1) $\log
+(D){\approx}a+s+m+\epsilon_s$ (modélisation des densités en fonction du mois, de
+l'année et du site) montre qu'il existe une variabilité résiduelle différente en fonction des sites (Figure \ref{residus} en annexe).  Un
+modèle mixte (2) incluant une variation de la dispersion des résidus en fonction
+des sites $\epsilon_s=N(0,{\sigma_{s}}^2) ~s=1,\dots,19$
+\citep{zuur_mixed_2009} est construit pour tenter d'homogénéiser les résidus. Le
+test du rapport de vraissemblance entre les modèles mixte et le glm est
+hautement significatif. Ceci indique que le modèle avec une variance différente entre
+sites est meilleur et nous conduit à rejeter l'hypothèse que les variances sont
+toutes égales.
+La comparaison des différents modèles mixtes ((2) (3) et (4), Tableau
+\ref{annex_regression_result}) montre
+que le modèle incluant un effet site, un effet année et un effet mois est le
+meilleur modèle car l'AIC est le plus faible (Tableau
+\ref{annex_regression_result} en annexe, modèle ). Un modèle regroupant
+uniquement les données par classes de distance \footnote{Ce modèle n'est pas présenté ici} est moins performant
+qu'un modèle incluant un effet station.\\
+
+Les densités ont diminué de manière
+significative entre 2000 et 2003, et les années 2007 à 2013
+sont significativement plus faibles que les densités de 1998 à 2003 (Tukey
+Post hoc test, groupes séparés au seuil de 0.05) (Figures \ref{dens_annee} et
+\ref{clddensiteannuelle}, Tableau \ref{tableau2_dens_eff_annee}).
+En 2013, la densité moyenne de l'ensemble des stations est repassée au dessus de
+la cible de gestion pour la zone à moins de 50 km de l'estuaire avec
+0.33(0.27) anguille.m$^{-2}$. La
+densité s'approche également du seuil pour la zone intérmédiaire (50-100 rkm
+0.27(0.24) anguille.m$^{-2}$) (Tableau
+\ref{tableau3_dens_dist_annee}).\\
+
+L'évolution de la biomasse moyenne montre une diminution moins marquée que celle des densités
+avec des valeurs assez stables entre 1998 et 2001 avec 
+17.04 (+-4.46) et
+18.97 (+-6.64) g.m$^{-2}$) puis en chute marquée de 2005 jusqu'en 2017
+à 4.83  (+-2.5) g.m$^{-2}$ (Tableau \ref{tableau2_dens_eff_annee}
+et Figure \ref{biom_annee}).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+ \includegraphics[width=0.5\textwidth]{2017/biom_annee.pdf} 
+\caption[Biomasses d'anguilles.]{Evolution des biomasses d'anguilles en fonction
+de l'année.}
+\label{biom_annee}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Le déclin en densité intervient pour toutes les catégories de distance à la mer 
+mais semble intervenir plus précocément
+lorsqu'on se rapproche de l'estuaire (Figure \ref{dens_annee_distance},
+Tableau \ref{tableau3_dens_dist_annee}).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{2017/dens_annee_dist.pdf}
+    \caption[Densité moyennes $\sim$ distance.]{Distribution des densités
+    d'anguilles par classe de distance pour les pêches
+    électriques de 1998 à 2017. Les box plot représentent le premier
+    et le troisième quartile, et l'axe central la médiane des densités
+    d'anguilles obtenues pour les pêches de chaque année. Les barres d'erreur correspondent aux données comprises dans 1.5 fois l'écart
+    interquartile. Les points au-delà représentent des "outliers" et sont
+    représentés individuellement. L'axe rouge représente le seuil fixé
+    actuellement dans le plan de gestion (0.3 anguille.m$^{-2}$).
+     Les croix rouges correspondent aux densités
+    moyennes \textit{Attention les pêches électriques ont eu lieu tous les ans
+    de 1998 à 2003, tous les 2 ans de 2003 à 2013 avant de reprendre à une fréquence annuelle.}}
+  \label{dens_annee_distance}
+\end{figure} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\small
+\input{../../pdata/pechelec/table/2017/tableau3_dens_dist_annee.tex}
+\normalsize
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Comme pour les densités, la chute des biomasses est
+d'autant moins marquée que l'on s'éloigne du barrage d'Arzal (Figure
+\ref{biom_annee_dist}, Tableau \ref{table_biom_dist_annee}).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{2017/biom_annee_dist.pdf}
+  \caption[_court]{Biomasses moyennes d'anguilles par classe de distance pour les pêches
+  électriques de 1998 à 2017. Les barres d'erreur
+  correspondent aux données comprises dans 1.5 fois
+  l'écart interquartile.
+  \textit{Attention les pêches
+  électriques ont eu lieu tous les ans de 1998 à 2003, tous les
+  2 ans de 2003 à 2013 avant de reprendre à une fréquence annuelle.}}
+  \label{biom_annee_dist}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\small
+\input{../../pdata/pechelec/table/2017/table_biom_dist_annee.tex}
+\normalsize
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Les anguilles d'âge 0 ont diminué fortement après 2003, après une période où les
+effectifs sont très faibles avec au plus 0.01(0.02)
+anguille.m$^{-2}$ en 2009 (Figure \ref{dens_age_annee}).
+Les âges 1 sont stables depuis 2005 avec 0.05(0.03) anguille.m$^{-2}$
+mais avec des densités très faibles par rapport à la période
+1998-2001 (0.31 anguille.m$^{-2}$ en moyenne). 
+Pour les âges 2 à 4+, il y a une baisse progressive des densités à partir de 2003. 
+En 2011, les densités par classe d'âge hors âge 0 sont très homogènes avec 
+0.04(0.02) à 0.05(0.03) anguille.m$^{-2}$ (Tableau
+\ref{table_densite_age_annee}, Figure \ref{dens_age_annee_dist} en annexe). 
+L'année 2013 conserve des densités du même ordre pour les âges 3 et 4+ 0.05(0.02), mais les
+densités augmentent pour les âges 0 0.02(0.02), 1
+0.09(0.06) et 2 0.06(0.03).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/dens_age_annee.pdf}
+\caption[Densité par âge.]{Tendance des densités en fonction de
+l'âge des anguilles (reconstituée à l'aide d'une clé taille âge) pour
+les pêches électriques de 1998 à 2017 \textit{Attention les pêches
+  électriques ont eu lieu tous les ans de 1998 à 2003, tous les
+  2 ans de 2003 à 2013 avant de reprendre à une fréquence annuelle}.}
+\label{dens_age_annee}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+La clé taille-âge utilisée doit être considérée avec précaution car il n'y a pas eu de
+vérification des données de croissance.
+\subsection{Marquages recaptures}
+Les recaptures et marquages effectués de 2009 à 2013 sont indiqués au Tableau
+\ref{tablemr}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../../pdata/pechelec/table/2017/tableaumr1.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Les croissances des anguilles marquées sont
+assez faibles avec en moyenne $19.0$ mm par an. Certaines anguilles
+n'ont pas grandi du tout alors que
+d'autres ont gagné 60 mm (Figures \ref{croissance} et \ref{croissance2}). En
+excluant les anguilles ayant perdu du poids entre deux opérations de marquage
+(11 anguilles sur
+87), les croissances s'établissent à
+$21.6$ mm.
+
+Le taux de recapture des anguilles est de
+28 \%.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/croissance.pdf}
+\caption[Taille anguilles marquées]{Evolution de la taille des anguilles
+marquées, en fonction du nombre de recaptures.}
+\label{croissance}
+\end{figure}
+Il est possible qu'un effet "marquage" apparaisse chez certaines anguilles avec
+des croissances plus faibles pour certains individus lors des deux premières
+années (Figure \ref{croissance3})
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/croissance2.pdf}
+\caption[Croissance annuelles des anguilles marquées]{Croissance annuelle des
+anguilles marquées en fonction du nombre d'année en le marquage et la recapture.}
+\label{croissance2}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/croissance3.pdf}
+\caption[Croissance annuelles des anguilles marquées]{Croissance annuelle des
+anguilles marquées en fonction de la durée du marquage.}
+\label{croissance3}
+\end{figure}
+
+
+La croissance est très variable mais il est difficile de trouver un facteur
+expliquant clairement la variation observée. Il y a un effet station significatif avec des croissances plus fortes
+pour certaines stations (Figure \ref{croissance4}), mais la distance n'est pas significative
+quand on la teste seule. Par contre, ni le délai en années après le
+marquage, ni la taille de départ au marquage, ni la zone (en grande
+classe de distance) ne sont significatives dans l'analyse de variance du
+modèle (Tableau \ref{table_anova_marquage}). 
+\input{../../pdata/pechelec/table/2017/anova_croissance.tex}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2017/croissance4.pdf}
+\caption[Graphique de composant et résidus du modèle glm croissance ~ annee +
+station + taille initiale.]{Graphique de composant et résidus (CR plot) du
+modèle glm croissance ~ annee + station + taille0, ou annees représente le
+nombre d'années entre le marquage et la recapture, taille0 la taille au moment
+du marquage, et station la station de pêche. Ce graphique indique quelle est la
+moyenne des tendances (ligne verte) et l'effet ajusté (ligne rouge). Il permet de détecter des effets non linéaires (ici il n'y en a pas, l'écart de la ligne verte sur les plus grandes durées entre le marquage et la recapture (effet année)
+traduit surtout le manque de points). Il montre aussi les résidus par station
+de pêche, on constate que le modèle cale des moyennes différentes entre
+stations, mais aussi que la variabilité des croissance est différente entre les
+stations.}
+\label{croissance4}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+%\subsection{Effet du transport}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Discussion]{ Discussion}
+
+Les densités moyennes, qui étaient passées, depuis 2005, en dessous de la cible
+de 0.3 anguille.m$^{-2}$ affichée dans le plan de gestion, sont remontées au
+dessus de cette cible à partir de 2015 puis ont chuté de nouveau en 2017 (Figure
+\ref{dens_annee}, Tableau \ref{tableau2_dens_eff_annee}). 
+
+Les biomasses d'anguilles sont par contre en chute
+continue sur les secteurs intermédiaires et amont, et en aval elles
+n'augmentent que faiblement et sont loin des valeurs observées entre 1998 et
+2002 (Figures \ref{biom_annee} et \ref{biom_annee_dist}). 
+
+Les densités de 2017 sont en rupture marquées par rapport à celles de 2016 ce
+qui laisse suspecter un effet de l'étiage sévère sur certaines stations aval, où les recaptures ont été
+très faibles (ruisseau de la Bouloterie, Canut Nord et Arzal, ruisseau des
+Arches proches de la rupture d'écoulement).
+
+Si on écarte cette année sur laquelle on peut douter en l'absence de série
+continue, l'examen des densités 2011-2016 sur la partie aval et intermédiaire
+restent de toutes façons bien en deçà des valeurs de 1998 à 2012 alors que
+les recrutements fluviaux de civelles ont été plus importants. L'analyse de la
+fréquence en âge des captures montre bien qu'il y a eu des vagues de migration
+de jeunes anguilles, mais cette augmentation ponctuelle ne se retrouve que très
+peu par la suite dans les densités d'anguilles d'âge 2 et 3 (Figure
+\ref{dens_age_annee}).
+
+Il est difficile d'expliquer les résultats obtenus. 
+L'hypothèse selon laquelle il puisse y avoir un effet plus faible de la gestion 
+par des effets densités dépendants est contredite par l'examen des biomasses d'anguilles
+des stations qui sont bien plus faibles qu'en 1998-2002, ainsi que par les densités 
+d'anguilles d'âge 2, 3 et 4 qui sont inférieures à celles de la période 1998-2000 et 
+ce quels que soient les secteurs. 
+
+Une explication possible des mauvais résultats observés peut être donnée par la
+mauvaise survie de certains lots de civelles transportées, par exemple pour la
+cohorte de 2011 \citep{mazel_v._operation_2011}. L'absence d'effet détectable des opérations de transport sur les densités
+observées en pêche électriques avaient déjà été analysée et discutée dans
+\citet{briand_analyse_2011}. Il faut également constater que la gestion par
+quota a produit 3 années sur 7 entre 2009 et 2016 un
+recrutement fluvial négligeable au niveau des passes d'Arzal. L'absence de
+recrues pour ces années n'est probablement pas compensée par les montées importantes des autres années. Il est possible que de grosses vagues de migration de civelles subissent
+une mortatité plus importante que des passages continus. Il est possible
+également que les anguilles transportées ne se dirigent pas vers les affluents.
+
+Dans les faits, le transport de civelles à proximité
+d'affluents se traduit dans certains cas par des augmentations ponctuelles des
+densités, dans d'autres cas ils ne sont pas détectables, et dans tous les cas
+ces augmentations ne compensent pas la baisse historique enregistrée sur les
+abondances d'anguilles jaunes.
+\begin{itemize}
+\item Vilaine aval 2011, 2012, 2013 $\Longleftrightarrow$ Augmentation
+ponctuelle de Trévelo, Arzal et Marzan - bien en deçà des valeurs des années
+1990.
+\item Oust et Aff 2014 $\Longleftrightarrow$ Arz (augmentation 2014) et Arches
+(pas d'effet)
+\item  Vilaine entre Guipry et Molière 2015 $\Longleftrightarrow$ Canut Nord,
+Arches (pas d'effet).
+\item  Vilaine entre Bourg des Comptes et Champcors 2016 $\Longleftrightarrow$
+Canut Nord (pas d'effet).
+\item  Vilaine confluence Oust à Malon 2017 $\Longleftrightarrow$
+Canut Sud (pas d'effet - problème migratoire ?) et Aron (augmentation en
+2016...).
+\end{itemize}
+
+Il reste évidemment possible que des effets locaux jouent sur les densités
+d'anguilles des rivières échantillonnées, et que l'absence d'augmentation de
+densité soit par exemple due à des accessibilités migratoires diminuées, mais
+les éléments à notre disposition indiquent plutôt une transparence migratoire
+accrue à l'échelle des bassins, et les différentes rivières de l'aval du bassin
+semblent donner un signal globalement cohérent.
+
+
+La croissance mesurée par pit tag est faible, de l'ordre de 20 mm par an. Comme
+elle est dérivée de données de marquages pit tag, elle ne concerne que des
+anguilles de taille supérieure à 30 cm.
+La durée entre le marquage et la recapture n'explique pas la variation de
+croissance annuelle (Figure \ref{croissance4}). La taille au moment du marquage
+n'explique pas non plus la croissance. Il est difficile d'analyser les
+croissances des grandes anguilles car seules trois anguilles marquées de plus de
+500 mm ont été recapturées. 
+
+Il est possible que les anguilles à croissance plus
+rapide soient déjà parties du bassin. Les croissances moyennes calculées pour les femelles à partir du modèle de \citet{daverat_one_2011} sont de 75, 60 et 38 mm par an pour les âges 5, 10 et 20 \footnote{coefficients du modèle, TempSUP13=79,Ratiodistsea<-0.75}. Ces valeurs indiquent des croissances beaucoup plus fortes que celles trouvées sur les stations de la Vilaine. Cependant, les croissances annuelles calculées par le modèle de Von Bertallanffy sur la Chèze en 1990 \citep{mounaix_intercalibration_1992} sont
+seulement de 5-10 mm par an pour les anguilles de plus de 5 an. De même, les
+résultats obtenus sur le Seucate (petit affluent sur le
+bassin de la Dordogne) montrent que les croissances passent de 50 mm par an en
+milieu fluvial large à 20 mm par an sur les
+affluents (Daverat, com. pers.). 
+
+Il existe un effet station très net dans les croissance avec des croissances
+fortes observées sur le ruisseau des Arches, le Canut Nord et le Chevré, c'est à
+dire les secteurs les plus amont où les densités sont les plus faibles. Pour
+autant, la prise en compte de la distance à la mer dans le modèle n'est pas
+significative, car la tendance ne suit pas strictement une augmentation linéaire
+des croissances en fonction de la distance.
+
+Dans tous les cas,  on
+trouve à la fois des anguilles à croissance faible et des anguilles à croissance
+rapide sur les mêmes stations. Pour une anguille, une croissance négative de 5
+mm a été calculée, cette anguille a également perdu beaucoup de poids. Une autre
+anguille a perdu 5 mm en un an après grandi les trois années précédentes.
+
+En utilisant les données de croissance des affluents, l'âge des anguilles est
+probablement de l'ordre de 20 ans, alors qu'il ne serait que de 12 ans sur les
+zones fluviales larges où la croissance est forte (de l'ordre de 50 mm par an). 
+
+Le MNHN a analysé les otolithes de 50 anguilles argentées capturées à
+Brain sur Vilaine en janvier 2016, et donne des âges compris entre 6 et 23.5
+années avec une moyenne de 12 ans \footnote{Attention, ces résultats doivent être revus à la baisse avec
+la ré-interprétation des stries contenues dans une bande sombre au centre de l'otolithe de certaines anguilles, mais les changements resteront marginaux.}. Les croissances mesurées varient entre 30 et 84
+mm par an, soit une croissance beaucoup plus forte que celle mesurée dans les
+affluents en marquage recapture. Dans le lot d'anguilles capturées, la majorité
+présente des âges de 7 à 15 ans plus conforme avec la croissance de 50 mm par ans
+décrite par Daverat.
+
+
+Le fort pourcentage de recapture (28 \%) est à noter.
+Il indique que les anguilles de plus de 30 cm sont globalement
+sédentaires.\\ 
+
+ \\ \mediumskip
+
+\section[Conclusion]{Conclusion}
+Les secteurs prospectés en pêche électrique, en général plutôt des petites
+rivières de faible profondeur sont caractérisés par des anguilles dont la
+croissance est faible, particulièrement sur l'aval du bassin, alors que l'examen des anguilles capturées sur les parties aval et profonds du bassin
+versant montre des anguilles de croissance plus importante, probablement ayant des traits de vie
+différents. Sur ces affluents, les biomasses d'anguille sont en chute continue
+depuis 1998 et les transports de civelles et les augmentations massives de
+recrutement sur les passes certaines années ne parviennent pas à enrayer cette
+baisse ni à ramener de manière durable les densités aux niveaux observés entre
+1998 et 2002. Il est à noter que globalement, les densités sont cohérentes dans
+leur tendance d'une année sur l'autre et qu'en conséquence les tendances
+obtenues sont assez crédibles, elles sont par ailleurs généralement refletées
+d'un affluent à l'autre.
+Il est possible que les dynamiques de croissance, colonisation et mortalité d'un
+bassin saturé et de la situation "vide" d'avant l'installation des passes
+engendrent des dynamiques de populations différentes, mais les biomasses, et les
+densités beaucoup plus faibles d'anguilles de grande taille sur nos stations
+met en doute cette hypothèse.
+Compte tenu des tendances observées, il est peu probable que la gestion actuelle
+de l'anguille sur la Vilaine conduise à des augmentations notables des productions
+d'anguilles argentées dans les années à venir. Cette constatation
+devrait nous conduire à chercher à analyser plus en détail les causes de
+l'absence d'effet du recrutement fluvial, à la fois sur les passes d'Arzal et
+dans les opérations de transport, et peut être au-delà dans les conditions
+d'accueil du bassin. Parmis les pistes d'exploration possible, les conditions de
+survie des vagues de civelles sont peut être bien différentes entre des recrues d'avril et
+celles montant de janvier à mars. 
+
+\section*{Remerciements} 
+Les pêches électriques ont été effectuées par les services départementaux 35 et
+56 de l'AFB, nous les remercions pour leur accueil et la qualité technique de
+leur travail.
+Nous remercions également les différents participants qui nous ont aidé à
+effectuer les pêches.
+\clearpage
+\onecolumn
+\bibliography{pechelec}{}
+\bibliographystyle{cjfasfr}
+\normalsize
+\null
+\vfill
+\begin{center}
+Rapport Sweave \LaTeX \
+packages : \citep{hlavac_stargazer_2013,briand_stacomirtools_2013,
+fox_car_2011,dahl_xtable_2013,pinheiro_nlme_2013,
+ogle_fsa_2013}.
+Dernière compilation le \today \\
+R version 3.4.2 (2017-09-28) 
+\end{center}
+\clearpage
+\section{Annexes}
+\small
+\input{../../pdata/pechelec/table/2017/star.tex}
+\normalsize
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{2017/clddensiteannuelle.pdf}
+\caption[Tendance des densités modèle]{Classement des densités en fonction des
+années, test Post hoc de Tukey sur le modèle $log(dens) \sim a +s +
+\epsilon(ss)$, avec $\epsilon(s) \sim N(0,\sigma_s^2)$ a=année, s=stations,
+groupes classés au seuil de 0.05, données log transformées.}
+\label{clddensiteannuelle}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{2017/dens_age_annee_dist.pdf}
+\caption[Densité par âge et distance.]{Tendance des
+densités en fonction de l'âge des anguilles (reconstituée à l'aide d'une clé
+taille âge) et la distance à la mer pour les pêches électriques de 1998 à 2013.
+La courbe en rouge indique le seuil du plan de gestion}
+\label{dens_age_annee_dist}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../../pdata/pechelec/table/2017/table_densite_age_annee.tex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{2017/residus.pdf}
+\caption[Tendance des densités modèle]{Résidus du modèle $log(dens) \sim a +s +m
+\epsilon$, avec $\epsilon(s) \sim N(0,\sigma^2)$ a=année, s=stations, m = mois.
+Le graphique montre l'héterodasticité (variances différentes) des résidus en
+fonction des stations.}
+\label{residus}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+ \includegraphics[width=0.8\textwidth]{2017/dens_annee_riviere}
+\caption[Tendance des densités par rivières]{Tendance des densités sur les
+différentes rivières du bassin versant de la Vilaine.}
+\label{dens_annee_riviere}
+\end{figure}
+
+% cette figure est copiée depuis le rapport anguille voir
+% /pdata/traitement_stacomi/rapport_anguille/image/2017/recrutement_vilaine_europeen.png
+\begin{figure}[htpb]
+\centering
+\includegraphics[width=0.8\textwidth]{2017/recrutement_vilaine_europeen.png}
+\caption{Indice de recrutement européen du WGEEL: moyenne géométrique des
+prédiction de recrutement (GLM) pour tous les sites en dehors de la mer du nord
+jusqu'à 2017. Le modèle GLM ($recruit \sim area:year+site$) est calé sur
+les séries de recrutement européenne comprenant soit des civelles soit un mélange de
+  civelles et de jeunes anguilles jaunes. Ces données sont comparées à la
+  série de recrutement de la Vilaine. Les deux séries sont
+  ajustées pour que la moyenne des années 1960 et 1970 soit à 1. Les valeurs avant la fermeture du barrage 
+  (avant 1970) ne sont pas inclues dans cette standardisation ni dans la série de
+  recrutement européen. Les valeurs de 2012 à 2014 pour lesquelles les captures
+  ont été influencées par les quotas n'ont pas non plus été inclues.}
+\label{figure_recrutement}
+\end{figure}
+\clearpage
+
+
+
+\end{document}
+

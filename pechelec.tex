@@ -1,0 +1,366 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%%  Scientific Report (Quick Draft) for LaTeX 
+%%    By Andrej Korenic
+%%    Tested in ScribTeX online and TeX Maker Version 3.1 (July 24th 2011)
+%%    Created : November 2011
+%%    Modified: May 2012 2013
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%
+%%
+%% This file has content of the `elsarticle-template',
+%% It is modified version by me, dedicated to scientists that want quick 
+%% template for their scientific reports...
+%%
+%%
+%% Copyright 2009 Elsevier Ltd (original copyright notes)
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+
+
+
+
+%%============================================================
+%%============================================================
+%% HOW TO USE IT
+%%
+%% All lines begining with %% are comments and they should stay
+%% commented!!! Lines with only one % can be un-commented if you want
+%% to use that function.
+%%
+%% Read instructions carefully!\documentclass[a4paper]{article}
+
+
+
+
+%%============================================================
+%%============================================================
+%% DOCUMENT CLASS SETUP
+%%
+%% choose document class = type of the document...
+%% Here you have Elsevier article, but you can override
+%% page settings later!
+\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%\documentclass[preprint,authoryear,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%\documentclass[final,authoryear,1p,times]{elsarticle}
+%\documentclass[final,authoryear,1p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,3p,times]{elsarticle}
+%\documentclass[final,authoryear,3p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,5p,times]{elsarticle}
+%\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+\usepackage{float}
+\usepackage[section]{placeins}  %The placeins package provides the command \FloatBarrier
+%%============================================================
+%%============================================================
+%% PACKAGE SETUP
+\usepackage{Sweave}
+%\SweaveOpts{pdf=TRUE, echo=FALSE, fig=FALSE, eps=FALSE, tidy=T, width=4,
+%height=4, keep.source=TRUE}
+\usepackage{fixltx2e} %textsubscript
+%% Input and language packages.
+\usepackage[latin1]{inputenc} %encodage du fichier source
+\usepackage[T1]{fontenc}  %gestion des accents (pour les pdf) 
+\usepackage{aeguill} % guillemets
+%\usepackage[english]{babel}
+\usepackage[francais]{babel}
+\addto\captionsfrench{\def\tablename{Tableau}}
+\usepackage{amsmath} %equation
+%% Parskip is the extra vertical space inserted before a paragraph. It has a natural length of zero but should be a rubber length so that it may be stretched in a flushbottom environment. To increase \parskip to skip a line between paragraphs one could use \addtolength{\parskip} {\baselineskip}.
+\usepackage{parskip}
+\usepackage{latexsym} % pour les carrés
+%% Sets space between lines.
+\usepackage{setspace} 
+\usepackage{supertabular}
+
+\usepackage{caption} % pour éviter les problème de place entre le header et le tableau
+\captionsetup[table]{skip=5pt}
+
+%% If you use PostScript figures in your article
+%% use the graphics package for simple commands
+%\usepackage{graphics}
+%% or use the graphicx package for more complicated commands (places the float at precisely the location in the LaTeX code [H]).
+\usepackage{graphicx} \usepackage{float}
+%% or use the epsfig package if you prefer to use the old commands.
+%\usepackage{epsfig}
+
+%% Using captions in floating environment. Note: might not work with other packages.
+%\usepackage{caption}
+
+%% Making numbered and bulleted lists.
+\usepackage{enumerate}
+%\definecolor{marron}{rgb}{0.64,0.16,0.16}
+%% Math packages
+%\usepackage{amsmath, amssymb}
+
+%% The amsthm package provides extended theorem environments.
+%\usepackage{amsthm}
+
+%% The verbatim environment, \begin{verbatim} ... \end{verbatim}, permits us to insert large sections of reformatted text in a LaTeX file (including block of comments). It is very handy for inserting large chunks of code in a document, for example, literal TeX code or the Maple code you sweated over and now want to comment on.
+%\usepackage{verbatim}
+
+%% Add hyperlinks, so that you can click on references, theorem numbers etc. to jump to the place where they are in the paper (at least for the DVI and PDF versions), it seems that \documentclass{article} does not work with hyperref; use instead \documentclass{amsart}. Note: first test it with Elsevier template!
+\usepackage{hyperref} 
+\hypersetup{pdftex, 
+colorlinks=true, 
+linkcolor=blue, 
+citecolor=blue, 
+filecolor=blue, 
+urlcolor=blue, 
+pdftitle= (Suivi de l'anguille jaune (\textit{Anguilla anguilla}, L.) en pêche
+électrique sur le bassin de la Vilaine en 2013 : les prémices d'une reconquête ?), 
+pdfauthor=Cédric Briand,
+ pdfsubject={anguille},
+  pdfkeywords={anguille} {pêche électrique} {marquage}
+}
+
+
+
+%% The numcompress package shorten the last page in references.
+%% `nodots' option removes dots from firstnames in references.
+%\usepackage[nodots]{numcompress}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+%% If you are printing how many pages you submitted...
+\usepackage{lastpage}
+
+%% The \url{...} command does all the work: It sets the enclosed expression in the appropriate typewriter style font, it takes care of any necessary linebreaking, and it chooses break points intelligently (e.g., between components of an address), and it ensures that special symbols such as the tilde symbol or the "at" symbol get typeset correctly.
+\usepackage{url}
+
+%% A new implementation of LATEX's tabular and array environment.
+ \usepackage{array}
+ 
+\usepackage{longtable}
+
+
+
+%%============================================================
+%%============================================================
+%% BIBLIOGRAPHY SETUP
+
+%% natbib.sty is loaded by default. However, natbib options can be
+%% provided with \biboptions{...} command. Following options are
+%% valid:
+
+%%   round  -  round parentheses are used (default)
+%%   square -  square brackets are used   [option]
+%%   curly  -  curly braces are used      {option}
+%%   angle  -  angle brackets are used    <option>
+%%   semicolon  -  multiple citations separated by semi-colon (default)
+%%   colon  - same as semicolon, an earlier confusion
+%%   comma  -  separated by comma
+%%   authoryear - selects author-year citations (default)
+%%   numbers-  selects numerical citations
+%%   super  -  numerical citations as superscripts
+%%   sort   -  sorts multiple citations according to order in ref. list
+%%   sort&compress   -  like sort, but also compresses numerical citations
+%%   compress - compresses without sorting
+%%   longnamesfirst  -  makes first citation full author list
+%%
+%%  e.g. \biboptions{longnamesfirst,comma}
+
+%\biboptions{round,colon,sort}
+
+
+%%============================================================
+%%============================================================
+%% PAGE SETUP
+%% Use this section to override Elsevier article page settings!!!
+
+	%% Easier way...
+	\usepackage[a4paper, inner=1.5cm, outer=1.5cm, top=2cm, bottom=3cm]{geometry}
+	%% The hard way involves setting all the desired values manually. Here are some values that can be set: 
+	%% Dimensions of the PDF file.
+	%\pdfpageheight \pdfpagewidth
+	%% Length of margin at top of page above all printing. 1 inch is added to this value.
+	%\topmargin   
+	%% Left margin on even numbered pages. 1 inch is added to this value.
+	%\evensidemargin  
+	%% Left margin on odd numbered pages. 1 inch is added to this value.
+	%\oddsidemargin
+	%% Height of the page header.
+	%\headheight
+	%% Distance from bottom of header to the body of text on a page.
+	%\headsep
+	%% Distance from top of main text box to the baseline of the first line of text in the main text box.
+	%\topskip 
+	%% Height and width of main text box.
+	%\textheight \textwidth
+	%% Distance from bottom of body to the bottom of the footer.
+	%\footskip
+	%% Distance between paragraphs.
+	%\parskip
+	%% Amount of indentation at the first line of a paragraph.
+	%\parindent
+	%% Uncomment if don't want page numbers.
+	%\pagestyle{empty}
+	%% Uncomment for 1.5 spacing between lines...
+	%\renewcommand{\baselinestretch}{1.5}
+	%% or use some of these
+		%\singlespacing
+		%\onehalfspacing
+		%\doublespacing
+		%\setstretch{1.1}
+	%% Sets up hyphenation threshold.
+	%\hyphenpenalty=675 \tolerance=950
+
+
+
+
+%%============================================================
+%%============================================================
+%% DEFINING NEW COMMANDS AND ABBREVIATIONS
+%% Use this section to define new commands that you will use in
+%% your report.
+
+%% Makes a path to your graphics' folder.
+\graphicspath{{./image/}}
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\DD}{D\&D}
+\newcommand{\oxygen}{O$ _2 $}
+
+\renewcommand{\labelitemi}{--}
+
+
+%% Add extra space to multi-line equation environments
+%\setlength{\jot}{9pt}
+
+% use \mbox{...} for no separation of the defined word
+
+%%===============================================%%
+%%==========    END OF THE PREAMBLE    ==========%%
+
+
+
+
+%%============================================================
+%%============================================================
+%%============================================================
+% BEGINNING OF THE TEXT BODY
+
+%% You can write here small footer that will go on the first page, together with
+%% the date stamp; comment the line if you don't want that!
+%\footme{Submitted to Someone Somewhere\hspace{2mm}(\pageref{LastPage} pages)} \datestamp{Andrej Korenic, 27$^{th}$ October, 2011}
+
+\begin{document}
+
+	\begin{frontmatter}
+
+	%% Title, authors and addresses
+
+	%% use the tnoteref command within \title for footnotes;
+	%% use the tnotetext command for the associated footnote;
+	%% use the fnref command within \author or \address for footnotes;
+	%% use the fntext command for the associated footnote;
+	%% use the corref command within \author for corresponding author footnotes;
+	%% use the cortext command for the associated footnote;
+	%% use the ead command for the email address,
+	%% and the form \ead[url] for the home page:
+	%%
+	%% \title{Title\tnoteref{label1}}
+	%% \tnotetext[label1]{}
+	%% \author{Name\corref{cor1}\fnref{label2}}
+	%% \ead{email address}
+	%% \ead[url]{home page}
+	%% \fntext[label2]{}
+	%% \cortext[cor1]{}
+	%% \address{Address\fnref{label3}}
+	%% \fntext[label3]{}
+
+	\title{Suivi de l'anguille jaune (\textit{Anguilla anguilla}, L.) en pêche
+électrique sur le bassin de la Vilaine en 2013 : les prémices d'une reconquête ?}
+
+	%% use optional labels to link authors explicitly to addresses:
+	\author[iav]{Cédric Briand}
+	\author[iav]{Brice Sauvaget}	
+	\author[iav]{Gérard Eriau}	
+	\address[iav]{EPTB Vilaine, boulevard de Bretagne, 56130 La Roche Bernard}
+	%\author[label1,label2]{Andrej Korenic}
+	%\address[label1]{My address}
+	%\address[label2]{second address}
+	\begin{abstract}
+    Les abondances d'anguilles (\textit{Anguilla anguilla}) ont été suivies sur
+    le bassin versant de la Vilaine par pêche électriques. Les stations de pêche localisées sur des
+    affluents de petite taille à des distances croissantes de l'estuaire, ont
+    été suivies annuellement de 1998 à 2003, puis tous les deux ans jusqu'en
+    2013.
+    Les densités d'anguilles ont diminué significativement à partir de 2003
+    jusqu'à un niveau minimum en 2011. Elles augmentent légèrement en 2013,
+    notamment pour les âges 0 à 2. Cette légèrement augmentation montre que
+    l'effet de l'augmentation du recrutement fluvial et des transports de
+    civelles à partir de 2011 n'est pas encore perceptible sur les affluents à l'aval de la
+    Vilaine.
+  \\
+  \\
+  \textit{ 
+  \textbf{Abstract}\\
+   The abundance of eels (\textit{Anguilla anguilla}) has been monitored in the
+   Vilaine watershed with electrofishing. The electrofishing stations, located
+   in small tributaries of the Vilaine at increasing distances from the estuary,
+   have been monitored annually from 1998 to 2003 and then every two years till
+   2013. Eel densities have decreased significantly from 2003 to a minimum
+   level in 2011. They have increased slighlty in 2013, especially for age 0 to
+   2. This slight increase shows that the increase in fluvial recruitment and
+   glass eel transport operations, initiated in 2011, have not yet had a
+   perceptible effect on the tributary downtream in the Vilaine watershed.}
+	\end{abstract}
+	\begin{keyword}
+% keywords here, in the form: keyword \sep keyword
+	anguille \sep pêche électrique \sep marquage \sep pit-tag
+	%%MSC codes here, in the form: \MSC code \sep code
+	%% or \MSC[2008] code \sep code (2000 is the default)
+     \textit{yellow eel} \sep \textit{electrofishing}   \sep
+     \textit{marking recapture} \sep \textit{pit tag}  
+    \end{keyword}
+   
+
+\end{frontmatter}
+
+
+%% Switch on the line numbers for the whole article at this place.
+%\linenumbers
+
+%% Here you can put your table of contents and also give it a new name.		
+%\newpage
+\renewcommand{\contentsname}{Sommaire:}
+\tableofcontents
+
+
+
+%% Switch on the line numbers for the whole article at this place.
+%\linenumbers
+
+
+%% Main text is going here.
+
+\bigskip
+
+\section*{Introduction}
+\label{Introduction}
+\section{Matériel et méthodes}
+

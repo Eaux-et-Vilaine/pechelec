@@ -1,0 +1,256 @@
+% Sweave(file = "ia.Rnw")
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\geometry{a4paper}
+\pagestyle{plain}
+%\usepackage{Sweave}
+\usepackage[latin1]{inputenc}  %encodage du fichier source
+\usepackage[francais,spanish,english]{babel}
+\usepackage[section]{placeins} %The placeins package provides the command \FloatBarrier
+\usepackage{rotating}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{hyperref} %gestion des hyperliens
+
+\usepackage{graphicx}
+\graphicspath{ {./image/} }
+\DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png}
+\usepackage{float}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{authblk} % plusieurs auteurs et affiliations
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{setspace} %set space between lines
+\definecolor{deeppink}{RGB}{255,20,147}
+\usepackage{color}
+
+%h	Place the float here, i.e., approximately at the same point it occurs in the source text (however, not exactly at the spot)
+%t	Position at the top of the page.
+%b	Position at the bottom of the page.
+%p	Put on a special page for floats only.
+%!	Override internal parameters LaTeX uses for determining "good" float positions.
+%H	Places the float at precisely the location in the LaTeX code. Requires the float package,[1] e.g., \usepackage{float}. This is somewhat equivalent to h!.
+\hypersetup{
+     backref=true,    %permet d'ajouter des liens dans...
+     pagebackref=true,%...les bibliographies
+     hyperindex=true, %ajoute des liens dans les index.
+     colorlinks=true, %colorise les liens
+     breaklinks=true, %permet le retour ? la ligne dans les liens trop longs
+     urlcolor= blue,  %couleur des hyperliens
+     linkcolor= blue, %couleur des liens internes
+     bookmarks=true,  %cr?? des signets pour Acrobat
+     bookmarksopen=true,            %si les signets Acrobat sont cr??s,
+                                    %les afficher completement.
+     pdftitle={Relation IA indice d'abondance}, %informations apparaissant dans
+     pdfauthor={Gaëlle Germis, Cédric Briand},     %dans les
+     % informations du document
+     pdfsubject={anguille},          %sous Acrobat
+     pdfkeywords={anguille}{epa}
+}
+% header on the first page
+%\usepackage{fancyhdr}
+%\pagestyle{fancyplain}
+%\renewcommand{\headrulewidth}{0.4pt} 
+%\fancyhead[R]{\includegraphics[height=1cm]{LogoAZTI.jpg}}
+%\fancyhead[L]{\includegraphics[height=1cm]{LogoIAV.jpg}}
+%\fancyfoot[C]{Not yet a draft version}
+
+\title{\Huge{Relation Indice d'abondance densité}}
+\author[1]{Gaëlle Germis}
+\author[1]{Cédric Briand}
+
+
+\affil[1]{BGM, 9 rue Louis Kerautret Botmel, 35067 Rennes}
+\affil[2]{IAV, bd de bretagne, 56130 La Roche Bernard}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\begin{document}
+\maketitle
+%ctrl'
+%\thispagestyle{plain}%using fancyhdr, this option reverts to page numbers in the center of the footer
+\begin{center}
+\includegraphics[width=15cm]{ang.jpg} 
+\end{center}
+\newpage
+
+\begin{abstract}
+Texto del abstract
+\end{abstract}
+
+
+\section{Résultats principaux}
+
+<< relationiadens, echo=FALSE,results=hide>>=
+require(stringr)
+require(ggplot2)
+require(xtable)
+setwd("C:/Users/cedric.briand/Documents/workspace/p/pechelec")
+datawd<-"C:/Users/cedric.briand/Documents/workspace/p/pechelec/data"
+imwd<-"C:/Users/cedric.briand/Documents/workspace/p/pechelec/image"
+load(file="dens.Rdata")
+dens$stcod<-as.character(dens$stcod)
+ia<-read.csv("data/ia.csv",sep=";")
+habitats<-read.csv("data/habitats.csv",sep=";")
+habitats<-habitats[!is.na(habitats$station),c(1:3)]
+colnames(habitats)<- c("stcod","longueur","largeur") 
+habitats$stcod<-str_c("0",habitats$stcod)
+colnames(ia)<-c("stcod","taille")
+ia$stcod<-as.character(ia$stcod)
+ia$stcod<-str_c("0",ia$stcod)
+
+
+# nombres par station
+ian<-tapply(ia$taille,ia$stcod,function(X)length(X))
+ian<-data.frame("stcod"=names(ian),"N"=ian)
+ian$stcod<-as.character(ian$stcod)
+
+dens2013<-subset(dens,dens$annee==2013)
+dens2013<-merge(dens2013,ian,by="stcod",all.x=TRUE,all.y=FALSE)
+dens2013<-merge(dens2013,habitats,by="stcod",all.x=TRUE,all.y=FALSE)
+dens2013$ia<-dens2013$N/30
+dens2013$densCS100<-100*dens2013$densCS
+dens2013<-dens2013[dens2013$stcod!="04560148",] # on enlève MARZAN
+dens2013$dept<-substr(dens2013$stcod,3,4)
+# Modèle linéaire
+lm1<-lm(densCS100~ia+0,data=dens2013)
+
+tablm1<-xtable(lm1,
+		label = "lm1",
+		caption = "Modèle linéaire pour la relation IA-densité")
+print(tablm1, file = str_c(datawd,"/lm1.tex"), 
+		table.placement = "ht",
+		caption.placement = "bottom",
+		NA.string = "",
+		include.rownames=FALSE
+		)		
+
+#
+#x11()
+#plot(dens2013$ia,dens2013$densCS100,xlim=c(0,5),ylim=c(0,300))
+#
+#newdata<-data.frame("ia"=seq(from=0,to=5,by=0.1))
+#points(newdata$ia,predict.lm(lm1,newdata,se.fit=TRUE)$fit,col="red",type="l")
+#points(newdata$ia,predict.lm(lm1,newdata,se.fit=TRUE)$se.fit+
+#				predict.lm(lm1,newdata,se.fit=TRUE)$fit,col="green",type="l")
+#points(newdata$ia,predict.lm(lm1,newdata,se.fit=TRUE)$fit-predict.lm(lm1,newdata,se.fit=TRUE)$se.fit
+#		,col="green",type="l")
+#
+#plot(dens2013$ia,dens2013$densCS100,xlim=c(0,1),ylim=c(0,100))	
+#
+## influence du département => Non
+pdf(file=str_c(imwd,"/plotia.pdf"))
+ggplot(dens2013,aes(x=ia,y=densCS100))+
+		geom_point()+
+		scale_y_continuous(name=expression(Densite~estimee~ang.100~m^-2),limits=c(0,85))+
+		scale_x_continuous(name="Nombre d'anguille par point",limits=c(0,0.7))+
+		geom_smooth( method="lm",fullrange=TRUE,formula=y ~ x-1)+
+		theme_bw() #
+dev.off()
+@
+
+<<tailles, echo=FALSE,results=hide>>=
+sta_ope_pois<-read.csv("data/sta_ope_pois2013.csv",header = TRUE,sep=";")
+sta_ope_pois$opdtd<-sta_ope_pois$opdtd.x
+sta_ope_pois$opdtd<-as.character(sta_ope_pois$opdtd)
+sta_ope_pois$date<-strptime(sta_ope_pois$opdtd,format="%d/%m/%Y")
+sta_ope_pois$annee<-strftime(sta_ope_pois$date,format="%Y")
+sta_ope_pois<-sta_ope_pois[sta_ope_pois$annee=="2013",]
+sta_ope_pois$stcod<-as.character(sta_ope_pois$stcod)
+sta_ope_pois$stcod<-str_c("0",sta_ope_pois$stcod)
+#head(sta_ope_pois)
+sop<-sta_ope_pois[,c("stcod","polmi")]
+colnames(sop)[2]<-"taille"
+sop$cat<-"pec2p"
+ia$cat<-"ia"
+sop<-rbind(ia,sop)
+sop<-sop[sop$stcod!="0NA" ,]
+
+pdf(file=str_c(imwd,"/plottailsta.pdf"))
+ggplot(sop)+geom_bar(aes(x=taille,fill=cat),alpha=0.8,position="stack")+
+		facet_wrap(~stcod)+
+		scale_fill_brewer("type pêche",palette="Set1")
+dev.off()
+
+pdf(file=str_c(imwd,"/plottail.pdf"))
+ggplot(sop)+geom_bar(aes(x=taille,fill=cat),alpha=0.8,position="stack")+
+		scale_fill_brewer("type pêche",palette="Set1")
+dev.off()
+
+fun=function(X){
+	h=hist(x=X,breaks=c(seq(from=50,to=1000,by=50)),plot=FALSE,right=FALSE)
+	v=h$counts # comptage des éléments par classe
+	return(v)
+}
+res<-tapply(sop$taille,sop$cat,fun)
+
+mids<-hist(x=sop$taille,breaks=c(seq(from=50,to=1000,by=50)),plot=FALSE,right=FALSE)$mids
+plot(mids,res$ia/(res$ia+res$pec2p),type="b")
+pourc<-res$ia/(res$ia+res$pec2p)
+pourc<-pourc[1:9]
+pouc<-data.frame("taille"=mids[1:9],"pourc"=pourc)
+
+lm2<-(lm(pourc~taille,data=pouc))
+
+
+strt<-as.data.frame(cbind(res$ia,res$pec2p))
+rownames(strt)<-mids
+colnames(strt)<-c("IA","Pec2p")
+
+
+xtabstrt<-xtable(strt,
+		label = "strt",
+		caption = "Données de structure en taille")
+print(xtabstrt, file = str_c(datawd,"/strt.tex"), 
+		table.placement = "ht",
+		caption.placement = "bottom",
+		NA.string = "",
+		include.rownames=TRUE
+)
+
+@
+
+\input{./data/lm1.tex}
+voir Figure \ref{plotia} et tableau \ref{lm1}.
+%=============================================
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{plotia.pdf}% width= permet de
+% changer le zoom pour afficher le graph
+		\caption[Relation ia-densité]{
+        Relation IA-densité
+	} 
+	%entre []=toto court et entre {}=toto long pour la légende et/ou la liste des figures					
+\label{plotia}
+\end{figure}
+%=============================================
+%=============================================
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{plottailsta.pdf}% width= permet de
+% changer le zoom pour afficher le graph
+		\caption[Structure en taille]{
+        Structure en taille comparée des anguilles prélevées par EPA et par
+        pêcheélectrique deux passages au héron } 
+	%entre []=toto court et entre {}=toto long pour la légende et/ou la liste des figures					
+\label{plotia}
+\end{figure}
+%=============================================
+L'efficacité moindre sur la pêche IA est liée à 
+\begin{itemize}
+  \item En 2013 débit faible sur beaucoup de stations ce qui diminue
+  l'efficacité du martin, alors que le héron à deux passages est moins affecté.
+  \item Habituellement les stations IA anguille sont définies sur des habitats
+  de type radier rapide. Les stations IAV sont majoritairement des habitats
+  peu courants, et des radiers courts, les IA débordent sur des plats peu
+  favorables en terme d'habitat.
+  \item La pêche une semaine après le passage au héron pourrait avoir induit un
+  échappement des anguilles de la station.
+\end{itemize}  
+
+Pas de biais lié au déparement.
+Pas de modification de l'efficacité en fonction de la taille des anguilles
+capturées p=\Sexpr{round(summary(lm2)$coefficients[2,4],2)}.
+  
+\input{./data/strt.tex}
+\section{A faire}
+Trouver les anguilles dans la station et hors de la station
+\end{document}

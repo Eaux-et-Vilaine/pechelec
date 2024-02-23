@@ -1,0 +1,129 @@
+% Sweave(file = "ia.Rnw")
+\documentclass[a4paper]{article}
+\usepackage{geometry}
+\geometry{a4paper}
+\pagestyle{plain}
+%\usepackage{Sweave}
+\usepackage[latin1]{inputenc}  %encodage du fichier source
+\usepackage[francais,spanish,english]{babel}
+\usepackage[section]{placeins} %The placeins package provides the command \FloatBarrier
+\usepackage{rotating}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{hyperref} %gestion des hyperliens
+
+\usepackage{graphicx}
+\graphicspath{ {./image/} }
+\DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png}
+\usepackage{float}
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{authblk} % plusieurs auteurs et affiliations
+\usepackage[table,usenames,dvipsnames]{xcolor}
+\usepackage{setspace} %set space between lines
+\definecolor{deeppink}{RGB}{255,20,147}
+\usepackage{color}
+
+%h	Place the float here, i.e., approximately at the same point it occurs in the source text (however, not exactly at the spot)
+%t	Position at the top of the page.
+%b	Position at the bottom of the page.
+%p	Put on a special page for floats only.
+%!	Override internal parameters LaTeX uses for determining "good" float positions.
+%H	Places the float at precisely the location in the LaTeX code. Requires the float package,[1] e.g., \usepackage{float}. This is somewhat equivalent to h!.
+\hypersetup{
+     backref=true,    %permet d'ajouter des liens dans...
+     pagebackref=true,%...les bibliographies
+     hyperindex=true, %ajoute des liens dans les index.
+     colorlinks=true, %colorise les liens
+     breaklinks=true, %permet le retour ? la ligne dans les liens trop longs
+     urlcolor= blue,  %couleur des hyperliens
+     linkcolor= blue, %couleur des liens internes
+     bookmarks=true,  %cr?? des signets pour Acrobat
+     bookmarksopen=true,            %si les signets Acrobat sont cr??s,
+                                    %les afficher completement.
+     pdftitle={Relation IA indice d'abondance}, %informations apparaissant dans
+     pdfauthor={Gaëlle Germis, Cédric Briand},     %dans les
+     % informations du document
+     pdfsubject={anguille},          %sous Acrobat
+     pdfkeywords={anguille}{epa}
+}
+% header on the first page
+%\usepackage{fancyhdr}
+%\pagestyle{fancyplain}
+%\renewcommand{\headrulewidth}{0.4pt} 
+%\fancyhead[R]{\includegraphics[height=1cm]{LogoAZTI.jpg}}
+%\fancyhead[L]{\includegraphics[height=1cm]{LogoIAV.jpg}}
+%\fancyfoot[C]{Not yet a draft version}
+
+\title{\Huge{Relation Indice d'abondance densité}}
+\author[1]{Gaëlle Germis}
+\author[1]{Cédric Briand}
+
+
+\affil[1]{BGM, 9 rue Louis Kerautret Botmel, 35067 Rennes}
+\affil[2]{IAV, bd de bretagne, 56130 La Roche Bernard}
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\begin{document}
+\maketitle
+%ctrl'
+%\thispagestyle{plain}%using fancyhdr, this option reverts to page numbers in the center of the footer
+\begin{center}
+\includegraphics[width=15cm]{ang.jpg} 
+\end{center}
+\newpage
+
+\begin{abstract}
+Texto del abstract
+\end{abstract}
+
+
+\section{Résultats principaux}
+
+
+
+\input{./data/lm1.tex}
+voir Figure \ref{plotia} et tableau \ref{lm1}.
+%=============================================
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{plotia.pdf}% width= permet de
+% changer le zoom pour afficher le graph
+		\caption[Relation ia-densité]{
+        Relation IA-densité
+	} 
+	%entre []=toto court et entre {}=toto long pour la légende et/ou la liste des figures					
+\label{plotia}
+\end{figure}
+%=============================================
+%=============================================
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{plottailsta.pdf}% width= permet de
+% changer le zoom pour afficher le graph
+		\caption[Structure en taille]{
+        Structure en taille comparée des anguilles prélevées par EPA et par
+        pêcheélectrique deux passages au héron } 
+	%entre []=toto court et entre {}=toto long pour la légende et/ou la liste des figures					
+\label{plotia}
+\end{figure}
+%=============================================
+L'efficacité moindre sur la pêche IA est liée à 
+\begin{itemize}
+  \item En 2013 débit faible sur beaucoup de stations ce qui diminue
+  l'efficacité du martin, alors que le héron à deux passages est moins affecté.
+  \item Habituellement les stations IA anguille sont définies sur des habitats
+  de type radier rapide. Les stations IAV sont majoritairement des habitats
+  peu courants, et des radiers courts, les IA débordent sur des plats peu
+  favorables en terme d'habitat.
+  \item La pêche une semaine après le passage au héron pourrait avoir induit un
+  échappement des anguilles de la station.
+\end{itemize}  
+
+Pas de biais lié au déparement.
+Pas de modification de l'efficacité en fonction de la taille des anguilles
+capturées p=0.21.
+  
+\input{./data/strt.tex}
+\section{A faire}
+Trouver les anguilles dans la station et hors de la station
+\end{document}

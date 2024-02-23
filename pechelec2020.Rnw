@@ -1,0 +1,2329 @@
+% !arara: pdflatex:  { action: nonstopmode, synctex: True }
+% arara: bibtex
+% !arara: makeglossaries
+% arara: pdflatex: {action: nonstopmode, synctex: True }
+% arara: pdflatex: {action: nonstopmode, synctex: True }
+
+% A LANCER AVEC SWEAVE
+
+%NOTE POUR 2021 mettre à jour le fichier station pour inclure la Seiche
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% 
+%%  Scientific Report (Quick Draft) for LaTeX 
+%%    By Andrej Korenic
+%%    Tested in ScribTeX online and TeX Maker Version 3.1 (July 24th 2011)
+%%    Created : November 2011
+%%    Modified: 2012 2016 2017
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%
+%%
+%% This file has content of the `elsarticle-template',
+%% It is modified version by me, dedicated to scientists that want quick 
+%% template for their scientific reports...
+%%
+%%
+%% Copyright 2009 Elsevier Ltd (original copyright notes)
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%%============================================================
+%%============================================================
+%% HOW TO USE IT
+%%
+%% All lines begining with %% are comments and they should stay
+%% commented!!! Lines with only one % can be un-commented if you want
+%% to use that function.
+%%
+%% Read instructions carefully!\documentclass[a4paper]{article}
+%%============================================================
+%%============================================================
+%% DOCUMENT CLASS SETUP
+%%
+%% choose document class = type of the document...
+%% Here you have Elsevier article, but you can override
+%% page settings later!
+\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%\documentclass[preprint,authoryear,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%\documentclass[final,authoryear,1p,times]{elsarticle}
+%\documentclass[final,authoryear,1p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,3p,times]{elsarticle}
+%\documentclass[final,authoryear,3p,times,twocolumn]{elsarticle}
+%\documentclass[final,authoryear,5p,times]{elsarticle}
+%\documentclass[final,authoryear,5p,times,twocolumn]{elsarticle}
+
+\usepackage{float}
+\usepackage[section]{placeins}  %The placeins package provides the command \FloatBarrier
+%%============================================================
+%%============================================================
+%% PACKAGE SETUP
+\usepackage{Sweave}
+%\SweaveOpts{pdf=TRUE, echo=FALSE, fig=FALSE, eps=FALSE, tidy=T, width=4,
+%height=4, keep.source=TRUE}
+\usepackage{fixltx2e} %textsubscript
+%% Input and language packages.
+\usepackage[latin1]{inputenc} %encodage du fichier source
+\usepackage[T1]{fontenc}  %gestion des accents (pour les pdf) 
+\usepackage{aeguill} % guillemets
+%\usepackage[english]{babel}
+\usepackage[francais]{babel}
+\addto\captionsfrench{\def\tablename{Tableau}}
+\usepackage{amsmath} %equation
+%% Parskip is the extra vertical space inserted before a paragraph. It has a natural length of zero but should be a rubber length so that it may be stretched in a flushbottom environment. To increase \parskip to skip a line between paragraphs one could use \addtolength{\parskip} {\baselineskip}.
+\usepackage{parskip}
+\usepackage{latexsym} % pour les carrés
+%% Sets space between lines.
+\usepackage{setspace} 
+\usepackage{supertabular}
+
+\usepackage{caption} % pour éviter les problème de place entre le header et le tableau
+\captionsetup[table]{skip=5pt}
+
+%% If you use PostScript figures in your article
+%% use the graphics package for simple commands
+%\usepackage{graphics}
+%% or use the graphicx package for more complicated commands (places the float at precisely the location in the LaTeX code [H]).
+\usepackage{graphicx} \usepackage{float}
+%% or use the epsfig package if you prefer to use the old commands.
+%\usepackage{epsfig}
+
+%% Using captions in floating environment. Note: might not work with other packages.
+%\usepackage{caption}
+
+%% Making numbered and bulleted lists.
+\usepackage{enumerate}
+
+
+%\definecolor{marron}{rgb}{0.64,0.16,0.16}
+%% Math packages
+%\usepackage{amsmath, amssymb}
+
+%% The amsthm package provides extended theorem environments.
+%\usepackage{amsthm}
+
+%% The verbatim environment, \begin{verbatim} ... \end{verbatim}, permits us to insert large sections of reformatted text in a LaTeX file (including block of comments). It is very handy for inserting large chunks of code in a document, for example, literal TeX code or the Maple code you sweated over and now want to comment on.
+%\usepackage{verbatim}
+
+%% Add hyperlinks, so that you can click on references, theorem numbers etc. to jump to the place where they are in the paper (at least for the DVI and PDF versions), it seems that \documentclass{article} does not work with hyperref; use instead \documentclass{amsart}. Note: first test it with Elsevier template!
+\usepackage{hyperref} 
+\hypersetup{pdftex, 
+colorlinks=true, 
+linkcolor=blue, 
+citecolor=blue, 
+filecolor=blue, 
+urlcolor=blue, 
+pdftitle= {Suivi de l'anguille jaune (\textit{Anguilla anguilla}, L.) en pêche
+électrique sur le bassin de la Vilaine de 1998 à 2020.},
+pdfauthor={Cédric Briand}, pdfsubject={anguille}, pdfkeywords={anguille} {pêche électrique} {marquage} }
+
+
+
+%% The numcompress package shorten the last page in references.
+%% `nodots' option removes dots from firstnames in references.
+%\usepackage[nodots]{numcompress}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+%% If you are printing how many pages you submitted...
+\usepackage{lastpage}
+
+%% The \url{...} command does all the work: It sets the enclosed expression in the appropriate typewriter style font, it takes care of any necessary linebreaking, and it chooses break points intelligently (e.g., between components of an address), and it ensures that special symbols such as the tilde symbol or the "at" symbol get typeset correctly.
+\usepackage{url}
+
+%% A new implementation of LATEX's tabular and array environment.
+ \usepackage{array}
+ 
+\usepackage{longtable}
+
+
+
+%%============================================================
+%%============================================================
+%% BIBLIOGRAPHY SETUP
+
+%% natbib.sty is loaded by default. However, natbib options can be
+%% provided with \biboptions{...} command. Following options are
+%% valid:
+
+%%   round  -  round parentheses are used (default)
+%%   square -  square brackets are used   [option]
+%%   curly  -  curly braces are used      {option}
+%%   angle  -  angle brackets are used    <option>
+%%   semicolon  -  multiple citations separated by semi-colon (default)
+%%   colon  - same as semicolon, an earlier confusion
+%%   comma  -  separated by comma
+%%   authoryear - selects author-year citations (default)
+%%   numbers-  selects numerical citations
+%%   super  -  numerical citations as superscripts
+%%   sort   -  sorts multiple citations according to order in ref. list
+%%   sort&compress   -  like sort, but also compresses numerical citations
+%%   compress - compresses without sorting
+%%   longnamesfirst  -  makes first citation full author list
+%%
+%%  e.g. \biboptions{longnamesfirst,comma}
+
+%\biboptions{round,colon,sort}
+
+
+%%============================================================
+%%============================================================
+%% PAGE SETUP
+%% Use this section to override Elsevier article page settings!!!
+
+	%% Easier way...
+	\usepackage[a4paper, inner=1.5cm, outer=1.5cm, top=2cm, bottom=3cm]{geometry}
+	%% The hard way involves setting all the desired values manually. Here are some values that can be set: 
+	%% Dimensions of the PDF file.
+	%\pdfpageheight \pdfpagewidth
+	%% Length of margin at top of page above all printing. 1 inch is added to this value.
+	%\topmargin   
+	%% Left margin on even numbered pages. 1 inch is added to this value.
+	%\evensidemargin  
+	%% Left margin on odd numbered pages. 1 inch is added to this value.
+	%\oddsidemargin
+	%% Height of the page header.
+	%\headheight
+	%% Distance from bottom of header to the body of text on a page.
+	%\headsep
+	%% Distance from top of main text box to the baseline of the first line of text in the Fetmain text box.
+	%\topskip 
+	%% Height and width of main text box.
+	%\textheight \textwidth
+	%% Distance from bottom of body to the bottom of the footer.
+	%\footskip
+	%% Distance between paragraphs.
+	%\parskip
+	%% Amount of indentation at the first line of a paragraph.
+	%\parindent
+	%% Uncomment if don't want page numbers.
+	%\pagestyle{empty}
+	%% Uncomment for 1.5 spacing between lines...
+	%\renewcommand{\baselinestretch}{1.5}
+	%% or use some of these
+		%\singlespacing
+		%\onehalfspacing
+		%\doublespacing
+		%\setstretch{1.1}
+	%% Sets up hyphenation threshold.
+	%\hyphenpenalty=675 \tolerance=950
+
+
+
+
+%%============================================================
+%%============================================================
+%% DEFINING NEW COMMANDS AND ABBREVIATIONS
+%% Use this section to define new commands that you will use in
+%% your report.
+
+%% Makes a path to your graphics' folder.
+\graphicspath{{../../pdata/pechelec/image/}}
+
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\DD}{D\&D}
+\newcommand{\oxygen}{O$ _2 $}
+
+\renewcommand{\labelitemi}{--}
+
+
+
+
+%% Add extra space to multi-line equation environments
+%\setlength{\jot}{9pt}
+
+% use \mbox{...} for no separation of the defined word
+
+%%===============================================%%
+%%==========    END OF THE PREAMBLE    ==========%%
+
+
+
+
+%%============================================================
+%%============================================================
+%%============================================================
+% BEGINNING OF THE TEXT BODY
+
+%% You can write here small footer that will go on the first page, together with
+%% the date stamp; comment the line if you don't want that!
+%\footme{Submitted to Someone Somewhere\hspace{2mm}(\pageref{LastPage} pages)} \datestamp{Andrej Korenic, 27$^{th}$ October, 2011}
+
+\begin{document}
+
+\begin{frontmatter}
+
+	%% Title, authors and addresses
+
+	%% use the tnoteref command within \title for footnotes;
+	%% use the tnotetext command for the associated footnote;
+	%% use the fnref command within \author or \address for footnotes;
+	%% use the fntext command for the associated footnote;
+	%% use the corref command within \author for corresponding author footnotes;
+	%% use the cortext command for the associated footnote;
+	%% use the ead command for the email address,
+	%% and the form \ead[url] for the home page:
+	%%
+	%% \title{Title\tnoteref{label1}}
+	%% \tnotetext[label1]{}
+	%% \author{Name\corref{cor1}\fnref{label2}}
+	%% \ead{email address}
+	%% \ead[url]{home page}
+	%% \fntext[label2]{}
+	%% \cortext[cor1]{}
+	%% \address{Address\fnref{label3}}
+	%% \fntext[label3]{}
+
+	\title{Suivi de l'anguille jaune (\textit{Anguilla anguilla}, L.) en pêche
+électrique sur le bassin de la Vilaine de 1998 à 2020.\\
+Monitoring of yellow eel (\textit{Anguilla anguilla,} L.) by
+electrofishing in the Vilaine watershed from 1998 to 2020.
+}
+
+	%% use optional labels to link authors explicitly to addresses:
+	\author[iav]{Cédric Briand}
+	\author[iav]{Brice Sauvaget}	
+	\author[iav]{Gérard Eriau}	
+	\address[iav]{EPTB Vilaine, boulevard de Bretagne, 56130 La Roche Bernard}
+	%\author[label1,label2]{Andrej Korenic}
+	%\address[label1]{My address}
+	%\address[label2]{second address}
+
+\begin{abstract}
+    Les densités ont été évaluées par pêche électrique  sur des
+ affluents de petite taille à des distances croissantes de l'estuaire.     
+    Elles ont d'abord augmenté de 1998 à 2001 avec la réouverture du
+    bassin versant de la Vilaine à l'anguille. Elles ont ensuite diminué significativement à partir de 2003, jusqu'à un
+    niveau minimum en 2011. Cette tendance a traduit la dégradation des
+    recrutements fluviaux de civelles. A cette période, les opérations de
+    transport de civelles n'ont pas compensé cette baisse.  
+    
+    A partir de la mise en place du plan de gestion anguille,  le recrutement
+    fluvial de civelles sur le bassin versant a très fortement augmenté.
+    
+    On observe bien en réponse une augmentation des abondances de jeunes
+    classes d'âge sur l'aval et l'intermédiaire du bassin (zone < 50 km et
+    50-100 km), à partir de 2013 :  les densités augmentent globalement sans
+    toutefois atteindre les niveaux de densité
+    observés sur la période 1998-2002. Les biomasses sont en déclin sur les
+    parties intermédiaires et amont et en augmentation 
+    sur les trois dernières années sur la partie aval.
+    
+    Enfin, les pêches électriques sont aussi l'occasion d'une opération de
+    marquage-recapture qui permet d'obtenir de précieuses informations sur la
+    croissance des anguilles jaunes dans les cours d'eaux. Ces informations sont
+    synthétisées et analysées.
+    
+    L'ensemble des résultats est discuté, au regard des objectifs du plan
+    régional de gestion des poissons migrateurs et de la compréhension de la
+    dynamique du stock d'anguille à l'échelle du bassin de la Vilaine.\\
+\vspace{1cm}
+\noindent\rule{\textwidth}{0.4pt}
+\textbf{Abstract}\vspace{5mm}
+
+\begin{itshape}
+  Densities are collected on small tributaries located at increasing distance
+  from the estuary. They have first increased from 1998 to 2001  with the re-opening of a
+  migratory pathway for eel in the Vilaine watershed. They have then diminished rapidly from 2003
+  untill a low level in 2011, and
+  this trend is a consequence of the degradation of glass eel fluvial
+  recruitment. At this
+  time, temptative transport operations have not buffered the decline.
+  
+  From the beginning of implementation of the eel management plan, glass eel
+  fluvial recruitment on the Vilaine basin has been largely increased. We do observe 
+  an increase in young age classes in the downstream par of the basin (area <50
+  km and 50-100 km) from 2013 : densities show an overall increasing trend
+  without reaching the levels observed during the 1998-2002 period. Biomasses are declining on
+  intermediate and upstream sectors and increasing for the last three years on
+  the downstream sector. 
+    
+  Finally, electrofishing operations are also offering the means for a
+  marking-recapture operation which allows to gather valuable information on
+ eel growth in the Vilaine tributaries. This information in analysed and
+ synthetized. 
+ 
+ The whole result are discussed, in the perspective of the regional plan of
+ management of migratory species and to understand the eel stock dynamics a the
+ scale of the vilaine watershed.
+\end{itshape}
+\end{abstract}
+
+\begin{keyword}
+% keywords here, in the form: keyword \sep keyword
+anguille \sep pêche électrique \sep marquage \sep pit-tag
+    \textit{Yellow eel} \sep \textit{electrofishing}   \sep
+     \textit{marking recapture} \sep \textit{pit tag}  	
+\end{keyword}
+
+\end{frontmatter}
+%---------------------------------------------------------------------
+
+%% Switch on the line numbers for the whole article at this place.
+%\linenumbers
+
+%% Here you can put your table of contents and also give it a new name.		
+%\newpage
+\renewcommand{\contentsname}{Sommaire:}
+\tableofcontents
+
+%% Switch on the line numbers for the whole article at this place.
+%\linenumbers
+
+%% Main text is going here.
+
+\bigskip
+
+\section*{Introduction}
+\label{Introduction}
+\section{Matériel et méthodes}
+
+<<init,echo=FALSE,eval=TRUE,results=hide>>=
+rm(list=ls(all=TRUE)) # nettoyage complet
+graphics.off()
+x11()
+load_library=function(necessary) {
+  if(!all(necessary %in% installed.packages()[, 'Package']))
+	install.packages(necessary[!necessary %in% installed.packages()[, 'Package']], dep = T)
+  for(i in 1:length(necessary))
+	library(necessary[i], character.only = TRUE)
+}
+setwd("C:/workspace/p/pechelec")
+datawd<-"C:/workspace/pdata/pechelec/data/"
+
+load_library('Hmisc')
+load_library('xtable')
+load_library('stacomirtools')
+load_library('FSA') #install.packages('FSA',,'http://www.rforge.net/') citation("FSA")
+load_library("stringr")
+load_library("multcomp") # pour post hoc tests
+load_library("car") # Pour CrPlots
+load_library("stargazer")
+load_library('lubridate')
+load_library('reshape2')
+load_library('dplyr')
+CY<-2020
+datawdy=str_c(datawd,CY,"/")
+imgwd<-"C:/workspace/pdata/pechelec/image/"
+tabwd<-"C:/workspace/pdata/pechelec/table/"
+imgwdy=str_c(imgwd,CY,"/")
+tabwdy=str_c(tabwd,CY,"/")
+#'==========================================================
+#' fonction de nettoyage du code latex
+#'==========================================================
+
+sanitizeLatexS <- function(str) {
+  gsub('([#$%&~_\\^\\\\{}])', '\\\\\\\\\\1', str, perl = TRUE);
+}
+#'==========================================================
+#' fonction d'impression des nombres
+#'==========================================================
+
+sn <- function(x,digits=0,scientific=FALSE)
+{
+  if (class(x)=="character") {                
+	warning("sn appliqué a un character")
+	return(x)
+  }
+  if (is.infinite(x)) {                
+	warning("sn appliqué à Inf")
+	return(x)
+  }
+  if (length(x)==0) {                
+	warning("sn length 0")
+	return("???")
+  }
+  if (x==0) return("0")
+  ord <- floor(log(abs(x),10))
+  if (scientific==FALSE&ord<9){
+	if (digits==0) {
+	  digits=max(1,ord) # digits must be >0
+	  nsmall=0
+	}else {
+	  nsmall=digits
+	}
+	x<-format(x,big.mark="~",small.mark="~",digits=digits,nsmall=nsmall)
+	return(str_c("$",as.character(x),"$"))                
+  } else {
+	x <- x / 10^ord
+	if (!missing(digits)) x <- format(x,digits=digits)
+	if (ord==0) return(as.character(x))
+	return(str_c("$",x,"\\\\times 10^{",ord,"}$"))
+  }
+}
+#'==========================================================
+#' fonction d'application de la transparence à des couleurs.
+#'==========================================================
+makeTransparent = function(..., alpha=0.5) {
+  
+  if(alpha<0 | alpha>1) stop("alpha must be between 0 and 1")
+  
+  alpha = floor(255*alpha)  
+  newColor = col2rgb(col=unlist(list(...)), alpha=FALSE)
+  
+  .makeTransparent = function(col, alpha) {
+	rgb(red=col[1], green=col[2], blue=col[3], alpha=alpha, maxColorValue=255)
+  }
+  
+  newColor = apply(newColor, 2, .makeTransparent, alpha=alpha)
+  
+  return(newColor)
+  
+}
+open_in_excel <- function(some_df){
+  tFile<-paste("C:/temp/",gsub("\\\\","",tempfile(fileext=paste0(substitute(some_df), ".csv"),tmpdir="")),sep="")
+  write.table(some_df, tFile, row.names=F, sep=";", quote=F)
+  system(paste('open -a \"/ProgramData/Microsoft/Windows/Start Menu/Programs/Microsoft Office/Microsoft Excel 2010\"', tFile))
+}
+# chargement des données du rapport anguilles (nommé vvv)
+
+load(str_c("C:/workspace/pdata/traitement_stacomi/rapport_anguille/data/",CY,"/vvv.Rdata"))
+
+@
+
+
+Pour cette étude, le bassin versant a été séparé en trois
+classes de distance (rkm = kilomètres de rivière) :
+\begin{description}
+\item [la zone aval] située
+à moins de 50 kilomètres de rivière du barrage
+d'Arzal (50 rkm) est formée principalement
+par des affluents connectés au bief aval de la Vilaine sous influence
+directe du barrage d'Arzal. Le cours principal de la
+Vilaine forme un bief de 30-150 m de large, en connexion avec les
+marais de Redon.
+\item [la zone intermédiaire] est composée de secteurs
+situés entre 50 et 100 kilomètres de rivière du barrage
+d'Arzal (50-100 rkm). Les affluents échantillonnés
+comportent le Canut Sud, séparé de la Vilaine aval par un barrage,
+et le ruisseau de l'Aron accessible après deux
+barrages. Le troisième, le ruisseau des Arches, est plus difficile
+d'accès pour les anguilles. Il est localisé sur
+l'Oust et est séparé par 6 barrages de navigation
+de la Vilaine aval. Cet axe a été entièrement équipé de
+passes à anguilles en 2003.
+\item [la zone amont] (100 rkm) comprend des affluents connectés à
+l'axe de la Vilaine. Les points
+d'échantillonnage sont localisés entre 110 et 165
+kilomètres du barrage d'Arzal. En 1999 et 2000, 13
+passes à anguilles ont été construites sur les barrages de
+navigation de la Vilaine, facilitant l'accès aux
+affluents du Canut Nord et de la Chèze. Elles ont aussi facilité
+l'accès au Chevré situé en amont de Rennes, bien
+que trois barrages soient restés non équipés pour
+l'accès à cette rivière. Une passe à anguilles
+située sur le troisième barrage de la Vilaine (la Molière) a
+été arrachée durant la crue de l'hiver 2000 et
+reconstruite en 2006.
+\end{description}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{carte.png}
+\caption[Vue schématique du bassin de la Vilaine]{Vue schématique du bassin de
+la Vilaine, les trois zones colorées correspondent aux trois classes de
+distance de l'estuaire.}
+\label{fig_carte}
+\end{figure}
+\subsection{Méthode de pêche}
+
+Sur 46 stations de pêche électrique
+prospectées sur le bassin versant de la Vilaine chaque année entre
+fin août et novembre de 1998 à 2005
+(BRIAND \textit{ et
+al.}, 2006), une sélection de 19 stations
+situées sur 10 affluents a été conservée à partir de 2007
+(Figure \ref{fig_carte}). La
+méthode de pêche est standardisée. Les pêches électriques
+sont effectuées à l'aide d'un
+matériel de type Héron. Le courant utilisé est continu. Les secteurs de pêche
+couvrent approximativement une surface de pêche de 100 m$^2$.
+Ils sont délimités et marqués de manière à prospecter le
+même secteur d'une campagne de pêche sur
+l'autre. Une attention particulière a été portée à la continuité des
+équipes de pêche depuis le début des opérations et que le protocole de pêche
+soit équivalent d'une année sur l'autre.
+L'anode est placée à intervalles réguliers de
+manière à prospecter l'ensemble de la surface du
+secteur de pêche. Une fois le courant appliqué,
+l'électrode est maintenue en place pendant au minimum
+30 secondes, plus si une anguille détectée n'est
+pas encore capturée. La capture des anguilles est effectuée par
+deux pêcheurs, équipés d'une épuisette large
+à cadre métallique avec le bord inférieur droit de 60 cm de large
+avec des mailles de 2 mm ; et d'une petite épuisette
+à main ronde ou carrée avec des mailles de 2 mm. Cet équipement
+peut varier en fonction des circonstances. Les grandes épuisettes
+sont surtout efficaces dans les secteurs où le débit est important
+et la visibilité réduite. Lorsque le débit est faible ou nul, les
+grandes épuisettes ne sont pas utilisées. Les épuisettes
+secondaires peuvent être remplacées par des petites épuisettes
+rectangulaires utilisées dans la biométrie lorsque le cours
+d'eau pêché est en étiage sévère, et
+qu'il est nécessaire de
+ \og chasser \fg les anguillettes dans les
+interstices des pierres sur les radiers. Les stations pêchées font
+l'objet d'un inventaire complet de la
+faune piscicole présente. Le nombre d'anguilles
+collectées par point est noté par un opérateur en rive, qui est
+également chargé de contrôler le temps de pêche.
+
+\subsection{Traitement des données}
+Les migrations vers le fleuve sont analysées en faisant la somme :
+\begin{itemize}
+\item des montées de civelles aux passes,
+\item des migrations d'anguilles jaunes,
+\item des opérations de transport qu'elles soient effectuées par l'IAV ou par le
+CRPMEM. Dans tous les cas, les mortalités lors des transports ne sont pas
+inclues,
+\item des migrations dans l'écluse.
+\end{itemize}
+
+Les densités sont évaluées comme suit :
+
+\begin{equation*}
+D=\frac{N_{CS}}{surface}
+\end{equation*}
+
+où $N_{CS}$ correspond aux nombres évalues par la
+méthode des enlèvements successifs de Carle\&Strubb
+\citep{ogle_fsa_2013,carle_new_1978} à partir des effectifs pêchés sur chaque 
+station $N$ et la surface correspond à la surface mouillée de la
+station de pêche.
+L'efficacité de pêche $\Phi$ est calculée à partir de l'effectif
+Carle\&Strubb $N_{CS}$ et de l'effectif au premier passage
+$N_{p1}$ :
+\begin{equation*}
+\Phi=\frac{N_{p1}}{N_{CS}}
+\end{equation*}
+Les biomasses d'anguilles estimées
+$B_e$
+par station sont calculées à partir des biomasses :
+\begin{equation*}
+B_e=B\times \frac{D}{N}
+\end{equation*}
+
+Les densités de chaque classe de taille $\tau$ sont calculées comme
+suit :
+
+\begin{equation*}
+ D_{\tau}=N_{\tau} \times \frac{N_{CS}}{N \times surface}= N_{\tau} \times \frac{D}{N}
+\end{equation*}
+
+
+Les densités par classe d'âge sont calculées grâce à la clé
+taille-âge élaborée par Mounaix \citep{mounaix_intercalibration_1992} complétée par
+des anguilles prélevées en 1998 et 1999 dans les cours
+d'eaux \citep{briand_effect_2006}.
+
+\subsection{Analyses statistiques}
+Les densités d'anguilles sont log transformées pour
+normaliser la distribution (Shapiro-Wilks p{\textgreater}0.1). Une
+analyse de variance simple est appliquée en utilisant la formule :
+\begin{equation*}
+\log (D){\approx}a+s+m+\epsilon_s
+\end{equation*}
+pour laquelle la station $s$ correspond à la station de pêche, le mois $m$
+correspond au mois divisé en deux catégories avant septembre et après octobre,
+et l'année $a$ correspond à l'année de pêche. 
+Les données sont analysées par un modèle linéaire mixte \citep{pinheiro_nlme_2013} avec un
+lien identité et une distribution normale, pour lequel une variation de la
+variance en fonction de la station est appliquée $\epsilon_s=N(0,{\sigma_{s}}^2)
+~s=1,\dots,19$ \citep{zuur_mixed_2009}. La significativité des différentes
+variables -classe de distance à la mer, affluent, station ou mois- est évaluée à
+l'aide du critère d'Akaike (AIC) ou du ratio des log-vraissemblance lorsque les modèles sont structurellement emboîtés. Un test
+post hoc de Tukey est appliqué aux densités pour grouper les années semblables.
+L'évolution de la densité en anguilles et des biomasses est analysée par zone (classe de
+distance du barrage) et par âge. Les tendances de densité sont analysées ainsi
+que la moyenne par secteur de distance. Cette moyenne est comparée à la valeur de référence de 0.3
+anguille.m$^{-2}$ fixée par le PLAGEPOMI pour les parties aval des cours
+d'eaux.
+\subsection{Marquage recapture des anguilles}
+Le marquage des anguilles a été effectué par pit tag à l'aide d'un injecteur
+manuel sur toutes les anguilles de plus 30 cm capturées sur les stations. Les
+pits tags ont été placés dans la cavité abdominale.
+Ils sont passés dans une solution de chlorhexidine diluée à 0.5 \% dans l'eau 
+avant d'être
+implantés.
+Les anguilles de taille susceptible d'être recapturées après avoir été marquées > 30 cm ont été testées pour le marquage. 
+Sur certaines stations, une prospection est effectuée en dehors de la station
+pour rechercher les anguilles de plus de 30 cm, les tester pour un marquage
+éventuel, et les marquer. Ces anguilles sont alors traitées à part dans les
+données de pêche mais sont intégrées aux stations de pêche.
+
+
+\section{Résultats}
+
+
+\subsection{Recrutement estuarien}
+<<tableau1,echo=FALSE,eval=FALSE,results=hide>>=
+# les données sont traitées dans rapport anguilles
+# copie du tableau ci-dessous....
+#rec<-data.frame("Annee"=
+#				c(1981,1998:2016),
+#		"Capt(t)"=
+#				c(57,17.5,
+#						15.3,
+#						14.2,
+#						8.16,
+#						15.8,
+#						8.9,
+#						7.0,
+#						6.8,
+#						6.1,
+#						6.9,
+#						4.2,
+#						2.6,
+#						3.0,
+#						3.9,
+#						3.0,
+#						2.1,
+#						3.9,
+#						4.4,
+#						4.6
+#				))
+## pour l'année prochaine adapter en virant le ,17
+#res<-cbind(rec[c(1:6),],rec[7:12,],rec[c(13:17,17),])
+#res[nrow(res),c(5:6)]<-c("","")
+#colnames(res)<-rep(c("Annee","Capt (t)"),3)
+#xtarec<-xtable(res,
+#		label="tabrec",
+#		caption=c("Série de captures de la pêcherie professionnelle en Vilaine. 
+#						A partir de 2010, l'introduction des quotas a modifié la série de données."),
+#		digits=c(0,0,1,0,1,0,1)
+#)
+#print(xtarec,file=str_c(tabwdy,"tarec.tex"),
+#		table.placement="htbp",
+#		caption.placement = "top",
+#		NA.string = "",
+#		include.rownames=FALSE)	
+@
+Les captures totales de la pêcherie sont passées de 57 tonnes en
+1981 à  2.6 tonnes en 2009 (Tableau \ref{tableau_captures}). Avant l'adoption du
+plan de gestion, les captures étaient essentiellement contraintes par la durée de la saison de pêche
+\citep{briand_dynamique_2009}. Après cette date, elles sont plus le reflet des
+contraintes du quota et du marché pour la civelle, avec la fermeture à l'export
+par la CITES à partir de 2010. 
+\small
+\begin{table}[htpb]
+\centering
+\caption{Captures de la pêcherie de civelles d'Arzal de 1995 à 2020, sources : 
+1= Affaires Maritimes (données mareyeurs), 
+2= De Casamajor & Briand 2009 (OFIMER),
+3= Comité des pêches maritimes Auray-Vannes,
+4=télécapêche Vilaine (Comité des pêches maritimes Auray-Vannes). 
+La date d'arrêt correspond à la date de fermeture de la pêche en fin de saison.}
+\label{tableau_captures}
+\begin{tabular}{llll}
+\toprule
+Année & Capture (t) & Source & Arrêt \\ 
+\midrule
+1995  & 29.50  &  1 & 30-avr \\
+1996  & 22.40  &  1 & 15-avr \\
+1997  & 22.60  &  1 & 30-avr \\
+1998  & 17.50  &  1 & 06-avr \\
+1999  & 14.93  &  1 & 05-avr \\
+2000  & 13.94  &  1 & 15-avr \\
+2001  & 7.93   &  1 & 30-mars \\
+2002  & 14.51  &  1 & 23-mars \\
+2003  & 9.14 &  1   & 23-mars \\
+2004  & 7.26 &  1  & 27-mars \\
+2005  & 6.72 &  1  & 20-mars \\
+2006  & 6.99 &  1  & 23-mars \\
+2007  & 6.78 &  1  & 11-mars \\
+2008  & 4.57 (4.2) & 3 (2) & 11-mars\\
+2009  & 2.61 & 3  & 31-mars \\
+2010  & 3.03 & 3 & 30-avril \\
+2011  & 3.92 & 3  & 30-avril \\
+2012  & 2.99 & 3  & 30-avril \\
+2013  & 2.10 & 4  & 30 avril \\
+2014  & 2.68 & 4  & 30 avril \\
+2015  & 4.86 & 4  & 30 avril \\
+2016  & 4.62 & 4 &  30 avril\\  % j'ai mis la valeur par défaut, mais je n'ai pas la valeur dans le tableau
+2017  & 5.87 & 4  & 30 avril \\ 
+2018 & 6.53 &  4  & 30 avril \\ 
+2019 & 5.13 &  4  &  14 mars\\ 
+2020 & 3.45 &  4  &  22 mars \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+\normalsize
+\subsection{Recrutement fluvial}
+
+<<figure2recrutement,echo=FALSE,eval=TRUE,results=hide>>=
+# formaté avec tidy_source
+if (!require("formatR")) install.packages("formatR") ; library("formatR")
+if (!require("readxl")) install.packages("readxl") ; library("readxl")
+orangetr<-makeTransparent("orange",alpha=0.2)
+# décommenter si accès local
+#serie<-read_excel(path=str_c(datawd,"serie_pro_vilaine.xlsx"),
+#   sheet="bilan_gestion",range=str_c("A2:AE",CY-1996+4))
+#serie <- serie[-1, ]  # lignes avec kg ou effectif
+#serie <- killfactor(serie)
+#serie[2:ncol(serie)] <- apply(serie[2:ncol(serie)], 2, function(x) as.numeric(x))
+#col_with_number<-grep("[_n]{2}$",colnames(serie))
+### je ramène à des vrais effectifs
+#serie[,col_with_number]<-round(serie[,col_with_number]*10^6)
+### pour plus de sûreté on va chercher les résultats du rapport passe
+#serie[,"passe_total_n"]<-vvv$CIV$data$Ngl
+#serie$passe_relachees_n<-rowSums(cbind(serie$passe_total_n,-serie$passe_mortes_n,-serie$passe_marquage_n),na.rm=TRUE)
+### récupération de la structure en age des anguilles 
+### A partir des calculs de cohorte pour l'instant effectués dans rapport_anguille
+#serie$annee<-substr(serie$saison,6,9)
+#save(serie,file=str_c(datawd,"serie.Rdata"))
+
+cohort<-vvv$AGJ$cohort
+
+
+
+
+load(file=str_c(datawd,"serie.Rdata"))
+serie$passe_agj_cohorte <- round(rowSums(cohort[as.character(1996:(CY)), 2:6], na.rm = TRUE))
+
+load(str_c(datawd, "spl.Rdata"))
+load(str_c(datawdy, "dens.Rdata"))
+# Fonction de calcul du recrutement fluvial en fonction d'hypothèsese de survie
+#' parametre mortpas => mortalité des civelles sur la passe
+#' parametre mortxp => mortalité des civelles transportées 
+fnrec <- function(mortpas, mortxp, mortecl, data, type = "n") {
+  # In the following we assume the same mortality rate of glass eel from the
+  # trapping ladder and of those coming form the sluice
+  if (type == "n") {
+    recflu <- rowSums(cbind(data$passe_relachees_n * (1 - mortpas), 
+            data$transport_total_n *  (1 - mortxp), 
+            data$peche_amont_n * (1 - mortxp), 
+            data$transport_CLPMEM_n * (1 - mortxp), 
+            data$eclusage_n * (1 - mortecl)), na.rm = TRUE)
+    return(recflu)
+  } else if (type == "kg") {
+    recflu <- rowSums(cbind(data$passe_relachees_kg * (1 - mortpas),
+            data$transport_total_kg * (1 - mortxp), 
+            data$peche_amont_kg * (1 - mortxp), 
+            data$transport_CLPMEM_kg * (1 - mortxp), 
+            data$eclusage_kg * (1 - mortecl)), na.rm = TRUE)
+  }
+  return(recflu)
+}
+# A FAIRE METTRE UN VECTEUR DE MORTALITE EN PRENANT LES MORTALITES REPEUPLEMENT.
+serie$recr_flu_aj_m1 <- fnrec(mortpas = 0, mortxp = 0, mortecl = 0, data = serie, 
+    type = "n")
+serie$recr_flu_aj_m2 = fnrec(mortpas = 0, mortxp = 0.5, mortecl = 0, data = serie, 
+    type = "n")
+serie$recr_flu_aj_m3 = fnrec(mortpas = 0, mortxp = 1, mortecl = 1, data = serie, 
+    type = "n")
+serie$recr_flu_aj_transport = fnrec(mortpas = 1, mortxp = 0, mortecl = 1, data = serie, 
+    type = "n")
+serie$recr_flu_aj_m1_kg <- fnrec(mortpas = 0, mortxp = 0, mortecl = 0, data = serie, 
+    type = "kg")
+serie$recr_flu_aj_m2_kg = fnrec(mortpas = 0, mortxp = 0.5, mortecl = 0, data = serie, 
+    type = "kg")
+serie$recr_flu_aj_m3_kg = fnrec(mortpas = 0, mortxp = 1, mortecl = 1, data = serie, 
+    type = "kg") 
+serie$recr_flu_aj_transport_kg = fnrec(mortpas = 1, mortxp = 0, mortecl = 1, data = serie, 
+    type = "kg")
+plot(serie$recr_flu_aj_m1, type = "l")
+points(serie$recr_flu_aj_m2, type = "l", col = "blue")
+points(serie$recr_flu_aj_m3, type = "l", col = "deepskyblue")
+
+#-----------------------------------------------------------------
+pdf(file = str_c(imgwdy, "figure2recrutement.pdf"), width = 7, height = 6)
+par(mar = c(5.1, 5.1, 4.1, 5.1))
+x <- 1996:(CY)
+y <- serie$recr_flu_aj_m1
+l <- length(x)
+mino <- 0
+maxo <- max(y)
+# Graphique du recrutement fluvial net
+plot(x, y, xlab = "annee", type = "n", xaxt = "n", ylab = expression("Civelles  * 1000"), 
+    yaxt = "n", frame = FALSE, col = "grey60", lwd = 2)
+xx <- c(x, rev(x))
+yy <- c(rep(0, l), rev(y))
+polygon(xx, yy, col = "light green", border = FALSE)
+lines(x, y, lwd = 2.5, col = "dark green")
+at <- axTicks(2)
+at3 <- at/10^6
+at2 <- at/10^3
+at1 <- round(at/25000)
+axis(1, at = x)
+axis(2, at, labels = formatC(at2, big.mark = " ", format = "d"), las = 3)
+axis(side = 4, at = at, labels = at1, col = "blue", col.axis = "blue", col.lab = "blue")
+abline(h = at3, col = "grey70")
+
+debut <- 2008.5
+fin <- 2011.5
+polygon(c(debut, debut, fin, fin), c(maxo, mino, mino, maxo), col = "#FA050535", 
+    border = FALSE)
+text(fin - (fin - debut)/2, 8 * maxo/10, iconv("arrêt \n 31/03", "UTF8"), col = "red")
+
+debut <- 2005
+fin <- 2008.5
+polygon(c(debut, debut, fin, fin), c(maxo, mino, mino, maxo), col = "#0015FF25", 
+    border = FALSE)
+text(fin - (fin - debut)/2, 7 * maxo/10, iconv("Diminution \n saison", "UTF8"), col = "dark blue")
+
+debut <- 2011.5
+fin <- CY
+polygon(c(debut, debut, fin, fin), c(maxo, mino, mino, maxo), col = orangetr, border = FALSE)
+text(fin - (fin - debut)/2, 9 * maxo/10, "Quota \n et \n transports", col = "#FB861B")
+
+mtext(expression("Anguille jaunes x  " * 1000), 4, line = 3, col = "blue")
+
+points(x, serie$passe_total_n, lty = 2, type = "b", col = "black", lwd = 2)
+symbols(x = c(2007, 2012, 2013), y = (serie$eclusage_n)[c(12, 17, 18)], squares = c(0.3, 
+        0.3, 0.3), add = TRUE, inches = F, bg = c("white", "white", "white"))
+points(x, serie$passe_agj_cohorte * 25, lty = 2, pch = 17, type = "b", col = "blue")
+symbols(x = x[serie$recr_flu_aj_transport >0], y = (serie$recr_flu_aj_transport)[serie$recr_flu_aj_transport>0], 
+    stars =  matrix(rep(c(0.7, 0.1, 0.7, 0.1, 0.7, 0.1, 0.7, 0.1, 0.7, 0.1)/2, 
+            sum(serie$recr_flu_aj_transport >0)), 
+        sum(serie$recr_flu_aj_transport >0), 10,byrow=TRUE), add = TRUE, inches = F, 
+    bg = "yellow")
+dev.off()
+#-----------------------------------------------------------------
+
+#-----------------------------------------------------------------
+pdf(file = str_c(imgwdy, "figure2recrutement_kg.pdf"), width = 7, height = 6)
+par(mar = c(5.1, 5.1, 4.1, 5.1))
+x <- 1996:(CY)
+y <- serie$recr_flu_aj_m1_kg
+l <- length(x)
+mino <- 0
+maxo <- max(y)
+# Graphique du recrutement fluvial net
+plot(x, y, xlab = "annee", type = "n", xaxt = "n", ylab = expression("Civelles  (kg)"), 
+    yaxt = "n", frame = FALSE, col = "grey60", lwd = 2)
+xx <- c(x, rev(x))
+yy <- c(rep(0, l), rev(y))
+polygon(xx, yy, col = "light green", border = FALSE)
+lines(x, y, lwd = 2.5, col = "dark green")
+grid(nx = NA,ny=NULL)
+at <- axTicks(2)
+at1 <- round(at/25000)
+axis(1, at = x)
+axis(2, at, labels = formatC(at, big.mark = " ", format = "d"), las = 3)
+
+points(x, serie$passe_total_kg, lty = 2, type = "b", col = "black", lwd = 2)
+symbols(x = c(2007, 2012, 2013), y = (serie$eclusage_kg)[c(12, 17, 18)], squares = c(0.3, 
+        0.3, 0.3), add = TRUE, inches = F, bg = c("white", "white", "white"))
+#points(x, serie$passe_agj_cohorte * 25, lty = 2, pch = 17, type = "b", col = "blue")
+symbols(x = x[serie$recr_flu_aj_transport_kg >0], y = (serie$recr_flu_aj_transport_kg)[serie$recr_flu_aj_transport_kg>0], 
+    stars =  matrix(rep(c(0.7, 0.1, 0.7, 0.1, 0.7, 0.1, 0.7, 0.1, 0.7, 0.1)/2, 
+            sum(serie$recr_flu_aj_transport_kg >0)), 
+        sum(serie$recr_flu_aj_transport_kg >0), 10,byrow=TRUE), add = TRUE, inches = F, 
+    bg = "yellow")
+dev.off()
+#-----------------------------------------------------------------
+
+
+
+recciv<-serie$recr_flu_aj_m1/10^6
+quelcmin<-which.min(recciv)
+quelcmax<-which.max(recciv)
+recagj <- vvv$AGJ$N$effectif
+recagj <- recagj[recagj>10] # remove last operation year
+quelymin<-which.min(recagj)
+quelymax<-which.max(recagj)
+serie <- as.data.frame(serie)
+recagjcohort <- serie[,"passe_agj_cohorte"]
+quelycmin<-which.min(recagjcohort)
+quelycmax<-which.max(recagjcohort)
+@
+Le recrutement fluvial vers le bassin versant
+est composé majoritairement du stade civelle, variant annuellement de
+\Sexpr{sn(recciv[quelcmin],2)} en \Sexpr{serie[,"annee"][quelcmin]} à
+\Sexpr{sn(recciv[quelcmax],3)} millions de civelle par an en 
+\Sexpr{serie[,"annee"][quelcmax]}. 
+Le nombre d'anguilles jaunes comptées sur les passes a varié de
+\Sexpr{sn(recagj[quelymin],0)} à  \Sexpr{sn(recagj[quelymax],0)}
+entre la plus mauvaise année \Sexpr{serie[,"annee"][quelymin]} et la meilleure
+\Sexpr{serie[,"annee"][quelymax]}. Les données reportées pour le recrutement
+d'anguille jaune sur le bassin sont présentées différemment avec un calcul par
+cohorte, qui prend en compte l'âge des anguilles lors de leur passage. Les
+effectifs d'anguilles jaunes varient alors entre
+\Sexpr{sn(recagjcohort[quelycmin])} et \Sexpr{sn(recagjcohort[quelycmax])} 
+(Figure \ref{figure2recrutement}) \citep{briand_gestion_2017}.
+Entre 2000 et 2005, les captures lors des pêches expérimentales ont lissé la chute du recrutement
+fluvial sans la compenser pleinement (Figure
+\ref{figure2recrutement}). L'augmentation de la
+migration des anguilles jaunes après 2005 est concomitante avec
+l'arrêt des pêches scientifiques de civelles
+après la saison de pêche professionnelle (en bleu sur la Figure
+\ref{figure2recrutement}). Les faibles migrations de civelles de 2009,
+2011 et 2015 sont la conséquence de la fermeture tardive de la saison de pêche
+professionnelle (Figure \ref{figure2recrutement}).
+Entre 2012 et 2016 l'augmentation du recrutement fluvial reflète à la fois
+l'augmentation du recrutement global (Figure \ref{figure_recrutement}), les
+transports, la diminution forte de la pêche, et les manoeuvres d'écluse au
+barrage d'Arzal. La même figure est reportée en kg pour les civelles (Figure
+\ref{figure2recrutement_kg}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/figure2recrutement.pdf}
+\caption[Tendance des densités modèle]{Migrations d'anguilles
+jaunes (\textmd{{}-{}-${\Delta}$-{}-}) et de civelles
+(\textmd{{}-}o\textmd{{}-}) en effectif sur la passe au barrage d'Arzal,
+civelles pêchées et transportées ($\star$) et estimation de la migration de civelles
+lors des man{\oe}uvres d'écluse entre 1996 et 2011 ($\Box$). En vert, somme du
+recrutement fluvial de civelles.}
+\label{figure2recrutement}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/figure2recrutement_kg.pdf}
+\caption[Tendance des densités modèle]{Migrations de civelles (en kg)
+(\textmd{{}-}o\textmd{{}-}) sur la passe au barrage d'Arzal, civelles pêchées
+et transportées ($\star$) et estimation de la migration de civelles
+lors des man{\oe}uvres d'écluse entre 1996 et 2011 ($\Box$). En vert, somme du
+recrutement fluvial (anguilles jaunes non comprises).}
+\label{figure2recrutement_kg}
+\end{figure}
+
+\subsection{Tendances de la population d'anguilles}
+<<chargement,echo=FALSE,eval=TRUE,results=hide>>=
+anneeencours<-CY
+# main_pechelec.R 
+# Lancement principal du traitement des données de pêche électrique pour le rapport
+# Appelle traitement_structure_taille.R pour construire un tableau des structures de taille et d'âge a  partir des données de wama (poissons et opérations)
+# Rassemble sous R tous les tableaux et graphiques qui avant 2011 étaient faits a  partir d'une feuille excel.
+# et d'une clé taille age dont le fichier se trouve dans le répertoire pechelec
+# Utilise la librairies FSA pour réaliser le calcul des densités de Carle et Strubb
+# Author: cedric.briand, Brice Sauvaget; 
+###############################################################################
+#  install.packages('FSA',,'http://www.rforge.net/') 
+
+#setwd("C:/Users/cedric.briand/Documents/workspace/p/"
+# A RELANCER SI ON FAIT RETOURNER LE SCRIPT ET POUR DES NOUVELLES DONNEES
+#source("pechelec/traitement_structure_taille.R") # creation d'un tableau pec
+#save(pec,file="pechelec/pec.Rdata")
+load(file=str_c(datawdy,"pec.Rdata"))
+#nrow(pec)#370
+# quelles sont les stations "gardées"
+# calcul des densites de Carle et Strubb
+stationsrepetees<-as.character(pec$Id_PtPrelMetier)[strftime(pec$Op_Dtd,"%Y")==2007|strftime(pec$Op_Dtd,"%Y")>=2014]
+pec<-pec[as.character(pec$Id_PtPrelMetier)%in%stationsrepetees,]
+#nrow(pec)#314
+pec$annee <- strftime(pec$Op_Dtd,"%Y")
+pec$mois <- strftime(pec$Op_Dtd,"%m")
+#pec[pec$annee==2002,"Id_PtPrelMetier"][order(pec[pec$annee==2002,"Id_PtPrelMetier"])]
+#pec[pec$annee==2003,"Id_PtPrelMetier"][order(pec[pec$annee==2003,"Id_PtPrelMetier"])]
+######################################
+# CALCUL DES DENSITES DE CARLE ET STRUBB
+######################################
+#Confidence intervals are computed using standard large-sample normal distribution theory. 
+#Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.
+#If the estimated population size is between 50 and 200 then a 95% CI behaves more like a 90% CI.
+pec$NCS<-NA
+pec$LCI<-NA
+pec$UCI<-NA
+pec$p<-NA
+require(FSA)
+for (i in 1:nrow(pec)){
+  if (!is.na(pec$Eff2[i])){
+	if (is.na(pec$Eff3[i])){
+	  if (pec$Eff2[i]<pec$Eff1[i]){
+		p<-removal(c(pec$Eff1[i],pec$Eff2[i]),method="Zippin")
+		pec$Nzip[i]<-p$est["No"]
+		pec$pzip[i]<-p$est["p"]
+		pec$LCIzip[i]<-confint(p)[1,1]
+		pec$UCIzip[i]<-confint(p)[1,2]	
+	  } else {
+		pec$Nzip[i]<-NA
+	  }
+	} else{
+	  p<-removal(c(pec$Eff1[i],pec$Eff2[i],pec$Eff3[i]),method="Zippin")
+	  pec$Nzip[i]<-p$est["No"]
+	  pec$pzip[i]<-p$est["p"]
+	  pec$LCIzip[i]<-confint(p)[1,1]
+	  pec$UCIzip[i]<-confint(p)[1,2]
+	}		
+  }
+}
+for (i in 1:nrow(pec)){
+  if (!is.na(pec$Eff2[i])){
+	p<-removal(c(pec$Eff1[i],pec$Eff2[i]),method="CarleStrub")
+	pec$NCS[i]<-p$est["No"]
+	pec$p[i]<-p$est["p"]
+	pec$LCI[i]<-confint(p)[1,1]
+	pec$UCI[i]<-confint(p)[1,2]
+	
+  } else {pec$NCS[i]<-NA
+  }
+}
+pec$densCS<-pec$NCS/(pec$Op_Lng*pec$Op_Lam)
+pec$densZip<-pec$Nzip/(pec$Op_Lng*pec$Op_Lam)
+pec$eff=pec$Eff1/pec$NCS # effectif du premier passage divisé par le nombre total trouvé
+pec$Eff3calcul<-pec$Eff3
+pec$Eff3calcul[is.na(pec$Eff3calcul)]<-0# effectif du troisième passage
+pec$biomCS<-pec$poidstotal*(pec$NCS/(pec$Eff1+pec$Eff2+pec$Eff3calcul))/(pec$Op_Lng*pec$Op_Lam)
+
+pec[,c("age0","age1","age2","age3","age4")]<-pec[,c("age0","age1","age2","age3","age4")]*(pec$NCS/((pec$Eff1+pec$Eff2+pec$Eff3calcul)*pec$Op_Lng*pec$Op_Lam))
+library(ggplot2)
+library(lattice)
+
+##################################################################
+# MERGE AVEC LE FICHIER DES STATIONS QUI CONTIENT LES DISTANCES
+##################################################################
+# après la mise à jour de WAMA les codes ne sont pas les mêmes, rattachement en deux temps
+stations=read.table(str_c(datawd,"summary_station_short.csv"),sep=";",header=TRUE)
+dens0<-merge(pec,stations,by.x="Id_PtPrelMetier",by.y="Id_PtPrelMetier_avant_2014")
+dens1<-merge(pec,stations,by.x="Id_PtPrelMetier",by.y="Id_PtPrelMetier_apres_2014")
+colnames(dens0)
+colnames(dens1)
+dens<-rbind(dens0[,1:ncol(dens0)-1],dens1[,1:ncol(dens1)-1])
+#head(dens)
+dens$classdist<-cut(dens$distance_mer,breaks=c(0,50,100,300))
+levels(dens$classdist)<-c("<50rkm","50-100rkm",">100rkm")
+
+#save(dens,file=str_c(datawdy,"dens.Rdata"))
+#write.table(dens,file=str_c(datawdy,"dens.csv"),sep=";")
+#load(file=str_c(datawd,dens.Rdata"))
+dens<-chnames(dens,"code_iav","station")
+save(dens,file=str_c(datawdy,"dens.Rdata"))
+@
+<<tableau2_dens_eff_annee,echo=FALSE,eval=TRUE,results=hide>>=
+#####################################
+# Pour récupérer le tableau 1, t.test permet de récupérer les intervalles de confiance
+#####################################
+#str(t.test(pec$densCS))
+#t.test(pec$densCS)$conf.int[2]-t.test(pec$densCS)$estimate
+(tableau2<-data.frame(
+		  "Nb"=tapply(pec$densCS,pec$annee,function(X)length(X)),
+		  "Annee"=unique(pec$annee),
+		  "$D$"=round(tapply(pec$densCS,pec$annee,mean),2),
+		  #"Ecart type densite"=round(tapply(pec$densCS,pec$annee,function(X)sd(X)),2),
+		  "$IC~D$"=round(tapply(pec$densCS,pec$annee,function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2),
+		  "$\\Phi$"=round(tapply(pec$eff,pec$annee,mean,na.rm=TRUE),2),
+		  #"Ecart type efficacite"=round(tapply(pec$eff,pec$annee,function(X)sd(X)),2),
+		  "IC~$\\Phi$"=round(tapply(pec$eff,pec$annee,function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2),
+		  "$B_e$"=round(tapply(pec$biomCS,pec$annee,mean,na.rm=TRUE),2), 
+		  "$IC~B_e$"=round(tapply(pec$biomCS,pec$annee,function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2)
+	  ))
+colnames(tableau2)<-c("Nb","annee","$D$","$IC~D$","$\\Phi$","$IC~\\Phi$","$B_e$","$IC~B_e$")
+write.table(tableau2,str_c(datawdy,"tableau_densite.csv"),sep=";")
+xtableau2<-xtable(tableau2,
+	label="tableau2_dens_eff_annee",
+	caption=c(str_c("Densités ($D$) et biomasses moyennes $B_e$ en anguilles (méthode Carle et Strub) et efficacités de pêche $\\Phi$ calculées pour
+				les 19 stations prospectées entre 1998 et ",anneeencours,". Les intervalles de confiance (IC) sont
+				à 0.05."),"Densités et biomasses.") )
+print(xtableau2,file=str_c(tabwdy,"tableau2_dens_eff_annee.tex"),
+	table.placement="htbp",
+	caption.placement = "top",
+	NA.string = "",
+	include.rownames=FALSE,
+	sanitize.colnames.function = identity)
+
+#!!!! NOTE A CE STADE VERIFIER LE NOMBRE DE STATIONS.... ET LES DONNEES. 
+@
+<<analysestat, echo=FALSE, eval=FALSE, results=hide>>=
+#############################
+# Un modèle très simple pour voir les tendances
+#############################
+dens$station<-as.factor(dens$station)
+dens$mois2<-"oct_nov"
+dens$mois2[as.numeric(dens$mois)<10]<-"aout_sept"
+#densityplot(pec$densCS)
+#densityplot(log(pec$densCS))
+car::qqPlot(log(pec$densCS+0.01))
+
+shapiro.test(dens$densCS+0.01) #W = 0.74, p-value < 2.2e-16   #   Performs the Shapiro-Wilk test of normality.  p<0.1 données non normales
+
+shapiro.test(log(dens$densCS+0.01)) # W = 0.98, p-value = 0.01 NO LONGER OK !!!
+# il faut faire une log transformation pour avoir des données normalisées
+dens$annee <- as.factor(dens$annee)
+summary(glmdens<-glm(log(densCS+0.01)~station+annee+mois2,data=dens[dens$densCS>0,]))
+shapiro.test(resid(glmdens)) # 0.6 OK ouf !!!
+crPlot(model=glmdens,terms=~annee,main="Component residual plot for glm (log(densite) ~ station + annee",variable="annee")
+#crPlot(model=glmdens,terms=~mois,main="Component residual plot for glm (log(densite) ~ station + annee + mois",variable="mois")
+
+drop1(glmdens) # le principal effet est l'effet station
+Anova(glmdens,test="F") # les trois facteurs sont significatifs
+
+#DévianceExpliquée=1-DévianceRésiduelle/DévianceNulle
+#Le degré de concordance entre les observations et les valeurs ajustées par le modèle (Pearce & Ferrier 2000) est mesuré
+#Plus un modèle explique convenablement les variations de la réponse et plus la proportion de déviance expliquée est proche de 1.
+
+
+
+################################################################
+# Analyse des résidus
+################################################################
+dens$resid[dens$densCS>0]<-resid(glmdens)
+pdf(file=str_c(imgwdy,"residus.pdf"),height=5,width=7)
+plot(resid~station,data=dens,ylab="residus")
+dev.off()
+plot(resid~annee,data=dens,ylab="residus")
+# problème de résidus pas distribués normalement
+################################################################
+# gls
+################################################################
+library(nlme)
+
+m.lm<-gls(log(densCS)~station+annee+mois2,data=dens[dens$densCS>0,])
+summary(m.lm)
+varianceState<-varIdent(form=~1|station)
+m.gls1<-gls(log(densCS)~station+annee+mois2,weights=varianceState,data=dens[dens$densCS>0,])
+# l'AIC du modèle avec une variance par site est meilleure
+anova(m.gls1,m.lm)
+# le test du rapport de vraissemblance indique que le modèle avec une variance différente
+# par sites et meilleur ce qui conduit à rejetter l'hypothèse que les variances sont toutes égales.
+summary(m.gls1)
+E<-resid(m.gls1)
+coplot(E~annee|station,data=dens[dens$densCS>0,]) # il n'y a plus de problème
+m.gls2<-gls(log(densCS)~station+mois2,weights=varianceState,data=dens[dens$densCS>0,])
+anova(m.gls2,m.gls1) # pas mieux bien sûr
+AIC(m.gls2,m.gls1)
+m.gls3<-gls(log(densCS)~annee+riviere,weights=varianceState,data=dens[dens$densCS>0,])
+anova(m.gls3,m.gls1) # pas mieux bien sûr
+m.gls4<-gls(log(densCS)~station+annee,weights=varianceState,data=dens[dens$densCS>0,])
+AIC(m.gls4,m.gls1) # pas mieux
+plot(m.gls4)
+star<-stargazer(m.lm,m.gls1,m.gls2,m.gls4, title="Résultats de la régression,
+		comparaison des modèles, (1) modèle linéaire $\\log (D){\\approx}a+s+m+\\epsilon$ avec $\\epsilon_s=N(0,{\\sigma}^2) $
+		, (2) meilleur modèle (mixte) $\\log (D){\\approx}a+s+m+\\epsilon_s$ avec $\\epsilon_s=N(0,{\\sigma_{s}}^2) ~s=1,\\dots,19$,
+		(3) $\\log (D){\\approx}s+m+\\epsilon_s$,
+		(4) $\\log (D){\\approx}a+s+\\epsilon_s$",
+	single.row=TRUE,
+	label="annex_regression_result")
+cat(star,file=str_c(tabwdy,"star.tex"),sep="\n")
+############################################################
+# Comparaison multiple avec gls
+############################################################
+# j'ai trouvé sur internet
+
+model.matrix.gls <- function(object, ...) {
+  model.matrix(terms(object), data = getData(object), ...)} 
+model.frame.gls <- function(object, ...) {model.frame(formula(object), data = getData(object), ...) }
+terms.gls <- function(object, ...) {
+  terms(model.frame(object),...) }
+dens.glht<-glht(m.gls1,linfct=mcp(annee ="Tukey"))
+# Je prends le modèle le plus simple parce que glht est mal équipé pour gérer les effets des autres facteurs
+summary(dens.glht)
+dens.cld<-cld(dens.glht) # compact letter display seuil 0.05
+save(dens.cld,file=str_c(datawdy,"dens.cld.Rdata"))
+save(m.gls1, file=str_c(datawdy,"m.gls1.Rdata"))
+
+@
+<<figure7_anx_glht,echo=FALSE,eval=FALSE,results=hide>>=
+pdf(file=str_c(imgwdy,"clddensiteannuelle.pdf"),height=5,width=7)
+#DEPRECATED see figure denste annee (which is not the right model ) and figure7
+#load(file=str_c(datawdy,"dens.cld.Rdata")) # sauvé depuis l'étape précédente
+#old.par <- par( mai=c(1,1,2,1))
+#let<-dens.cld[[10]]$Letters
+#
+#Let<-unique(let)[order(unique(let))]
+#cols<-colorRampPalette(c("darkblue","slateblue","green","yellow"), space = "Lab")(length(Let))
+#dfcol<-cbind("letters"=Let,col=cols)
+#dfcol_full<-merge(data.frame("letters"=let,order=1:length(let)),dfcol)
+#dfcol_full<-killfactor(dfcol_full[order(dfcol_full$order),])
+#plot(dens.cld,
+#	col=dfcol_full$col)
+#
+#par(old.par)
+#dev.off()
+@
+<<figure_densite_annee, echo=FALSE, eval=FALSE, results=hide>>=
+########################################
+# Figure Tendance des densités en fonction des années test de comparaison des groupes
+# graphique identique à figure 7 mais en ggplot et dans un format non log
+########################################
+load(str_c(datawdy,"m.gls1.Rdata"))
+load(file=str_c(datawdy,"dens.cld.Rdata"))
+coef<-summary(m.gls1)$coefficient
+coef<-as.matrix(coef)[c(1,grep("annee",names(coef))),1]
+coef<-coef[1]+coef[2:length(coef)]
+coef=c(coef,"annee1998"=0)
+df_coef<-data.frame("annee"=gsub("annee","",names(coef)),"coefficient"=coef)
+dens$resid[dens$densCS>0]<-resid(m.gls1)
+densmod<-merge(dens,df_coef,by="annee") ;rm("df_coef","coef")
+# component + residual
+densmod$cr=exp(densmod$coefficient+densmod$resid)
+df_letter<-dens.cld$mcletters[["Letters"]]
+df_letter<-data.frame("annee"=names(df_letter),"group"=df_letter)
+densmod<-merge(densmod,df_letter,by="annee");rm(df_letter)
+colnames(tableau2)[c(3,4)]<-c("D","IC_D")
+pdf(file=str_c(imgwdy,"dens_annee.pdf"),height=5,width=9)
+g<-ggplot(densmod,aes(x=annee,y=densCS))
+g+geom_point(col="grey40",size=1.8)+
+	geom_boxplot(aes(fill=group),alpha=0.5)+
+    geom_point(aes(x=annee,y=D),data=tableau2,col="red",shape=3)+
+    geom_line(aes(x=annee,y=D,group=1),data=tableau2,col="red",shape=3)+
+	#colorspace::scale_fill_discrete_sequential(name="group",palette = "ag_Sunset", nmax = 12, order = 2:12)+
+	scale_y_continuous(name=expression(paste(densite~ang.m^-2)))
+#ggtitle("Tendance des densités en fonction des années")
+dev.off()
+@
+<<table_densite_annee_dist,echo=FALSE,eval=TRUE,results=hide>>=
+me<-round(tapply(dens$densCS,list(dens$classdist,dens$annee),mean,na.rm=TRUE),2)
+iconf<-round(tapply(dens$densCS,list(dens$classdist,dens$annee),function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2)
+tableau3<-t(me)
+for (i in 1:nrow(me)){
+  for (j in 1:ncol(me)){
+	tableau3[j,i]<-str_c(me[i,j],"(",iconf[i,j],")")
+  }
+}
+tableau3<-as.data.frame(tableau3)
+tableau3$annee<-dimnames(tableau3)[[1]]
+tableau3<-tableau3[,c(4,1,2,3)]
+xtableau3<-xtable(tableau3,
+	label="tableau3_dens_dist_annee",
+	caption=c(str_c("Densités moyennes en anguilles (en anguille.m$^{-2}$) en fonction de la distance + - intervalles de confiance à 0.05.")
+		,"Densité et distance.") )
+print(xtableau3,file=str_c(tabwdy,"tableau3_dens_dist_annee.tex"),
+	table.placement="htbp",
+	caption.placement = "top",
+	NA.string = "",
+	include.rownames=FALSE,
+	sanitize.colnames.function = identity)
+@
+<<figure_densite_annee_dist,echo=FALSE,eval=FALSE,results=hide>>=
+########################################
+#  Figure Tendance des densités en fonction des années et de la distance mer
+########################################
+mean_densities<-melt(t(me),varnames=c("annee","classdist"),value.name="densCS")
+mean_densities$annee <- as.factor(mean_densities$annee)
+pdf(file=str_c(imgwdy,"dens_annee_dist.pdf"),height=5,width=7)
+require(viridis)
+g<-ggplot(dens,aes(x=annee,y=densCS))
+g+geom_boxplot(aes(fill=annee))+
+    geom_point(aes(x=annee,y=densCS),data=mean_densities,col="red",shape=3)+
+	facet_grid(~ classdist)+
+	scale_fill_viridis(name="group",discrete=TRUE,alpha=0.7)+
+	scale_y_continuous(expression(paste(densite~ang.m^-2)),limits=c(0,3))+                
+	geom_hline(yintercept=0.3,col="red")+
+	#annotate("text",x=1,y=0.25,label="cible de gestion",col="red")+
+	#ggtitle("Densités en fonction des années et de la distance mer")+
+	theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+dev.off()
+@
+
+<<figurebiom_annee, echo=FALSE, eval=FALSE, results=hide>>=
+########################################
+#  Figure  Tendance des biomasses en fonction des années
+########################################
+# ColorBrewer est trop court, je ralonge la palette et je la passe en manuel ci-dessous
+cols<-rep(RColorBrewer::brewer.pal(12,"Set3"),4)[1:length(unique(dens$annee))]
+pdf(file=str_c(imgwdy,"biom_annee.pdf"),height=5,width=9)
+g<-ggplot(dens,aes(x=annee,y=biomCS))
+g+geom_boxplot(aes(fill=annee))+		
+	scale_fill_manual(name="Année",values=cols)+
+	scale_y_continuous(expression(paste(biomasse~g.m-2)))#+
+#annotate("text",x=1,y=0.25,label="cible de gestion",col="red")+
+#ggtitle("Tendance des biomasses en fonction des années")
+dev.off()
+@
+<<figure_biom_annee_dist,echo=FALSE,eval=TRUE,results=hide>>=
+########################################
+#  Figure  Tendance des biomasses en fonction des années et de la distance mer
+########################################
+cols<-rep(RColorBrewer::brewer.pal(12,"Set3"),4)[1:length(unique(dens$annee))]
+pdf(file=str_c(imgwdy,"biom_annee_dist.pdf"),height=5,width=9)
+g<-ggplot(dens,aes(x=annee,y=biomCS))
+g+geom_boxplot(aes(fill=annee))+
+	facet_grid(~ classdist)+
+	scale_fill_manual(name="Année",values=cols)+
+	scale_y_continuous(expression(paste(biomasse~g.m-2)))+
+	#annotate("text",x=1,y=0.25,label="cible de gestion",col="red")+
+	#ggtitle("Tendance des biomasses en fonction des années")+
+	theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+dev.off()
+@
+<<table_biom_annee_dist,echo=FALSE,eval=TRUE,results=hide>>=
+# biomasseCS et IC Ã  0.05
+me<-round(tapply(dens$biomCS,list(dens$classdist,dens$annee),mean,na.rm=TRUE),2)
+iconf<-round(tapply(dens$biomCS,list(dens$classdist,dens$annee),function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2)
+tableau4<-t(me)
+for (i in 1:nrow(me)){
+  for (j in 1:ncol(me)){
+	tableau4[j,i]<-str_c(me[i,j],"(",iconf[i,j],")")
+  }
+}
+tableau4<-as.data.frame(tableau4)
+tableau4$annee<-dimnames(tableau4)[[1]]
+tableau4<-tableau4[,c(4,1,2,3)]
+xtableau4<-xtable(tableau4,
+	label="table_biom_dist_annee",
+	caption=c(str_c("Biomasses moyennes en anguilles (en g.m$^{-2}$) en fonction de la distance + - intervalles de confiance à 0.05.")
+		,"Biomasse et distance.") )
+print(xtableau4,file=str_c(tabwdy,"table_biom_dist_annee.tex"),
+	table.placement="htbp",
+	caption.placement = "top",
+	NA.string = "",
+	include.rownames=FALSE,
+	sanitize.colnames.function = identity)
+@
+<<figure_densite_age_annee,echo=FALSE,eval=FALSE,results=hide>>=
+########################################
+#  Figure Tendance des densités en fonction de l'âge
+########################################
+data_age<-melt(dens[,c("Op_code","annee","classdist","age0","age1","age2","age3","age4")],id.vars=c("Op_code","annee","classdist"),variable_name = "age")
+colnames(data_age)<-c("Op_code","annee","classdist","age","densiteCS")
+data_age$age<-as.factor(data_age$age)
+levels(data_age$age)<-c("0","1","2","3","4+")
+pdf(file=str_c(imgwdy,"dens_age_annee.pdf"),height=5,width=7)
+g<-ggplot(data_age,aes(x=age,y=densiteCS))
+g+geom_boxplot(aes(fill=annee))+		
+	scale_fill_viridis(discrete =TRUE,alpha=0.8)+
+	scale_y_continuous(expression(paste(densite~ang.m^-2)))#+
+#annotate("text",x=1,y=0.25,label="cible de gestion",col="red")+
+#ggtitle("Tendance des densités en fonction de l'âge")
+dev.off()
+@
+<<table_densite_age_annee,echo=FALSE,eval=TRUE,results=hide>>=
+data_age<-melt(dens[,c("Op_code","annee","classdist","age0","age1","age2","age3","age4")],id.vars=c("Op_code","annee","classdist"),variable_name = "age")
+colnames(data_age)<-c("Op_code","annee","classdist","age","densiteCS")
+data_age$age<-as.factor(data_age$age)
+levels(data_age$age)<-c("0","1","2","3","4+")
+# densitéCS et IC Ã  0.05
+me<-round(tapply(data_age$densiteCS,list(data_age$age,data_age$annee),mean,na.rm=TRUE),2)
+iconf<-round(tapply(data_age$densiteCS,list(data_age$age,data_age$annee),function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2)
+tableau5<-t(me)
+for (i in 1:nrow(me)){
+  for (j in 1:ncol(me)){
+	tableau5[j,i]<-str_c(me[i,j],"(",iconf[i,j],")")
+  }
+}
+tableau5<-as.data.frame(tableau5)
+tableau5$annee<-dimnames(tableau5)[[1]]
+tableau5<-tableau5[,c(6,1,2,3,4,5)]
+xtableau5<-xtable(tableau5,
+	label="table_densite_age_annee",
+	caption=c(str_c("Densité moyennes en anguilles (en anguille.m$^{-2}$) en fonction de la distance à la mer et de l'âge + - intervalles de confiance à 0.05.")
+		,"Densité âge et distance.") )
+print(xtableau5,file=str_c(tabwdy,"table_densite_age_annee.tex"),
+	table.placement="htbp",
+	caption.placement = "top",
+	NA.string = "",
+	include.rownames=FALSE,
+	sanitize.colnames.function = identity)
+@
+<<figure_age_annee_dist,echo=FALSE,eval=FALSE,results=hide>>=
+########################################
+# Figure  Tendance des densités en fonction de l'âge et de la distance mer
+########################################
+pdf(file=str_c(imgwdy,"dens_age_annee_dist.pdf"),height=5,width=7)
+g<-ggplot(data_age,aes(x=age,y=densiteCS))
+g<-g+
+	geom_hline(yintercept=0.3,col="red")+
+	geom_boxplot(aes(fill=annee))+	
+	facet_grid(classdist~. )+
+	scale_fill_viridis(discrete =TRUE,alpha=0.8)+
+	scale_y_continuous(expression(paste(densite~ang.m^-2)),limits=c(0,1.5))#+
+#ggtitle("Tendance des densités en fonction de l'âge et de la distance à la mer")
+
+print(g)
+dev.off()
+@
+<<figure_anx_densite_annee_riviere,echo=FALSE,eval=FALSE,results=hide>>=
+########################################
+# Figure (annexe ?) Tendance des densités en fonction des rivières
+########################################
+cols<-rep(RColorBrewer::brewer.pal(12,"Set3"),4)[1:length(unique(dens$annee))]
+pdf(file=str_c(imgwdy,"dens_annee_riviere.pdf"),height=6,width=8)
+g<-ggplot(dens,aes(x=annee,y=densCS))
+g+geom_boxplot(aes(fill=annee))+	
+	facet_wrap(~ riviere,scales="free_y")+
+	scale_fill_manual(name="Année",values=cols)+
+	scale_y_continuous(expression(paste(densite~ang.m-2)))+
+	#ggtitle("Tendance des densités sur les différents affluents")+
+	theme(axis.text.x=element_text(angle=90, hjust=0.5 )) 
+dev.off()
+@
+Pour l'analyse des résultats obtenus par pêche
+électrique depuis 1998, seules les stations prospectées à chaque
+campagne ont été conservées, soit 19 au total (9 pour le Morbihan
+et 10 pour l'Ille-et-Vilaine).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\small
+\input{../../pdata/pechelec/table/2020/tableau2_dens_eff_annee.tex}
+\normalsize
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+L'efficacité de pêche varie entre \Sexpr{min(tableau2[,5])} et
+\Sexpr{max(tableau2[,5])} (Tableau \ref{tableau2_dens_eff_annee}). 
+
+La densité moyenne par station est
+passée de \Sexpr{tableau2["1998",3]} (+-\Sexpr{tableau2["1998",4]}) anguille.m$^{-2}$ en 1998 
+à \Sexpr{tableau2["2000",3]} (+-\Sexpr{tableau2["2000",4]}) anguille.m$^{-2}$ en 2000 
+avant de chuter rapidement à \Sexpr{tableau2["2003",3]} (+-\Sexpr{tableau2["2003",4]}) anguille.m$^{-2}$ en 2003. 
+Après un minimum de \Sexpr{tableau2["2011",3]}
+(+-\Sexpr{tableau2["2011",4]}) anguille.m$^{-2}$ en 2011, elle augmente
+jusqu'en 2014 à \Sexpr{tableau2["2014",3]}
+(+-\Sexpr{tableau2["2014",4]}) anguille.m$^{-2}$
+(Tableau \ref{tableau2_dens_eff_annee} et Figure \ref{dens_annee}).
+Entre 2015 et 2020 elle varie entre \Sexpr{tableau2["2017",3]} en
+2017 et \Sexpr{tableau2["2018",3]} en 2018.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+ \includegraphics[width=0.5\textwidth]{2020/dens_annee.pdf} 
+\caption[Tendance des densités modèle]{Classement des densités en fonction des
+années, test Post hoc de Tukey sur le modèle $log(dens) \sim a +s +
+\epsilon(ss)$, avec $\epsilon(s) \sim N(0,\sigma_s^2)$ a=année, s=stations,
+groupes classés au seuil de 0.05. Les moyennes du tableau
+\ref{tableau2_dens_eff_annee} sont représentées par des croix rouges.
+\footnote{Attention dans la lecture du
+graphique, les pêches électriques ont eu lieu tous les ans de 1998
+à 2003, puis tous les 2 ans ensuite. L'axe des
+abscisses des figures ne tient pas compte de ce changement
+d'échelle.}}
+\label{dens_annee}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+L'examen des résidus du modèle glm (1) $\log
+(D){\approx}a+s+m+\epsilon_s$ (modélisation des densités en fonction du mois, de
+l'année et du site) montre qu'il existe une variabilité résiduelle différente en fonction des sites (Figure \ref{residus} en annexe).  Un
+modèle mixte (2) incluant une variation de la dispersion des résidus en fonction
+des sites $\epsilon_s=N(0,{\sigma_{s}}^2) ~s=1,\dots,19$
+\citep{zuur_mixed_2009} est construit pour tenter d'homogénéiser les résidus. Le
+test du rapport de vraissemblance entre les modèles mixte et le glm est
+hautement significatif. Ceci indique que le modèle avec une variance différente entre
+sites est meilleur et nous conduit à rejeter l'hypothèse que les variances sont
+toutes égales.
+La comparaison des différents modèles mixtes ((2) (3) et (4), Tableau
+\ref{annex_regression_result}) montre
+que le modèle incluant un effet site, un effet année et un effet mois est le
+meilleur modèle car l'AIC est le plus faible (Tableau
+\ref{annex_regression_result} en annexe, modèle (2)). Un modèle regroupant
+uniquement les données par classes de distance \footnote{Ce modèle n'est pas présenté ici} est moins performant
+qu'un modèle incluant un effet station.
+
+Les densités ont diminué de manière
+significative entre 2000 et 2003, et les années 2007 à 2013
+sont significativement plus faibles que les densités de 1998 à 2003 (Tukey
+Post hoc test, groupes séparés au seuil de 0.05) (Figures \ref{dens_annee},
+Tableau \ref{tableau2_dens_eff_annee}).
+En 2013, la densité moyenne de l'ensemble des stations est repassée au dessus de
+la cible de gestion pour la zone à moins de 50 km de l'estuaire avec
+\Sexpr{tableau3["2013",2]} anguille.m$^{-2}$. La
+densité s'approche également du seuil pour la zone intérmédiaire (50-100 rkm
+\Sexpr{tableau3["2013",3]} anguille.m$^{-2}$) (Tableau
+\ref{tableau3_dens_dist_annee}).
+
+L'évolution de la biomasse moyenne montre une diminution moins marquée que celle des densités
+avec des valeurs assez stables entre 1998 et 2001 avec 
+\Sexpr{tableau2["1998",7]} (+-\Sexpr{tableau2["1998",8]}) et
+\Sexpr{tableau2["2001",7]} (+-\Sexpr{tableau2["2001",8]}) g.m$^{-2}$) puis en chute de 2005 jusqu'en 2017
+à \Sexpr{tableau2["2017",7]}  (+-\Sexpr{tableau2["2017",8]}) g.m$^{-2}$ (Tableau \ref{tableau2_dens_eff_annee}
+et Figure \ref{biom_annee}) avant une réaugmentation de 2018 à 2020 à
+\Sexpr{tableau2["2020",7]}  (+-\Sexpr{tableau2["2020",8]}).
+
+
+\begin{figure}[htbp]
+\centering
+ \includegraphics[width=0.5\textwidth]{2020/biom_annee.pdf} 
+\caption[Biomasses d'anguilles.]{Evolution des biomasses d'anguilles en fonction
+de l'année.}
+\label{biom_annee}
+\end{figure}
+
+Le déclin en densité intervient pour toutes les catégories de distance à la mer 
+mais semble intervenir plus précocément
+lorsqu'on se rapproche de l'estuaire (Figure \ref{dens_annee_distance},
+Tableau \ref{tableau3_dens_dist_annee}).
+Comme pour les densités, la chute des biomasses est
+d'autant moins marquée que l'on s'éloigne du barrage d'Arzal (Figure
+\ref{biom_annee_dist}, Tableau \ref{table_biom_dist_annee}).
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.5\textwidth]{2020/dens_annee_dist.pdf}
+    \caption[Densité moyennes $\sim$ distance.]{Distribution des densités
+    d'anguilles par classe de distance pour les pêches
+    électriques de 1998 à \Sexpr{CY}. Les box plot représentent le premier
+    et le troisième quartile, et l'axe central la médiane des densités
+    d'anguilles obtenues pour les pêches de chaque année. Les barres d'erreur correspondent aux données comprises dans 1.5 fois l'écart
+    interquartile. Les points au-delà représentent des "outliers" et sont
+    représentés individuellement. L'axe rouge représente le seuil fixé
+    actuellement dans le plan de gestion (0.3 anguille.m$^{-2}$).
+     Les croix rouges correspondent aux densités
+    moyennes. \textit{Attention les pêches électriques ont eu lieu tous les ans
+    de 1998 à 2003, tous les 2 ans de 2003 à 2013 avant de reprendre à une fréquence annuelle.}}
+  \label{dens_annee_distance}
+\end{figure} 
+
+\small
+\input{../../pdata/pechelec/table/2020/tableau3_dens_dist_annee.tex}
+\normalsize
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{2020/biom_annee_dist.pdf}
+  \caption[_court]{Biomasses moyennes d'anguilles par classe de distance pour les pêches
+  électriques de 1998 à \Sexpr{CY}. Les barres d'erreur
+  correspondent aux données comprises dans 1.5 fois
+  l'écart interquartile.
+  \textit{Attention les pêches
+  électriques ont eu lieu tous les ans de 1998 à 2003, tous les
+  2 ans de 2003 à 2013 avant de reprendre à une fréquence annuelle.}}
+  \label{biom_annee_dist}
+\end{figure}
+
+\small
+\input{../../pdata/pechelec/table/2020/table_biom_dist_annee.tex}
+\normalsize
+
+Les densités d'anguilles d'âge 0 et 1 semblent remonter vers des
+niveaux proches des niveaux observés au début du suivi entre 1998 et 2001. 
+ (Figures \ref{dens_age_annee},
+\ref{dens_age_annee_dist} en annexe, Tableau \ref{table_densite_age_annee}).
+Pour les âges 2 à 4+, il y a globalement une baisse.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/dens_age_annee.pdf}
+\caption[Densité par âge.]{Tendance des densités en fonction de
+l'âge des anguilles (reconstituée à l'aide d'une clé taille âge) pour
+les pêches électriques de 1998 à \Sexpr{CY}. \textit{Attention les pêches
+  électriques ont eu lieu tous les ans de 1998 à 2003, tous les
+  2 ans de 2003 à 2013 avant de reprendre à une fréquence annuelle}.}
+\label{dens_age_annee}
+\end{figure}
+
+La clé taille-âge utilisée doit être considérée avec précaution car il n'y a pas eu de
+vérification des données de croissance.
+\subsection{Marquages recaptures}
+<<marquage,echo=FALSE,eval=TRUE,results=hide>>=
+# pour des raisons inconnues j'ai dû copier dans libreoffice et réenregistrer sinon il faisait sauter la moitié des lignes
+# pb encodage ?
+
+#summary_station<-as.data.frame(select(dens,CdStationTemp, CdStationMesureEauxSurface,station,LbStationMesureEauxSurface,Pm_Lieu,distance_mer,classdist)%>%group_by(station)%>%
+#    summarize(CdStationTemp=last(CdStationTemp),LbStationMesureEauxSurface=first(LbStationMesureEauxSurface),Pm_Lieu=first(Pm_Lieu),distance_mer=first(distance_mer),classdist=first(classdist),CdStationMesureEauxSurface=last(CdStationMesureEauxSurface)))%>%
+#arrange(CdStationTemp)
+# ne pas relancer on a collé les codes histo, et modifié correspondance Bouloterie Guilloterie
+#write.table(summary_station,file=str_c(datawd,"summary_station.csv"),sep=";",row.names=FALSE)
+summary_station<-read.table(file=str_c(datawd,"summary_station.csv"),sep=";",header=T,stringsAsFactors = FALSE)
+summary_station<-chnames(summary_station,"code_histo","station")
+marq<-killfactor(read.table(file=str_c(datawdy,"marq.csv"),stringsAsFactors =FALSE,header=TRUE,sep=";"))
+marq<-marq[!is.na(marq$date),]
+marq<-marq[,-grep("X",colnames(marq))]
+marq$date<-dmy(marq$date)
+marq$annee<-year(marq$date)
+marq$recapt<-FALSE
+marq<-marq[order(marq$date),]
+
+marq <- marq[!is.na(marq$annee),]
+nrow(marq) # 686
+marq$station[!is.element(marq$station,summary_station$station)]
+marq <- merge(marq,summary_station,by="station")
+# 674
+marqr<-marq$marque[duplicated(marq$marque)]
+marq$action<-"pose"
+marq[duplicated(marq$marque),"action"]<-"lecture"
+sum(marq$marque%in%marqr) #92 (2015) 126 (2016) 206(2017) 244(2018) 282(2020)
+marq2<-marq[marq$marque%in%marqr,]
+marq2<-marq2[order(marq2$marque,marq2$date),]
+
+ta1<-table(marq$annee,marq$action)
+ta2<-table(marq2$annee,marq2$action)
+xta1<-xtable(ta1,
+	label="tablemr",
+	caption = c(
+		str_c("Marquage et recaptures."),
+		str_c("Marquage et recaptures. Les marques sont soit posées, soit lues lorsque l'anguille est déjà marquée.")))
+digits(xta1)<-c(0,0,0)
+align(xta1) <- c("l","r","r")
+print(xta1,
+	file=str_c(tabwdy,"tableaumr1.tex"),
+	table.placement="htbp",
+	caption.placement = "top",
+	NA.string = "",
+	hline.after=c(-1,0,nrow(xta1)))
+counts<-marq2%>%group_by(marque) %>%	summarize(nrecapt=n()) %>% mutate(nrecapt=nrecapt-1)	
+marq3<-plyr::join(marq2,counts)
+pdf(file=str_c(imgwdy,"croissance.pdf"),height=6,width=6)
+ggplot(marq3)+geom_point(aes(y=taille,x=date,col=marque))+geom_path(aes(y=taille,x=date,col=marque))+
+    theme_bw()+theme(legend.position = "none")+	ylab("taille (mm)")+facet_grid(~nrecapt)
+dev.off()
+#table(marq$stade)
+# table(marq$stade,marq$recapt) pas de recapture d'argentée
+
+croissance<-plyr::join(
+        dplyr::select(marq2,date,annee,taille,poids,marque,code_iav,classdist,distance_mer)%>%group_by(marque)%>%
+            slice(which.min(annee))%>%
+            summarize(
+                station=unique(code_iav),
+                distance_mer=unique(distance_mer),
+                classdist=unique(classdist),
+                taille0=min(taille),
+                poids0=min(poids),
+                date0=min(date)), 
+        (dplyr::select(marq2,date,annee,taille,poids,marque,code_iav,classdist,distance_mer)%>%group_by(marque)%>%
+              slice(which.max(annee))%>%
+              summarize(
+                  taille1=min(taille),
+                  poids1=min(poids),
+                  date1=min(date))))%>%
+	mutate(
+        duree_an=as.numeric(difftime(date1,date0,units="days")/365),
+        croissance_taille=taille1-taille0,
+        croissance_poids=poids1-poids0)%>%
+    mutate(croissance_annuelle_mm=croissance_taille/duree_an,
+        croissance_annuelle_g=croissance_poids/duree_an,
+        annees=as.factor(round(duree_an)))%>%
+	arrange(desc(annees))
+
+croissance$annees <-  factor(croissance$annees,levels(croissance$annees)[order(as.numeric(levels(croissance$annees)))])
+# croissance[croissance$croissance_annuelle_mm<0,]
+croissance$croissance_annuelle_mm[croissance$croissance_annuelle_mm<0]<-0
+croissance$croissance_taille[croissance$croissance_taille<0] <- 0
+pdf(file=str_c(imgwdy,"croissance2.pdf"),height=6,width=6)
+ggplot(croissance)+geom_point(aes(x=taille0,y=croissance_annuelle_mm),col="black",size=3.5)+
+	geom_point(aes(x=taille0,y=croissance_annuelle_mm,col=classdist),size=2.5)+
+	ylab("croissance en mm")+xlab("taille au moment du marquage (mm)")+
+	viridis::scale_color_viridis("station",discrete=TRUE)+
+    facet_wrap(~annees,labeller=label_both)+
+	#scale_shape_manual("Nb années",values=c(16,17,18,19,20,21,22))+
+	theme_bw()
+dev.off()
+
+
+
+
+#tapply(croissance$croissance_annuelle_mm,croissance$annees,mean)
+pdf(file=str_c(imgwdy,"croissance3.pdf"),height=6,width=6)
+ggplot(croissance)+geom_boxplot(aes(x=annees,y=croissance_annuelle_mm,fill=annees, group=annees))+
+	ylab("croissance en mm")+xlab("duree du marquage")+
+	viridis::scale_fill_viridis("Année",option="plasma",discrete=TRUE)+	
+	theme_bw()
+dev.off()
+t_test_croissance<-t.test(x=croissance$croissance_annuelle_mm[croissance$annees==2],
+	y=croissance$croissance_annuelle_mm[croissance$annees==4])
+densityplot(croissance$croissance_annuelle_mm)
+croissance$annees<-as.numeric(as.character(croissance$annees))
+g0<-glm(croissance_annuelle_mm~classdist+taille0+annees, data=croissance)
+g1<-glm(croissance_annuelle_mm~station+taille0+annees, data=croissance)
+g2<-glm(croissance_annuelle_mm~distance_mer+taille0+annees, data=croissance)
+# en passant par un gam pas mieux l'effet de diminution de la croissance lors des deux premières années n'est pas significatif.
+gbest <- glm(croissance_annuelle_mm~station, data=croissance)
+anova(g0,g1,g2, test="Chisq")
+Anova(g0,type="III",test="F")
+Anova(g1,type="III",test="F")
+Anova(g2,type="III",test="F")
+Anova(gbest,type="III",test="F")
+options("xtable.include.rownames"=TRUE)
+print(xtable(Anova(gbest,type="III",test="F"),
+        caption="Test statistique (Anova) des variables du modèle croissance annuelle $\\sim$ station,
+            où $station$ correspond la station de pêche. Deux autres facteurs, année et taille au moment du marquage,
+			ont été testés, ils ne sont pas significatifs.",
+        label="table_anova_marquage"),
+    file=str_c(tabwdy,"anova_croissance.tex"),sep="\n")
+Anova(g2,type="III")
+summary(g1)
+crPlots(g1)
+crPlots(g2)
+
+
+pdf(file=str_c(imgwdy,"croissance4.pdf"),height=6,width=6)
+par(mar=c(7.1, 4.1, 4.1, 2.1))
+crPlots(g1,las=2)
+dev.off()
+anova(g1, test="Chisq")
+
+#round(t_test_croissance$p.value,2)
+mean(croissance$croissance_annuelle_mm)
+sd(croissance$croissance_annuelle_mm)
+
+crois_p_pos<-mean(croissance$croissance_annuelle_mm[croissance$croissance_annuelle_g>0])
+TempSUP13<-79# (948/12)
+Ratiodistsea<-0.75
+# modèle femelle Daverat pour trois tailles d'anguilles
+(G = c(exp(4.2299082
+				  + 0.0075774*TempSUP13
+				  - 0.2506349*Ratiodistsea
+				  - 0.3139456), # 5
+		  exp(4.2299082
+				  + 0.0075774*TempSUP13
+				  - 0.2506349*Ratiodistsea
+				  - 0.5395996), #10
+		  exp(4.2299082
+				  + 0.0075774*TempSUP13
+				  - 0.2506349*Ratiodistsea
+				  - 0.9999416))) # 20
+#mounaix fluvial
+Linf=843
+k=0.03
+t0=-9.8
+t<-c(1:20)
+L=Linf*(1-exp(-k*(t-t0)))
+L[2:20]-L[1:19]
+#mounaix estuaire
+Linf=1346
+k=0.08
+t0=-0.26
+t<-c(1:20)
+L=Linf*(1-exp(-k*(t-t0)))
+L[2:20]-L[1:19]
+
+txrecapt<-round(100*sum(ta1[2:nrow(ta1),1])/sum(ta1[1:(nrow(ta1)-1),2]))
+croissance<-as.data.frame(croissance)
+@
+Les recaptures et marquages effectués de 2009 à 2020 sont indiqués au Tableau
+\ref{tablemr}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../../pdata/pechelec/table/2020/tableaumr1.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Les croissances des anguilles marquées sont
+assez faibles avec en moyenne \Sexpr{sn(mean(croissance[,"croissance_annuelle_mm"]),1)} mm par an. Certaines anguilles
+n'ont pas grandi du tout alors que
+d'autres ont gagné 60 mm (Figures \ref{croissance} et \ref{croissance2}). En
+excluant les anguilles ayant perdu du poids entre deux opérations de marquage
+(\Sexpr{sum(croissance[,"croissance_annuelle_g"]<0)} anguilles sur
+\Sexpr{nrow(croissance)}), les croissances annuelles s'établissent à
+\Sexpr{sn(crois_p_pos,1)} mm.
+
+Le taux de recapture des anguilles est de
+\Sexpr{txrecapt} \%.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/croissance.pdf}
+\caption[Taille anguilles marquées]{Evolution de la taille des anguilles
+marquées, en fonction du nombre de recaptures.}
+\label{croissance}
+\end{figure}
+Il est possible qu'un effet "marquage" apparaisse chez certaines anguilles avec
+des croissances plus faibles pour certains individus lors des deux premières
+années voire des pertes de poids (Figure \ref{croissance3}). Cet effet peut
+être testé par l'inclusion d'une tendance non linéaire (gam) pour l'année, il
+n'est pas significatif.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/croissance2.pdf}
+\caption[Croissance annuelles des anguilles marquées]{Croissance annuelle des
+anguilles marquées en fonction du nombre d'année entre le marquage et la
+recapture.}
+\label{croissance2}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/croissance3.pdf}
+\caption[Croissance annuelles des anguilles marquées]{Croissance annuelle des
+anguilles marquées en fonction de la durée du marquage.}
+\label{croissance3}
+\end{figure}
+
+
+La croissance est très variable mais il est difficile de trouver un facteur
+expliquant clairement la variation observée. Il y a un effet station significatif avec des croissances plus fortes
+pour certaines stations (Figure \ref{croissance4}), mais la distance n'est pas significative
+quand on la teste seule. Par contre, ni le délai en années après le
+marquage, ni la taille de départ au marquage, ni la zone (en grande
+classe de distance) ne sont significatives dans l'analyse de variance du
+modèle (Tableau \ref{table_anova_marquage}). 
+
+\input{../../pdata/pechelec/table/2020/anova_croissance.tex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{2020/croissance4.pdf}
+\caption[Graphique de composant et résidus du modèle glm croissance ~ annee +
+station + taille initiale.]{Graphique de composant et résidus (CR plot) du
+modèle glm croissance ~ annee + station + taille0, ou annees représente le
+nombre d'années entre le marquage et la recapture, taille0 la taille au moment
+du marquage, et station la station de pêche. Ce graphique indique quelle est la
+moyenne des tendances (ligne rose) et l'effet ajusté (ligne bleue
+pointillée).
+Il permet de détecter des effets non linéaires (ici il n'y en a pas, l'écart de
+la ligne rose pour les grandes tailles
+(effet taille0) traduit surtout le manque de points). Il montre aussi les
+résidus par station de pêche, on constate que le modèle cale des moyennes différentes entre
+stations, mais aussi que la variabilité des croissance est différente entre les
+stations.}
+\label{croissance4}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+%\subsection{Effet du transport}
+<<brouillon,echo=FALSE,eval=FALSE,results=hide>>=
+# pour une rivière donnée
+denstrev<- dens[dens$riviere=="TREVELO",]
+x11()
+g<-ggplot(denstrev,aes(x=annee,y=densCS))
+g+geom_point(col="grey40",size=1.8)+
+	geom_boxplot(aes(fill=annee),alpha=0.5)+
+	scale_fill_brewer(name="group",palette="Set3")+
+	scale_y_continuous(expression(paste("densité ang."," m-^²")))+
+	opts(title="Tendance des densités sur le Trévelo entre 1998 et 2011")+
+	opts(axis.text.x=theme_text(angle=90, hjust=0.5 ))
+
+# densitéCS
+round(tapply(dens$densCS,list(dens$riviere,dens$annee),mean),2)
+
+# Sauvegarde du data.frame dens
+save(dens, file=str_c(datawdy,"dens2013.Rdata"))
+
+write.table(pec,str_c(datawdy,"pec.csv",sep=";"))
+write.table(dens,str_c(datawdy,"dens.csv",sep=";"))
+@
+<<survies,echo=FALSE,eval=FALSE,results=hide>>=
+# *******************************************
+# Figure 7 SURVIE DES CIVELLES A PARTIR DES SUIVIS ARZAL
+# anal_gestion.R Ã  lancer pour le graphique de la relation recrutement-stock
+# préparation d'un tableau de synthèse ci dessous
+#******************************************
+# 
+# il est possible de relancer le script seulement Ã  partir de lÃ  en décommentant les lignes ci-dessous.
+
+#pec<-read.table("pechelec/pec.csv",sep=";")
+#dens<-read.table("pechelec/dens.csv",sep=";")
+load(file="X:/Migrateur/Pechelec/2011/dens2011.Rdata")
+ges<-read.table("export_gestion.csv",sep=";",header=TRUE)
+# graphique qui ne presente aucun doute
+colnames(ges)
+#[1] "season" "year"      "rec"       "cpec"      "pass"      "sed"       "ech"      
+#[7] "tard"      "sr"        "eff"       "tx"        "trans"     "Netestu"  
+#[13] "passem"    "pecxp"     "eclm"      "recfluciv" "aj"        "ajcoh"  
+plot(ges$aj*10,type="b",col="blue")
+
+# Calcul de survies probables pour différents scénarios de mortalité au stade civelle
+mortpas=0
+mortxp=mortpas
+
+# In the following we assume the same mortality rate of glass eel from the trapping ladder and of those coming form the sluice
+ges$recr_flu_aj_m1=(ges$passem*(1-mortpas)+ges$pecxp*(1-mortxp)+ges$eclm*(1-mortpas))*1e6+ges$aj*1000
+
+mortxp=(1+mortpas)/2
+
+# In the following we assume the same mortality rate of glass eel from the trapping ladder and of those coming form the sluice
+ges$recr_flu_aj_m2=(ges$passem*(1-mortpas)+ges$pecxp*(1-mortxp)+ges$eclm*(1-mortpas))*1e6+ges$aj*1000
+
+mortxp=1
+
+# In the following we assume the same mortality rate of glass eel from the trapping ladder and of those coming form the sluice
+ges$recr_flu_aj_m3=(ges$passem*(1-mortpas)+ges$pecxp*(1-mortxp)+ges$eclm*(1-mortpas))*1e6+ges$aj*1000
+
+mortxp=1
+mortpas=1
+ges$recr_flu_aj_m4=(ges$passem*(1-mortpas)+ges$pecxp*(1-mortxp)+ges$eclm*(1-mortpas))*1e6+ges$aj*1000
+library(ggplot2)
+sumplussd=function(df,var) mean(df$"densCS",na.rm=TRUE)+sd(df$"densCS",na.rm=TRUE) 
+summinussd=function(df) mean(df$"densCS",na.rm=TRUE)-sd(df$"densCS",na.rm=TRUE)
+meanspl=function(df) mean(df$"densCS",na.rm=TRUE)
+meanspl1=function(df) mean(df[,c("1")],na.rm=TRUE)
+sumplussd1=function(df,var) mean(df$"1",na.rm=TRUE)+sd(df$"1",na.rm=TRUE) 
+summinussd1=function(df) mean(df$"1",na.rm=TRUE)-sd(df$"1",na.rm=TRUE)
+spl=ddply(dens,.variables=c("annee","classdist"),.fun=sumplussd)
+smi=ddply(dens,.variables=c("annee","classdist"),.fun=summinussd)
+colnames(spl)[3]<-"sumplussd"
+spl$summinussd=smi[,3]
+spl$denscs=ddply(dens,.variables=c("annee","classdist"),.fun=meanspl)[,3]
+spl$denscs1=ddply(dens,.variables=c("annee","classdist"),.fun=meanspl1)[,3]
+spl$summinussd1=ddply(dens,.variables=c("annee","classdist"),.fun=summinussd1)[,3]
+spl$sumplussd1=ddply(dens,.variables=c("annee","classdist"),.fun=sumplussd1)[,3]
+
+save(spl,file="pechelec/spl.Rdata")
+
+load("spl.Rdata") # spl issued from Traitement densite
+# for downstream sector
+spld<-spl[spl$classdist=="<50rkm",] # downstream
+spld<-spld[order(spld$annee),]
+gesflu=ges[,c("year","passem","pecxp","eclm","recfluciv","aj","recr_flu_aj_m1","recr_flu_aj_m2","recr_flu_aj_m3")] # fluvial data
+# replacing missing values for electrofishing data
+flu<-merge(gesflu,spld,by.x="year",by.y="annee",all.x=TRUE)
+# having missing data I will only assume that the densities were the mean of previous and next year
+for (i in c(9,11,13,15)){
+  flu[i,"denscs"]<-mean(c(flu[i-1,"denscs"],flu[i+1,"denscs"]))
+}
+
+scale=function(vec){
+  vec/max(vec,na.rm=TRUE)
+}
+# CORRIGER POUR LES ANNEES OU IL N'Y A PAS DE DONNEES DE SUIVI
+ccf(flu$denscs[3:16],flu$recr_flu_aj_m1[1:14]) # 2 year lag 
+cor(flu$denscs[3:16],flu$recr_flu_aj_m1[1:14]) # 0.73
+cor(flu$denscs[3:16],flu$recr_flu_aj_m2[1:14]) # 0.77
+cor(flu$denscs[3:16],flu$recr_flu_aj_m3[1:14]) # 0.78
+##########################
+# graphique du rapport
+##########################
+require(grDevices)
+X11()
+par("mar"=c(5.1,5.1,4.1,5.1))
+plot(1996:2011,ges$recr_flu_aj_m3,xlab="annee",xaxt="n",ylab=expression("Civelles x " * 1000),type="b",yaxt="n",frame = FALSE,col="grey60",lwd=2)
+at<-seq(0,2.5,by=0.5)
+at3<-at*10^6
+at2<-at*10^3
+at1<-at3/25
+axis(1, at = 1996:2011)
+axis(2, at = at3, labels = formatC(at2, big.mark = " ", format = "d"), 
+	las = 3)
+axis(side=4,at=at3,labels=at1)
+mtext("Anguilles jaunes",4,line=3)
+abline(h=at3,col="grey70")
+points(1996:2011,ges$recr_flu_aj_m3,lty=2,type="b",col="black",lwd=2)
+symbols(x=2007,y=(ges$eclm*10^6)[12],squares=0.3,add=TRUE,inches=F,bg="grey")
+points(1996:2011,ges$recr_flu_aj_m4*25,lty=2,pch=17,type="b",col="black")
+symbols(x=(1996:2011)[ges$pecxp>0],y=(ges$pecxp*10^6)[ges$pecxp>0],
+	stars=matrix(rep(c(0.5,0.1,0.5,0.1,0.5,0.1,0.5,0.1,0.5,0.1)/2,7),7,10),add=TRUE,inches=F,bg="grey")
+dev.off()
+
+x11()
+y <- sort(10*runif(10))
+z <- runif(10)
+z3 <- cbind(z, 2*runif(10), runif(10))
+symbols(x, y, thermometers = cbind(.5, 1, z), inches = .5, fg = 1:10)
+symbols(x, y, thermometers = z3, inches = FALSE)
+text(x,y, apply(format(round(z3, digits=2)), 1, paste, collapse = ","),
+	adj = c(-.2,0), cex = .75, col = "purple", xpd = NA)
+
+
+
+barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2011,col="blue",ylab="recrutement fluvial net (millions), densite anguille.m-2")
+rect(xleft=c(3.8,5,7.4,8.6,9.8,11.01,18.2), ybottom=(ges$recr_flu_aj_m3/1e6)[c(4,5,7,8,9,10,16)], xright=c(4.3,5.5,7.9,9.1,10.3,11.5,18.7), ytop=(ges$recr_flu_aj_m2/1e6)[c(4,5,7,8,9,10,16)],col="slateblue1",lty=2) 
+rect(xleft=c(4.3,5.5,7.9,9.1,10.3,11.5,18.7), ybottom=(ges$recr_flu_aj_m3/1e6)[c(4,5,7,8,9,10,16)], xright=c(4.8,6,8.4,9.6,10.8,12,19.2), ytop=(ges$recr_flu_aj_m1/1e6)[c(4,5,7,8,9,10,16)],col="skyblue",lty=2) 
+
+#barplot(ges$recr_flu_aj_m2/1e6,names.arg=1996:2009,add=T,col="slateblue1")
+#barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,add=T,col="blue")
+barplot(ges$recr_flu_aj_m4/1e6,names.arg=1996:2011,col="red",add=TRUE)
+points((c(0.5:13.5)+0.2*(c(1:14)))[c(1:8,10,12,14)],(flu$denscs[3:16])[-c(9,11,13)],pch=19,col="green",type="b")
+points((c(0.5:13.5)+0.2*(c(1:14)))[c(1:8,10,12,14)],(flu$denscs[3:16])[-c(9,11,13)],pch=19,col="violetred4",type="p",cex=1.8)
+points((c(0.5:13.5)+0.2*(c(1:14)))[c(1:8,10,12,14)],(flu$denscs[3:16])[-c(9,11,13)],pch=19,col="limegreen",type="p",cex=1.2)
+
+legend("topright",legend=iconv(c("recrutement fluvial passe",
+			"recrutement fluvial transport, survie 50% / passe",
+			"recrutement fluvial transport, survie 100%",
+			"recrutement fluvial anguilles jaunes"),"utf8"),
+	fill=c("blue","slateblue1","skyblue","red"),				
+	bty="n")
+legend(6,2,legend=iconv("densités en pêche électrique Y+2","utf8"),col="limegreen",pch=19,bty="n")
+########################################
+## premier graphique de l'animation
+##########################################
+## les fichiers .png permettent de gérer la transparence
+#png(filename = "C:/Documents and Settings/cedric/Mes documents/Migrateur/programmes/workspace3.5/various/transport1.png", width = 800, height = 600, bg = "transparent")
+#par(fg="white",col.axis="white",col.lab="white",col.main="white",cex=2)
+#barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,col="blue",ylab="recrutement fluvial net (millions), densite anguille.m-2",ylim=c(0,1.4))
+#rect(xleft=c(4.3,5.5,7.9,9.1,10.3,11.5)-0.3, ybottom=(ges$recr_flu_aj_m3/1e6)[c(4,5,7,8,9,10)], xright=c(4.8,6,8.4,9.6,10.8,12)-0.2, ytop=(ges$recr_flu_aj_m1/1e6)[c(4,5,7,8,9,10)],col="skyblue") 
+##barplot(ges$recr_flu_aj_m2/1e6,names.arg=1996:2009,add=T,col="slateblue1")
+##barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,add=T,col="blue")
+#barplot(ges$recr_flu_aj_m4/1e6,names.arg=1996:2009,col="red",add=TRUE)
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="green",type="b")
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="darkgreen",type="p")
+#par(fg="black",col.axis="black",col.lab="black",col.main="black",cex=1)
+#dev.off()
+## returns to default setting
+########################################
+## deuxième graphique de l'animation
+##########################################
+## les fichiers .png permettent de gérer la transparence
+#png(filename = "C:/Documents and Settings/cedric/Mes documents/Migrateur/programmes/workspace3.5/various/transport2.png", width = 800, height = 600, bg = "transparent")
+#par(fg="white",col.axis="white",col.lab="white",col.main="white",cex=2)
+#barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,col="blue",ylab="recrutement fluvial net (millions), densite anguille.m-2",ylim=c(0,1.4))
+#rect(xleft=c(4.3,5.5,7.9,9.1,10.3,11.5)-0.3, ybottom=(ges$recr_flu_aj_m3/1e6)[c(4,5,7,8,9,10)], xright=c(4.8,6,8.4,9.6,10.8,12)-0.2, ytop=(ges$recr_flu_aj_m2/1e6)[c(4,5,7,8,9,10)],col="skyblue") 
+##barplot(ges$recr_flu_aj_m2/1e6,names.arg=1996:2009,add=T,col="slateblue1")
+##barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,add=T,col="blue")
+#barplot(ges$recr_flu_aj_m4/1e6,names.arg=1996:2009,col="red",add=TRUE)
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="green",type="b")
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="darkgreen",type="p")
+#par(fg="black",col.axis="black",col.lab="black",col.main="black",cex=1)
+#dev.off()
+## returns to default setting
+########################################
+## troisième graphique de l'animation
+##########################################
+## les fichiers .png permettent de gérer la transparence
+#png(filename = "C:/Documents and Settings/cedric/Mes documents/Migrateur/programmes/workspace3.5/various/transport3.png", width = 800, height = 600, bg = "transparent")
+#par(fg="white",col.axis="white",col.lab="white",col.main="white",cex=2)
+#barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,col="blue",ylab="recrutement fluvial net (millions), densite anguille.m-2",ylim=c(0,1.4))
+##rect(xleft=c(4.3,5.5,7.9,9.1,10.3,11.5)-0.3, ybottom=(ges$recr_flu_aj_m3/1e6)[c(4,5,7,8,9,10)], xright=c(4.8,6,8.4,9.6,10.8,12)-0.2, ytop=(ges$recr_flu_aj_m2/1e6)[c(4,5,7,8,9,10)],col="skyblue") 
+##barplot(ges$recr_flu_aj_m2/1e6,names.arg=1996:2009,add=T,col="slateblue1")
+##barplot(ges$recr_flu_aj_m3/1e6,names.arg=1996:2009,add=T,col="blue")
+#barplot(ges$recr_flu_aj_m4/1e6,names.arg=1996:2009,col="red",add=TRUE)
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="green",type="b")
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="darkgreen",type="p")
+#par(fg="black",col.axis="black",col.lab="black",col.main="black",cex=1)
+#dev.off()
+## returns to default setting
+## analyse des 0 et 1
+## La correlation croisée est maximale avec 1 an de délai pour les zero un an (bonne nouvelle !)
+#ccf(flu$denscs1[3:14][-c(7,9,11)],flu$recr_flu_aj_m1[2:13][c(1:8,10,12,14)]) # 1 year lag 
+#cor(flu$denscs1[3:14][-c(7,9,11)],flu$recr_flu_aj_m1[2:13][-c(7,9,11)]) # 0.6
+#cor(flu$denscs1[3:14][-c(7,9,11)],flu$recr_flu_aj_m2[2:13][-c(7,9,11)]) # 0.53
+#cor(flu$denscs1[3:14][-c(7,9,11)],flu$recr_flu_aj_m3[2:13][-c(7,9,11)]) # 0.44
+#
+#plot(flu$year[1:14],(flu$denscs1[1:14]),pch=19,col="green",type="b")
+#plot(flu$year[2:13][-c(9,11)],(flu$denscs1[3:14]/100)[-c(9,11)],pch=19,col="black",type="b")
+#
+#points((c(0.5:11.5)+0.2*(c(1:12)))[c(1:8,10,12)],(flu$denscs[3:14]/100)[-c(9,11)],pch=19,col="darkgreen",type="p")
+#
+@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Discussion]{ Discussion}
+
+Les densités moyennes, qui étaient passées, depuis 2005, en dessous de la cible
+de 0.3 anguille.m$^{-2}$ affichée dans le plan de gestion, sont remontées au
+dessus de cette cible à partir de 2015 (Figure
+\ref{dens_annee}, Tableau \ref{tableau2_dens_eff_annee}). 
+
+Les biomasses d'anguilles sont par contre en chute
+continue sur les secteurs intermédiaires et amont. Elles augmentent en aval mais
+restent en deçà des valeurs observées entre 1998 et 2002 (Figures
+\ref{biom_annee} et \ref{biom_annee_dist}).
+
+Les densités de 2017 et 2019 laissent suspecter un effet de l'étiage sévère sur
+certaines stations aval, où les recaptures ont été très faibles (ruisseau de la Bouloterie, Canut Nord et Arzal, ruisseau des
+Arches proches de la rupture d'écoulement).
+
+Globalement, l'examen des densités après 2011 montre que ces dernières ont
+ré-augmenté a des niveaux proches de ceux de 1998 à 2012 sur la partie aval.
+Elles restent plus faibles sur le secteur intermédiaire alors qu'on aurait pu
+s'attendre à un effet marqué des transports.
+L'analyse de la fréquence en âge des captures montre bien qu'il y a eu des vagues de migration 
+de jeunes anguilles, mais cette augmentation ponctuelle ne se retrouve que très
+peu par la suite dans les densités d'anguilles d'âge 2 et 3 (Figure
+\ref{dens_age_annee}).
+
+Il est difficile d'expliquer les résultats obtenus. 
+L'hypothèse selon laquelle il puisse y avoir un effet plus faible de la gestion 
+par des effets densités dépendants est contredite par l'examen des biomasses d'anguilles
+des stations qui sont bien plus faibles qu'en 1998-2002, ainsi que par les densités 
+d'anguilles d'âge 2, 3 et 4 qui sont inférieures à celles de la période 1998-2000 et 
+ce quels que soient les secteurs. 
+
+Une explication possible des mauvais résultats observés peut être donnée par la
+mauvaise survie de certains lots de civelles transportées, par exemple pour la
+cohorte de 2011 \citep{mazel_v._operation_2011}. L'absence d'effet détectable des opérations
+de transport sur les densités
+observées en pêche électriques avaient déjà été analysée et discutée dans
+\citet{briand_analyse_2011}. Il faut également constater que la gestion par
+quota a produit 4 années sur 11 entre 2009 et 2020 un
+recrutement fluvial négligeable au niveau des passes d'Arzal. L'absence de
+recrues pour ces années n'est probablement pas compensée par les montées importantes des autres années. 
+Il est possible que de grosses vagues de migration de civelles subissent
+une mortatité plus importante que des passages continus. Il est possible
+également que les anguilles transportées ne se dirigent pas vers les affluents.
+
+Dans les faits, le transport de civelles à proximité
+d'affluents se traduit dans certains cas par des augmentations ponctuelles des
+densités, dans d'autres cas ils ne sont pas détectables immédiatement, dans tous
+les cas les tailles d'anguilles observées restent faibles, il est possible que
+la croissance soit beaucoup plus faible que celle utilisée dans la
+classification par âge.
+
+\begin{itemize}
+\item Vilaine aval 2011, 2012, 2013 $\Longleftrightarrow$ Augmentation
+ponctuelle de Trévelo, Arzal et Marzan - bien en deçà des valeurs des années
+1990. Il est difficile d'attribuer cette augmentation au recrutement par la
+passe ou par les transports après 2019.
+\item Oust et Aff 2014 $\Longleftrightarrow$ Arz (augmentation 2014 - forte
+variabilité) et Arches (très faible augmentation après 2018).
+\item  Vilaine entre Guipry et Molière 2015 $\Longleftrightarrow$ Canut Nord,
+forte augmentation en 2018, Aron augmentation à partir de 2018.
+\item  Vilaine entre Bourg des Comptes et Champcors 2016 $\Longleftrightarrow$
+Canut Nord forte augmentation en 2018, Seiche (nouvelles stations)- densités
+importantes observées sur radier en 2019.
+\item  Vilaine confluence Oust à Malon 2017 $\Longleftrightarrow$
+Canut Sud (augmentation en 2019) et Aron (augmentation en
+2016...).
+\end{itemize}\\
+
+
+Il reste évidemment possible que des effets locaux jouent sur les densités
+d'anguilles des rivières échantillonnées, et que l'absence d'augmentation de
+densité soit par exemple due à des accessibilités migratoires diminuées, mais
+les éléments à notre disposition indiquent plutôt une transparence migratoire
+accrue à l'échelle des bassins, et les différentes rivières de l'aval du bassin
+semblent donner un signal globalement cohérent.
+
+
+La croissance mesurée par pit tag est faible, de l'ordre de 20 mm par an. Comme
+elle est dérivée de données de marquages pit tag, elle ne concerne que des
+anguilles de taille supérieure à 30 cm.
+La durée entre le marquage et la recapture n'explique pas la variation de
+croissance annuelle (Figure \ref{croissance4}). La taille au moment du marquage
+n'explique pas non plus la croissance. Il est difficile d'analyser les
+croissances des grandes anguilles car seules quatre anguilles marquées de plus
+de 50 cm ont été recapturées. 
+
+Il est possible que les anguilles à croissance plus
+rapide soient déjà parties du bassin. Les croissances moyennes calculées pour les femelles
+à partir du modèle de \citet{daverat_one_2011} sont de 75, 60 et 38 mm par an pour les âges 5, 10 et 20 
+\footnote{coefficients du modèle, TempSUP13=79,Ratiodistsea<-0.75}. 
+Ces valeurs indiquent des croissances beaucoup plus fortes que celles trouvées sur les stations de 
+la Vilaine. Cependant, les croissances annuelles calculées par le modèle de Von Bertallanffy sur
+la Chèze en 1990 \citep{mounaix_intercalibration_1992} sont
+seulement de 5-10 mm par an pour les anguilles de plus de 5 an. De même, les
+résultats obtenus sur le Seucate (petit affluent sur le
+bassin de la Dordogne) montrent que les croissances passent de 50 mm par an en
+milieu fluvial large à 20 mm par an sur les
+affluents (Daverat, com. pers.). 
+
+Il existe un effet station très net dans les croissance avec des croissances
+fortes observées sur le ruisseau des Arches, le Canut Nord et le Chevré, c'est à
+dire les secteurs les plus amont où les densités sont les plus faibles. Pour
+autant, la prise en compte de la distance à la mer dans le modèle n'est pas
+significative, car la tendance ne suit pas strictement une augmentation linéaire
+des croissances en fonction de la distance.
+
+Dans tous les cas,  on
+trouve à la fois des anguilles à croissance faible et des anguilles à croissance
+rapide sur les mêmes stations. Pour une anguille, une croissance négative de 5
+mm a été calculée, cette anguille a également perdu beaucoup de poids. Une autre
+anguille a perdu 5 mm en un an après avoir grandi les trois années précédentes.
+
+En utilisant les données de croissance des affluents, l'âge des anguilles est
+probablement de l'ordre de 20 ans, alors qu'il ne serait que de 12 ans sur les
+zones fluviales larges où la croissance est forte (de l'ordre de 50 mm par an). 
+
+Le MNHN a analysé les otolithes de 50 anguilles argentées capturées à
+Brain sur Vilaine en janvier 2016, et donne des âges compris entre 6 et 23.5
+années avec une moyenne de 12 ans \footnote{Attention, ces résultats doivent être revus à la baisse avec
+la ré-interprétation des stries contenues dans une bande sombre au centre de l'otolithe de certaines anguilles, mais les changements resteront marginaux.}. Les croissances mesurées varient entre 30 et 84
+mm par an, soit une croissance beaucoup plus forte que celle mesurée dans les
+affluents en marquage recapture. Dans le lot d'anguilles capturées, la majorité
+présente des âges de 7 à 15 ans plus conforme avec la croissance de 50 mm par ans
+décrite par Daverat.
+
+
+Le fort pourcentage de recapture (\Sexpr{txrecapt} \%) est à noter.
+Il indique que les anguilles de plus de 30 cm sont globalement
+sédentaires.\\ 
+
+ \\ \mediumskip
+
+\section[Conclusion]{Conclusion}
+Les secteurs prospectés en pêche électrique, en général plutôt des petites
+rivières de faible profondeur sont caractérisés par des anguilles dont la
+croissance est faible, particulièrement sur l'aval du bassin, alors que l'examen des anguilles capturées sur les parties aval et profonds du bassin
+versant montre des anguilles de croissance plus importante, probablement ayant
+des habitats de croissance différents. Sur ces affluents, après la baisse
+importante du début des suivis après 1998, les transports de civelles et les
+augmentations massives de recrutement sur les passes certaines années ont permis
+une augmentation des densités dans les secteurs aval et les prémices d'une
+augmentation sont constatés dans certains secteurs amont.  
+Il est à noter que globalement, les densités sont cohérentes dans leur tendance 
+d'une année sur l'autre et qu'en conséquence les tendances
+obtenues sont assez crédibles, elles sont par ailleurs généralement refletées
+d'un affluent à l'autre.
+Il est possible que les dynamiques de croissance, colonisation et mortalité d'un
+bassin saturé et de la situation "vide" d'avant l'installation des passes
+engendrent des dynamiques de populations différentes, mais les biomasses, et les
+densités beaucoup plus faibles d'anguilles de grande taille sur nos stations
+mettent en doute cette hypothèse.
+Le précédent rapport ne constatait pas d'effet des quantités importantes de
+civelles ayant colonisé le bassin, grace aux opérations de transport ou au
+franchissement du barrage. Ce rapport sera plus nuancé, on perçoit des
+modifications, qui ne sont pas la hauteur attendue, et surtout qui mettent
+plusieurs années pour pouvoir être observés sur les affluents. La question de
+la croissance des jeunes anguilles est ici centrale et nous devrions analyser
+en détail les résultats de suivi des opérations de transport qui apporteront
+ici des informations précieuses. 
+
+\section*{Remerciements} 
+Les pêches électriques ont été effectuées par les services départementaux 35 et
+56 de l'AFB, nous les remercions pour leur accueil et la qualité technique de
+leur travail.
+Nous remercions également les différents participants qui nous ont aidé à
+effectuer les pêches.
+\clearpage
+\onecolumn
+\bibliography{pechelec}{}
+\bibliographystyle{cjfasfr}
+\normalsize
+\null
+\vfill
+\begin{center}
+Rapport Sweave \LaTeX \
+packages : \citep{hlavac_stargazer_2013,briand_stacomirtools_2013,
+fox_car_2011,dahl_xtable_2013,pinheiro_nlme_2013,
+ogle_fsa_2013}.
+Dernière compilation le \today \\
+\Sexpr{print(version[["version.string"]])} 
+\end{center}
+\clearpage
+\section{Annexes}
+\small
+\input{../../pdata/pechelec/table/2020/star.tex}
+\normalsize
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.8\textwidth]{2020/densiteannuelle.pdf}
+%\caption[Tendance des densités modèle]{Classement des densités en fonction des
+%années, test Post hoc de Tukey sur le modèle $log(dens) \sim a +s +
+%\epsilon(ss)$, avec $\epsilon(s) \sim N(0,\sigma_s^2)$ a=année, s=stations,
+%groupes classés au seuil de 0.05, données log transformées.}
+%\label{densiteannuelle}
+%\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{2020/dens_age_annee_dist.pdf}
+\caption[Densité par âge et distance.]{Tendance des
+densités en fonction de l'âge des anguilles (reconstituée à l'aide d'une clé
+taille âge) et la distance à la mer pour les pêches électriques de 1998 à 2020.
+La courbe en rouge indique le seuil du plan de gestion.}
+\label{dens_age_annee_dist}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../../pdata/pechelec/table/2020/table_densite_age_annee.tex}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{2020/residus.pdf}
+\caption[Tendance des densités modèle]{Résidus du modèle $log(dens) \sim a +s +m
+\epsilon$, avec $\epsilon(s) \sim N(0,\sigma^2)$ a=année, s=stations, m = mois.
+Le graphique montre l'hétérodasticité (variances différentes) des résidus en
+fonction des stations.}
+\label{residus}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+ \includegraphics[width=0.8\textwidth]{2020/dens_annee_riviere}
+\caption[Tendance des densités par rivières]{Tendance des densités sur les
+différentes rivières du bassin versant de la Vilaine.}
+\label{dens_annee_riviere}
+\end{figure}
+
+% cette figure est copiée depuis le rapport anguille voir
+% /pdata/traitement_stacomi/rapport_anguille/image/2020/recrutement_vilaine_europeen.png
+\begin{figure}[htpb]
+\centering
+\includegraphics[width=0.8\textwidth]{2020/recrutement_vilaine_europeen.png}
+\caption{Indice de recrutement européen du WGEEL: moyenne géométrique des
+prédiction de recrutement (GLM) pour tous les sites en dehors de la mer du nord
+jusqu'à \Sexpr{CY}. Le modèle GLM ($recruit \sim area:year+site$) est calé sur
+les séries de recrutement européenne comprenant soit des civelles soit un mélange de
+  civelles et de jeunes anguilles jaunes. Ces données sont comparées à la
+  série de recrutement de la Vilaine. Les deux séries sont
+  ajustées pour que la moyenne des années 1960 et 1970 soit à 1. Les valeurs avant la fermeture du barrage 
+  (avant 1970) ne sont pas inclues dans cette standardisation ni dans la série de
+  recrutement européen. Les valeurs de 2012 à 2014 pour lesquelles les captures
+  ont été influencées par les quotas n'ont pas non plus été inclues.}
+\label{figure_recrutement}
+\end{figure}
+\clearpage
+
+
+
+\end{document}
+
