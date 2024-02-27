@@ -2,7 +2,7 @@ library(stringr)
 library(tidyverse)
 setwd("C:/workspace/p/pechelec")
 datawd <- getwd()
-CY<-2021
+CY<-2023
 
 datawd<-"C:/workspace/pdata/pechelec/data/"
 datawdy=str_c(datawd,CY,"/")

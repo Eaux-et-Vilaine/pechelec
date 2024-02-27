@@ -714,7 +714,108 @@ données de pêche mais sont intégrées aux stations de pêche.
 
 
 \section{Résultats}
+<<chargement,eval=TRUE,include=FALSE>>=
 
+# main_pechelec.R 
+# Lancement principal du traitement des données de pêche électrique pour le rapport
+# Appelle traitement_structure_taille.R pour construire un tableau des structures de taille et d'âge a  partir des données de wama (poissons et opérations)
+# Rassemble sous R tous les tableaux et graphiques qui avant 2011 étaient faits a  partir d'une feuille excel.
+# et d'une clé taille age dont le fichier se trouve dans le répertoire pechelec
+# Utilise la librairies FSA pour réaliser le calcul des densités de Carle et Strubb
+# Author: cedric.briand, Brice Sauvaget; 
+###############################################################################
+#  install.packages('FSA',,'http://www.rforge.net/') 
+
+#setwd("C:/Users/cedric.briand/Documents/workspace/p/"
+# A RELANCER SI ON FAIT RETOURNER LE SCRIPT ET POUR DES NOUVELLES DONNEES
+#source("pechelec/traitement_structure_taille.R") # creation d'un tableau pec
+#save(pec,file="pechelec/pec.Rdata")
+load(file=str_c(datawdy,"pec.Rdata"))
+#nrow(pec)#427
+# quelles sont les stations "gardées"
+# calcul des densites de Carle et Strubb
+stationsrepetees<-as.character(pec$Id_PtPrelMetier)[strftime(pec$Op_Dtd,"%Y")==2007|strftime(pec$Op_Dtd,"%Y")>=2014]
+pec<-pec[as.character(pec$Id_PtPrelMetier)%in%stationsrepetees,]
+#nrow(pec)#314
+pec$annee <- strftime(pec$Op_Dtd,"%Y")
+pec$mois <- strftime(pec$Op_Dtd,"%m")
+#pec[pec$annee==2002,"Id_PtPrelMetier"][order(pec[pec$annee==2002,"Id_PtPrelMetier"])]
+#pec[pec$annee==2003,"Id_PtPrelMetier"][order(pec[pec$annee==2003,"Id_PtPrelMetier"])]
+#pec[pec$annee==2021,"Id_PtPrelMetier"][order(pec[pec$annee==2021,"Id_PtPrelMetier"])]
+######################################
+# CALCUL DES DENSITES DE CARLE ET STRUBB
+######################################
+#Confidence intervals are computed using standard large-sample normal distribution theory. 
+#Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.
+#If the estimated population size is between 50 and 200 then a 95% CI behaves more like a 90% CI.
+pec$NCS<-NA
+pec$LCI<-NA
+pec$UCI<-NA
+pec$p<-NA
+require(FSA)
+for (i in 1:nrow(pec)){
+	if (!is.na(pec$Eff2[i])){
+		if (is.na(pec$Eff3[i])){
+			if (pec$Eff2[i]<pec$Eff1[i]){
+				p<-removal(c(pec$Eff1[i],pec$Eff2[i]),method="Zippin")
+				pec$Nzip[i]<-p$est["No"]
+				pec$pzip[i]<-p$est["p"]
+				pec$LCIzip[i]<-confint(p)[1,1]
+				pec$UCIzip[i]<-confint(p)[1,2]	
+			} else {
+				pec$Nzip[i]<-NA
+			}
+		} else{
+			p<-removal(c(pec$Eff1[i],pec$Eff2[i],pec$Eff3[i]),method="Zippin")
+			pec$Nzip[i]<-p$est["No"]
+			pec$pzip[i]<-p$est["p"]
+			pec$LCIzip[i]<-confint(p)[1,1]
+			pec$UCIzip[i]<-confint(p)[1,2]
+		}		
+	}
+}
+for (i in 1:nrow(pec)){
+	if (!is.na(pec$Eff2[i])){
+		p<-removal(c(pec$Eff1[i],pec$Eff2[i]),method="CarleStrub")
+		pec$NCS[i]<-p$est["No"]
+		pec$p[i]<-p$est["p"]
+		pec$LCI[i]<-confint(p)[1,1]
+		pec$UCI[i]<-confint(p)[1,2]
+		
+	} else {pec$NCS[i]<-NA
+	}
+}
+pec$densCS<-pec$NCS/(pec$Op_Lng*pec$Op_Lam)
+pec$densZip<-pec$Nzip/(pec$Op_Lng*pec$Op_Lam)
+pec$eff=pec$Eff1/pec$NCS # effectif du premier passage divisé par le nombre total trouvé
+pec$Eff3calcul<-pec$Eff3
+pec$Eff3calcul[is.na(pec$Eff3calcul)]<-0# effectif du troisième passage
+pec$biomCS<-pec$poidstotal*(pec$NCS/(pec$Eff1+pec$Eff2+pec$Eff3calcul))/(pec$Op_Lng*pec$Op_Lam)
+
+pec[,c("age0","age1","age2","age3","age4")]<-pec[,c("age0","age1","age2","age3","age4")]*(pec$NCS/((pec$Eff1+pec$Eff2+pec$Eff3calcul)*pec$Op_Lng*pec$Op_Lam))
+library(ggplot2)
+library(lattice)
+
+##################################################################
+# MERGE AVEC LE FICHIER DES STATIONS QUI CONTIENT LES DISTANCES
+##################################################################
+# après la mise à jour de WAMA les codes ne sont pas les mêmes, rattachement en deux temps
+stations=read.table(str_c(datawd,"summary_station_short.csv"),sep=";",header=TRUE)
+dens0<-merge(pec,stations,by.x="Id_PtPrelMetier",by.y="Id_PtPrelMetier_avant_2014")
+dens1<-merge(pec,stations,by.x="Id_PtPrelMetier",by.y="Id_PtPrelMetier_apres_2014")
+colnames(dens0)
+colnames(dens1)
+dens<-rbind(dens0[,1:ncol(dens0)-1],dens1[,1:ncol(dens1)-1])
+#head(dens)
+dens$classdist<-cut(dens$distance_mer,breaks=c(0,50,100,300))
+levels(dens$classdist)<-c("<50rkm","50-100rkm",">100rkm")
+
+#save(dens,file=str_c(datawdy,"dens.Rdata"))
+#write.table(dens,file=str_c(datawdy,"dens.csv"),sep=";")
+#load(file=str_c(datawd,dens.Rdata"))
+dens<-chnames(dens,"code_iav","station")
+save(dens,file=str_c(datawdy,"dens.Rdata"))
+@
 
 \subsection{Recrutement estuarien}
 <<tableau1,eval=TRUE, include=FALSE>>=
@@ -1068,108 +1169,7 @@ recrutement fluvial (anguilles jaunes non comprises).}
 \end{figure}
 
 \subsection{Tendances de la population d'anguilles}
-<<chargement,eval=TRUE,include=FALSE>>=
 
-# main_pechelec.R 
-# Lancement principal du traitement des données de pêche électrique pour le rapport
-# Appelle traitement_structure_taille.R pour construire un tableau des structures de taille et d'âge a  partir des données de wama (poissons et opérations)
-# Rassemble sous R tous les tableaux et graphiques qui avant 2011 étaient faits a  partir d'une feuille excel.
-# et d'une clé taille age dont le fichier se trouve dans le répertoire pechelec
-# Utilise la librairies FSA pour réaliser le calcul des densités de Carle et Strubb
-# Author: cedric.briand, Brice Sauvaget; 
-###############################################################################
-#  install.packages('FSA',,'http://www.rforge.net/') 
-
-#setwd("C:/Users/cedric.briand/Documents/workspace/p/"
-# A RELANCER SI ON FAIT RETOURNER LE SCRIPT ET POUR DES NOUVELLES DONNEES
-#source("pechelec/traitement_structure_taille.R") # creation d'un tableau pec
-#save(pec,file="pechelec/pec.Rdata")
-load(file=str_c(datawdy,"pec.Rdata"))
-#nrow(pec)#427
-# quelles sont les stations "gardées"
-# calcul des densites de Carle et Strubb
-stationsrepetees<-as.character(pec$Id_PtPrelMetier)[strftime(pec$Op_Dtd,"%Y")==2007|strftime(pec$Op_Dtd,"%Y")>=2014]
-pec<-pec[as.character(pec$Id_PtPrelMetier)%in%stationsrepetees,]
-#nrow(pec)#314
-pec$annee <- strftime(pec$Op_Dtd,"%Y")
-pec$mois <- strftime(pec$Op_Dtd,"%m")
-#pec[pec$annee==2002,"Id_PtPrelMetier"][order(pec[pec$annee==2002,"Id_PtPrelMetier"])]
-#pec[pec$annee==2003,"Id_PtPrelMetier"][order(pec[pec$annee==2003,"Id_PtPrelMetier"])]
-#pec[pec$annee==2021,"Id_PtPrelMetier"][order(pec[pec$annee==2021,"Id_PtPrelMetier"])]
-######################################
-# CALCUL DES DENSITES DE CARLE ET STRUBB
-######################################
-#Confidence intervals are computed using standard large-sample normal distribution theory. 
-#Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.
-#If the estimated population size is between 50 and 200 then a 95% CI behaves more like a 90% CI.
-pec$NCS<-NA
-pec$LCI<-NA
-pec$UCI<-NA
-pec$p<-NA
-require(FSA)
-for (i in 1:nrow(pec)){
-	if (!is.na(pec$Eff2[i])){
-		if (is.na(pec$Eff3[i])){
-			if (pec$Eff2[i]<pec$Eff1[i]){
-				p<-removal(c(pec$Eff1[i],pec$Eff2[i]),method="Zippin")
-				pec$Nzip[i]<-p$est["No"]
-				pec$pzip[i]<-p$est["p"]
-				pec$LCIzip[i]<-confint(p)[1,1]
-				pec$UCIzip[i]<-confint(p)[1,2]	
-			} else {
-				pec$Nzip[i]<-NA
-			}
-		} else{
-			p<-removal(c(pec$Eff1[i],pec$Eff2[i],pec$Eff3[i]),method="Zippin")
-			pec$Nzip[i]<-p$est["No"]
-			pec$pzip[i]<-p$est["p"]
-			pec$LCIzip[i]<-confint(p)[1,1]
-			pec$UCIzip[i]<-confint(p)[1,2]
-		}		
-	}
-}
-for (i in 1:nrow(pec)){
-	if (!is.na(pec$Eff2[i])){
-		p<-removal(c(pec$Eff1[i],pec$Eff2[i]),method="CarleStrub")
-		pec$NCS[i]<-p$est["No"]
-		pec$p[i]<-p$est["p"]
-		pec$LCI[i]<-confint(p)[1,1]
-		pec$UCI[i]<-confint(p)[1,2]
-		
-	} else {pec$NCS[i]<-NA
-	}
-}
-pec$densCS<-pec$NCS/(pec$Op_Lng*pec$Op_Lam)
-pec$densZip<-pec$Nzip/(pec$Op_Lng*pec$Op_Lam)
-pec$eff=pec$Eff1/pec$NCS # effectif du premier passage divisé par le nombre total trouvé
-pec$Eff3calcul<-pec$Eff3
-pec$Eff3calcul[is.na(pec$Eff3calcul)]<-0# effectif du troisième passage
-pec$biomCS<-pec$poidstotal*(pec$NCS/(pec$Eff1+pec$Eff2+pec$Eff3calcul))/(pec$Op_Lng*pec$Op_Lam)
-
-pec[,c("age0","age1","age2","age3","age4")]<-pec[,c("age0","age1","age2","age3","age4")]*(pec$NCS/((pec$Eff1+pec$Eff2+pec$Eff3calcul)*pec$Op_Lng*pec$Op_Lam))
-library(ggplot2)
-library(lattice)
-
-##################################################################
-# MERGE AVEC LE FICHIER DES STATIONS QUI CONTIENT LES DISTANCES
-##################################################################
-# après la mise à jour de WAMA les codes ne sont pas les mêmes, rattachement en deux temps
-stations=read.table(str_c(datawd,"summary_station_short.csv"),sep=";",header=TRUE)
-dens0<-merge(pec,stations,by.x="Id_PtPrelMetier",by.y="Id_PtPrelMetier_avant_2014")
-dens1<-merge(pec,stations,by.x="Id_PtPrelMetier",by.y="Id_PtPrelMetier_apres_2014")
-colnames(dens0)
-colnames(dens1)
-dens<-rbind(dens0[,1:ncol(dens0)-1],dens1[,1:ncol(dens1)-1])
-#head(dens)
-dens$classdist<-cut(dens$distance_mer,breaks=c(0,50,100,300))
-levels(dens$classdist)<-c("<50rkm","50-100rkm",">100rkm")
-
-#save(dens,file=str_c(datawdy,"dens.Rdata"))
-#write.table(dens,file=str_c(datawdy,"dens.csv"),sep=";")
-#load(file=str_c(datawd,dens.Rdata"))
-dens<-chnames(dens,"code_iav","station")
-save(dens,file=str_c(datawdy,"dens.Rdata"))
-@
 <<tableau2_dens_eff_annee, eval=TRUE, include=FALSE>>=
 #####################################
 # Pour récupérer le tableau 1, t.test permet de récupérer les intervalles de confiance
