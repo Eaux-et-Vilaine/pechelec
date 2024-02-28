@@ -240,7 +240,7 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 %% your report.
 
 %% Makes a path to your graphics' folder.
-\graphicspath{{../../pdata/pechelec/image/}}
+\graphicspath{{C:/workspace/pechelec/image/2023/}}
 
 \usepackage[most]{tcolorbox} % summary at the end
 
@@ -368,7 +368,7 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 
 \begin{minipage}{\textwidth}
 \begin{center}
-\includegraphics[width=0.5\paperwidth]{ang2.png}
+ \rotatebox{270}{\includegraphics[width=0.5\paperwidth]{peche.jpg}}
 \end{center}
 \end{minipage}
 
@@ -934,6 +934,8 @@ serie[,col_with_number]<-round(serie[,col_with_number]*10^6)
 ## pour plus de sûreté on va chercher les résultats du rapport passe
 serie[,"passe_total_n"]<-vvv$CIV$data$Ngl
 serie$passe_relachees_n<-rowSums(cbind(serie$passe_total_n,-serie$passe_mortes_n,-serie$passe_marquage_n),na.rm=TRUE)
+serie[,"passe_total_kg"]<-vvv$CIV$data$Pgl
+serie$passe_relachees_kg<-rowSums(cbind(serie$passe_total_kg,-serie$passe_mortes_kg,-serie$passe_marquage_kg),na.rm=TRUE)
 ## récupération de la structure en age des anguilles 
 ## A partir des calculs de cohorte pour l'instant effectués dans rapport_anguille
 serie$annee<-substr(serie$saison,6,9)
@@ -950,7 +952,7 @@ cohort<-vvv$AGJ$cohort
 load(file=str_c(datawd,"serie.Rdata"))
 serie$passe_agj_cohorte <- round(rowSums(cohort[as.character(1996:(CY)), 2:6], na.rm = TRUE))
 
-load(str_c(datawd, "spl.Rdata"))
+#load(str_c(datawd, "spl.Rdata"))
 load(str_c(datawdy, "dens.Rdata"))
 # Fonction de calcul du recrutement fluvial en fonction d'hypothèsese de survie
 #' parametre mortpas => mortalité des civelles sur la passe
@@ -1147,7 +1149,7 @@ plus limitées en Bretagne.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/figure2recrutement.pdf}
+\includegraphics[width=0.5\textwidth]{figure2recrutement.pdf}
 \caption[Tendance des densités modèle]{Migrations d'anguilles
 jaunes (ramenées à leur cohorte d'arrivée) (\textmd{{}-{}-${\Delta}$-{}-}) et de civelles
 (\textmd{{}-}o\textmd{{}-}) en effectif sur la passe au barrage d'Arzal,
@@ -1159,7 +1161,7 @@ recrutement fluvial de civelles.}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/figure2recrutement_kg.pdf}
+\includegraphics[width=0.5\textwidth]{figure2recrutement_kg.pdf}
 \caption[Tendance des densités modèle]{Migrations de civelles (en kg)
 (\textmd{{}-}o\textmd{{}-}) sur la passe au barrage d'Arzal, civelles pêchées
 et transportées ($\star$) et estimation de la migration de civelles
@@ -1189,7 +1191,7 @@ recrutement fluvial (anguilles jaunes non comprises).}
 					"$IC~B_e$"=round(tapply(pec$biomCS,pec$annee,function(X) t.test(X)$conf.int[2]-t.test(X)$estimate),2)
 			))
 colnames(tableau2)<-c("Nb","annee","$D$","$IC~D$","$\\Phi$","$IC~\\Phi$","$B_e$","$IC~B_e$")
-write.table(tableau2,str_c(datawdy,"tableau_densite.csv"),sep=";")
+write.table(tableau2,str_c(tabwdy,"tableau_densite.csv"),sep=";")
 options(encoding = "UTF-8")
 xtableau2<-xtable(tableau2,
 		label="tableau2_dens_eff_annee",
@@ -1562,7 +1564,7 @@ campagne ont été conservées, soit 19 au total (9 pour le Morbihan
 et 10 pour l'Ille-et-Vilaine).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \small
-\input{../../pdata/pechelec/table/2021/tableau2_dens_eff_annee.tex}
+\input{../pechelec/table/2023/tableau2_dens_eff_annee.tex}
 \normalsize
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 L'efficacité de pêche varie entre \Sexpr{min(tableau2[,5])} et
@@ -1583,7 +1585,7 @@ Entre 2015 et 2021, elle varie entre \Sexpr{tableau2["2017",3]} en
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
 \centering
- \includegraphics[width=0.5\textwidth]{2021/dens_annee.pdf} 
+ \includegraphics[width=0.5\textwidth]{dens_annee.pdf} 
 \caption[Tendance des densités modèle]{Classement des densités en fonction des
 années, test Post hoc de Tukey sur le modèle $log(dens) \sim a +s +
 \epsilon(ss)$, avec $\epsilon(s) \sim N(0,\sigma_s^2)$ a=année, s=stations,
@@ -1639,7 +1641,7 @@ et Figure \ref{biom_annee}) avant une légère réaugmentation de 2018 à 2021 �
 
 \begin{figure}[htbp]
 \centering
- \includegraphics[width=0.5\textwidth]{2021/biom_annee.pdf} 
+ \includegraphics[width=0.5\textwidth]{biom_annee.pdf} 
 \caption[Biomasses d'anguilles.]{Evolution des biomasses d'anguilles en fonction
 de l'année.}
 \label{biom_annee}
@@ -1655,7 +1657,7 @@ d'autant moins marquée que l'on s'éloigne du barrage d'Arzal (Figure
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=0.5\textwidth]{2021/dens_annee_dist.pdf}
+    \includegraphics[width=0.5\textwidth]{dens_annee_dist.pdf}
     \caption[Densité moyennes $\sim$ distance.]{Distribution des densités
     d'anguilles par classe de distance pour les pêches
     électriques de 1998 à \Sexpr{CY}. Les box plot représentent le premier
@@ -1670,12 +1672,12 @@ d'autant moins marquée que l'on s'éloigne du barrage d'Arzal (Figure
 \end{figure} 
     
 \small
-\input{../../pdata/pechelec/table/2021/tableau3_dens_dist_annee.tex}
+\input{../pechelec/table/2023/tableau3_dens_dist_annee.tex}
 \normalsize
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.5\textwidth]{2021/biom_annee_dist.pdf}
+  \includegraphics[width=0.5\textwidth]{biom_annee_dist.pdf}
   \caption[_court]{Biomasses moyennes d'anguilles par classe de distance pour les pêches
   électriques de 1998 à \Sexpr{CY}. Les barres d'erreur
   correspondent aux données comprises dans 1.5 fois
@@ -1685,7 +1687,7 @@ d'autant moins marquée que l'on s'éloigne du barrage d'Arzal (Figure
 
     
 \small
-\input{../../pdata/pechelec/table/2021/table_biom_dist_annee.tex}
+\input{../pechelec/table/2023/table_biom_dist_annee.tex}
 \normalsize
 
 Les densités d'anguilles d'âge 0 et 1 semblent remonter vers des
@@ -1696,7 +1698,7 @@ Pour les âges 2 à 4+, il y a globalement une baisse.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/dens_age_annee.pdf}
+\includegraphics[width=0.5\textwidth]{dens_age_annee.pdf}
 \caption[Densité par âge.]{Tendance des densités en fonction de
 l'âge des anguilles (reconstituée à l'aide d'une clé taille âge) pour
 les pêches électriques de 1998 à \Sexpr{CY} \footnotemark}.
@@ -1730,7 +1732,7 @@ marq$recapt<-FALSE
 marq<-marq[order(marq$date),]
 
 marq <- marq[!is.na(marq$annee),]
-nrow(marq) # 740
+nrow(marq) # 740 #800 (2023)
 marq$station[!is.element(marq$station,summary_station$station)]
 marq <- merge(marq,summary_station,by="station")
 # 725
@@ -1801,7 +1803,7 @@ croissance$annees <- factor(croissance$annees,levels(croissance$annees)[order(as
 croissance$croissance_annuelle_mm[croissance$croissance_annuelle_mm<0]<-0
 croissance$croissance_taille[croissance$croissance_taille<0] <- 0
 png(file=str_c(imgwdy,"croissance2.png"),height=6, width=6, units="in", res=300)
-ggplot(croissance)+geom_point(aes(x=taille0,y=croissance_annuelle_mm),col="black",size=3.5)+
+ggplot(croissance)+geom_point(aes(x=taille0,y=croissance_annuelle_mm),col="black", size=2.5)+
 		geom_point(aes(x=taille0,y=croissance_annuelle_mm,col=classdist),size=2.5)+
 		ylab("croissance en mm")+xlab("taille au moment du marquage (mm)")+
 		scale_color_manual("station",values=c(orange_EV, bleu_EV, turquoise_EV))+
@@ -1896,7 +1898,7 @@ croissance<-as.data.frame(croissance)
 Les recaptures et marquages effectués de 2009 à 2021 sont indiqués au Tableau
 \ref{tablemr}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{../../pdata/pechelec/table/2021/tableaumr1.tex}
+\input{../pechelec/table/2023/tableaumr1.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Les croissances des anguilles marquées sont
 assez faibles avec en moyenne \Sexpr{sn(mean(croissance[,"croissance_annuelle_mm"]),1)} mm par an. Certaines anguilles
@@ -1912,7 +1914,7 @@ Le taux de recapture des anguilles est de
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/croissance.png}
+\includegraphics[width=0.5\textwidth]{croissance.png}
 \caption[Taille anguilles marquées]{Evolution de la taille des anguilles
 marquées, en fonction du nombre de recaptures.}
 \label{croissance}
@@ -1925,7 +1927,7 @@ n'est pas significatif.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/croissance2.png}
+\includegraphics[width=0.5\textwidth]{croissance2.png}
 \caption[Croissance annuelles des anguilles marquées]{Croissance annuelle des
 anguilles marquées en fonction du nombre d'année entre le marquage et la
 recapture.}
@@ -1935,7 +1937,7 @@ recapture.}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/croissance3.png}
+\includegraphics[width=0.5\textwidth]{croissance3.png}
 \caption[Croissance annuelles des anguilles marquées]{Croissance annuelle des
 anguilles marquées en fonction de la durée du marquage.}
 \label{croissance3}
@@ -1950,11 +1952,11 @@ marquage, ni la taille de départ au marquage, ni la zone (en grande
 classe de distance) ne sont significatives dans l'analyse de variance du
 modèle (Tableau \ref{table_anova_marquage}). 
 
-\input{../../pdata/pechelec/table/2021/anova_croissance.tex}
+\input{../pechelec/table/2023/anova_croissance.tex}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{2021/croissance4.png}
+\includegraphics[width=0.5\textwidth]{croissance4.png}
 \caption[Graphique de composant et résidus du modèle glm croissance ~ annee +
 station + taille initiale.]{Graphique de composant et résidus (CR plot) du
 modèle glm croissance ~ annee + station + taille0, où $annees$ représente le
@@ -2338,7 +2340,7 @@ effectuer les pêches.
 \clearpage
 \section{Annexes}
 \small
-\input{../../pdata/pechelec/table/2021/star.tex}
+\input{../pechelec/table/2023/star.tex}
 \normalsize
 %\begin{figure}[htbp]
 %\centering
@@ -2352,7 +2354,7 @@ effectuer les pêches.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{2021/dens_age_annee_dist.pdf}
+\includegraphics[width=0.8\textwidth]{dens_age_annee_dist.pdf}
 \caption[Densité par âge et distance.]{Tendance des
 densités en fonction de l'âge des anguilles (reconstituée à l'aide d'une clé
 taille âge) et la distance à la mer pour les pêches électriques de 1998 à 2021.
@@ -2360,11 +2362,11 @@ La courbe en rouge indique le seuil du plan de gestion.}
 \label{dens_age_annee_dist}
 \end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{../../pdata/pechelec/table/2021/table_densite_age_annee.tex}
+\input{../pechelec/table/2023/table_densite_age_annee.tex}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\textwidth]{2021/residus.png}
+\includegraphics[width=0.8\textwidth]{residus.png}
 \caption[Tendance des densités modèle]{Résidus du modèle $log(dens) \sim a +s +m
 \epsilon$, avec $\epsilon(s) \sim N(0,\sigma^2)$ a=année, s=stations, m = mois.
 Le graphique montre l'hétérodasticité (variances différentes) des résidus en
@@ -2374,17 +2376,17 @@ fonction des stations.}
 
 \begin{figure}[htbp]
 \centering
- \includegraphics[width=0.8\textwidth]{2021/dens_annee_riviere}
+ \includegraphics[width=0.8\textwidth]{dens_annee_riviere}
 \caption[Tendance des densités par rivières]{Tendance des densités sur les
 différentes rivières du bassin versant de la Vilaine.}
 \label{dens_annee_riviere}
 \end{figure}
 
 % cette figure est copiée depuis le rapport anguille voir
-% /pdata/traitement_stacomi/rapport_anguille/image/2021/recrutement_vilaine_europeen.png
+% C:\workspace\rapport_anguille\image\2023\recrutement_vilaine_europeen.png
 \begin{figure}[htpb]
 \centering
-\includegraphics[width=0.8\textwidth]{2021/recrutement_vilaine_europeen.png}
+\includegraphics[width=0.8\textwidth]{recrutement_vilaine_europeen.png}
 \caption{Indice de recrutement européen du WGEEL: moyenne géométrique des
 prédiction de recrutement (GLM) pour tous les sites en dehors de la mer du nord
 jusqu'à \Sexpr{CY}. Le modèle GLM ($recruit \sim area:year+site$) est calé sur
