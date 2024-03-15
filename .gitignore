@@ -58,6 +58,7 @@ rsconnect/
 *.log
 *.run.xml
 *.bcf
+*.synctex
 .project
 
-/pechelec2023.synctex.gz.sum.synctex
+
