@@ -232,7 +232,6 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 %%============================================================
 %%============================================================
 %% PAGE SETUP
-%% Use this section to override Elsevier article page settings!!!
 
 	%% Easier way...
 	\usepackage[a4paper, inner=1.5cm, outer=1.5cm, top=2cm, bottom=3cm]{geometry}
@@ -270,7 +269,7 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 \pagestyle{fancy}
 
 % Chapter text font settings
-\renewcommand{\sectionmark}[1]{\markright{\sffamily\normalsize\thesection\hspace{7pt}#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\sffamily\normalsize\thesection\hspace{5pt}#1}{}}
 %\renewcommand{\subsectionmark}[1]{\markboth{}{\sffamily\normalsize\thesubsection\hspace{7pt}#1}}
 % Section text font settings
 \fancyhf{} \fancyfoot[C]{\sffamily\normalsize\thepage} % Font setting for
@@ -426,7 +425,7 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 
 \begin{minipage}{0.8\textwidth}
 \begin{center}
-\hspace{3cm}{\color{white}{\huge \itshape{Mars 2022}}}
+\hspace{3cm}{\color{white}{\huge \itshape{Mars 2024}}}
 \end{center}
 \end{minipage}
 \restoregeometry
@@ -561,11 +560,12 @@ Les densités sont évaluées comme suit :
 \begin{equation*}
 D=\frac{N_{CS}}{surface}
 \end{equation*}
-où $N_{CS}$ correspond aux nombres évalues par la
-méthode des enlèvements successifs de Carle\&Strubb
+où $N_{CS}$ correspond aux nombres évalués par la
+méthode des enlèvements successifs de Carle \& Strubb
 \citep{ogle_fsa_2013,carle_new_1978} à partir des effectifs pêchés sur chaque 
 station $N$ et la surface correspond à la surface mouillée de la
 station de pêche.\\
+
 L'efficacité de pêche $\Phi$ est calculée à partir de l'effectif
 Carle\&Strubb $N_{CS}$ et de l'effectif au premier passage
 $N_{p1}$ :
@@ -602,7 +602,7 @@ analyse est appliquée en utilisant la formule :
 pour laquelle la station $s$ correspond à la station de pêche, le mois $m$
 correspond au mois divisé en deux catégories avant septembre et après octobre,
 et l'année $a$ correspond à l'année de pêche. Un modèle linéaire simple montre
-que les variances des résidus sont différentes entres les stations. Les
+que les variances des résidus sont différentes entre les stations. Les
  données sont donc analysées par un modèle linéaire mixte
  \citep{pinheiro_nlme_2013} avec un lien identité et une distribution normale, 
  pour lequel une variation de la variance en fonction de la station est appliquée $\epsilon_s=N(0,{\sigma_{s}}^2)
@@ -624,9 +624,9 @@ avant d'être
 implantés.
 Les anguilles de taille susceptible d'être recapturées après avoir été marquées > 30 cm ont été testées pour le marquage. 
 Sur certaines stations, une prospection est effectuée en dehors de la station
-pour rechercher les anguilles de plus de 30 cm, les tester pour un marquage
-éventuel. Ces anguilles sont alors traitées à part dans les
-données de pêche mais sont intégrées aux stations de pêche.
+pour rechercher les anguilles de plus de 30 cm et vérifier si elles ont déjà
+été marquées.
+Ces anguilles sont alors traitées à part dans les données de pêche mais sont intégrées aux stations de pêche.
 
 
 \section{Résultats}
@@ -701,7 +701,7 @@ Le nombre d'anguilles jaunes comptées sur les passes a varié de
 $878$ à  $144~992$
 entre la plus mauvaise année 2005 et la meilleure
 2013. Les données reportées pour le recrutement
-d'anguille jaune sur le bassin sont présentées différemment avec un calcul par
+d'anguilles jaunes sur le bassin sont présentées différemment avec un calcul par
 cohorte, qui prend en compte l'âge des anguilles lors de leur passage. Les
 effectifs d'anguilles jaunes varient alors entre
 $6~350$ et $160~669$ 
@@ -723,10 +723,10 @@ niveaux faibles observés entre 2000 et 2005. La même figure est reportée en k
 pour les civelles (Figure \ref{figure2recrutement_kg}).
 Entre 1996 et 2005, \citet{briand_dynamique_2009} a estimé l'efficacité de la
 passe entre 3 et 16\% à l'aide d'opérations de marquage-recapture. En faisant
-l'hypothèse d'une efficacité de la passe de 10 \% après 2005, le taux d'exploitation de la
-pêcherie varie entre 22.7\% (2012--2013) et 98.1\% (2009-2010) par an. Les deux
-dernières années le taux d'exploitation serait remonté autour de 79\%
-(2019--2020) et 83 \%. En moyenne il est de 67\%, ce taux est donc supérieur
+l'hypothèse d'une efficacité de la passe de 10 \% après 2005, le taux
+d'exploitation annuel de la pêcherie varie entre 22.7\% (2012--2013) et 98.1\%
+(2009-2010). Les deux dernières années le taux d'exploitation serait remonté autour de 79\%
+(2019--2020) et 83 \%. En moyenne, il est de 67\% et ce taux est donc supérieur
 à la cible de gestion fixée par le règlement européen (40 \% d'échappement soit
 60\% de taux d'exploitation). Une telle cible de gestion ne serait appliquable
 que si on avait restauré le stock et qu'aucune autre mortalité anthropique
@@ -809,7 +809,7 @@ Entre 2015 et 2021, elle varie entre 0.21 en
 \caption[Tendance des densités modèle]{Classement des densités en fonction des
 années, test Post hoc de Tukey sur le modèle $log(dens) \sim a +s +
 \epsilon(ss)$, avec $\epsilon(s) \sim N(0,\sigma_s^2)$ a=année, s=stations,
-groupes classés au seuil de 0.05. Les moyennes du tableau
+groupes classés au seuil de 0.05. Les moyennes du Tableau
 \ref{tableau2_dens_eff_annee} sont représentées par des croix rouges.
 }
 \label{dens_annee}
@@ -837,13 +837,13 @@ qu'un modèle incluant un effet station.
 Les densités ont diminué de manière
 significative entre 2000 et 2003, et les années 2007 à 2013
 sont significativement plus faibles que les densités de 1998 à 2003 (Tukey
-Post hoc test, groupes séparés au seuil de 0.05) (Figures \ref{dens_annee},
+Post hoc test, groupes séparés au seuil de 0.05) (Figure \ref{dens_annee},
 Tableau \ref{tableau2_dens_eff_annee}).
 A l'exception de l'année 2017 marquée par la sècheresse, les densités après 2014
 ne sont plus différentes de celles de la période 1998-2003 et les densités moyennes sont
-repassées au dessus de la cible de gestion pour la zone à moins de 50 km de
+repassées au-dessus de la cible de gestion pour la zone à moins de 50 km de
 l'estuaire avec en 2021 0.7(0.34) anguille.m$^{-2}$. Les
-densités moyenne dépassent également après 2013 le seuil de 0.3
+densités moyennes dépassent également après 2013 le seuil de 0.3
 anguille.m$^{-2}$ pour la zone intérmédiaire (2021 50-100 rkm 0.31(0.25)
 anguille.m$^{-2}$) et s'en approchent \footnote{Attention cependant, les deux
 dernières années reflètent l'intégration des stations de la Seiche et l'abandon d'une des
@@ -933,11 +933,8 @@ La clé taille-âge utilisée doit être considérée avec précaution car il n'
 vérification des données de croissance.
 \subsection{Marquages recaptures}
 
-Les recaptures et marquages effectués de 2009 à 2021 sont indiqués au Tableau
+Les recaptures et marquages effectués de 2009 à 2023 sont indiqués au Tableau
 \ref{tablemr}.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{../pechelec/table/2023/tableaumr1.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Les croissances des anguilles marquées sont
 assez faibles avec en moyenne $20.4$ mm par an. Certaines anguilles
 n'ont pas grandi du tout alors que
@@ -946,7 +943,9 @@ excluant les anguilles ayant perdu du poids entre le marquage et la recapture
 (18 anguilles sur
 138), les croissances annuelles s'établissent à
 $23.0$ mm.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../pechelec/table/2023/tableaumr1.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Le taux de recapture des anguilles est de
 32 \%.
 
@@ -1005,9 +1004,9 @@ pointillée).
 Il permet de détecter des effets non linéaires (ici il n'y en a pas, l'écart de
 la ligne rose pour les grandes tailles
 (effet taille0) traduit surtout le manque de points). Il montre aussi les
-résidus par station de pêche, on constate que le modèle cale des moyennes différentes entre
-stations, mais aussi que la variabilité des croissance est différente entre les
-stations.}
+résidus par station de pêche. On constate que le modèle cale des moyennes
+différentes entre stations, mais aussi que la variabilité des croissances est
+différente entre les stations.}
 \label{croissance4}
 \end{figure}
 
@@ -1022,10 +1021,10 @@ stations.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section[Discussion]{ Discussion}
 
-Les densités moyennes, qui étaient passées, depuis 2005, en dessous de la cible
-de 0.3 anguille.m$^{-2}$ affichée dans le plan de gestion, sont remontées au
-dessus de cette cible à partir de 2014, à l'exception de 2017 (Figure
-\ref{dens_annee}, Tableau \ref{tableau2_dens_eff_annee}). 
+Les densités moyennes qui étaient passées, depuis 2005, en dessous de la cible
+de 0.3 anguille.m$^{-2}$ affichée dans le plan de gestion, sont remontées
+au-dessus de cette cible à partir de 2014, à l'exception de 2017 
+(Figure \ref{dens_annee}, Tableau \ref{tableau2_dens_eff_annee}). 
 
 Les biomasses d'anguilles ont par contre connu une chute
 continue sur les secteurs intermédiaires et amont. Elles augmentent en aval mais
@@ -1038,8 +1037,8 @@ certaines stations aval, où les recaptures ont été très faibles
 Arches proches de la rupture d'écoulement).
 
 Les densités ont
-ré-augmenté a des niveaux proches de ceux de 1998 à 2012 sur la partie aval
-après 2011.Elles restent plus faibles sur le secteur intermédiaire et amont
+ré-augmenté à des niveaux proches de celles de 1998 à 2012 sur la partie aval
+après 2011. Elles restent plus faibles sur le secteur intermédiaire et amont
 alors qu'on aurait pu s'attendre à un effet marqué des transports.
 L'analyse de la fréquence en âge des captures montre bien qu'il y a eu des vagues de migration 
 de jeunes anguilles, mais cette augmentation ponctuelle ne se retrouve que très
@@ -1057,7 +1056,7 @@ Une explication possible des mauvais résultats observés peut être donnée par
 mauvaise survie de certains lots de civelles transportées, par exemple pour la
 cohorte de 2011 \citep{mazel_v._operation_2011}. L'absence d'effet détectable des opérations
 de transport sur les densités
-observées en pêche électriques avaient déjà été analysée et discutée dans
+observées en pêche électriques avait déjà été analysée et discutée dans
 \citet{briand_analyse_2011}. Il faut également constater que la gestion par
 quota a produit 4 années sur 11 entre 2009 et 2021 un
 recrutement fluvial négligeable au niveau des passes d'Arzal. L'absence de
@@ -1089,7 +1088,7 @@ bassin de la Dordogne) montrent que les croissances passent de 50 mm par an en
 milieu fluvial large à 20 mm par an sur les
 affluents (Daverat, com. pers.). 
 
-Il existe un effet station très net dans les croissance avec des croissances
+Il existe un effet station très net dans les croissances avec des valeurs
 fortes observées sur le ruisseau des Arches, le Canut Nord et le Chevré, c'est à
 dire les secteurs les plus amont où les densités sont les plus faibles. Pour
 autant, la prise en compte de la distance à la mer dans le modèle n'est pas
@@ -1100,7 +1099,11 @@ Dans tous les cas,  on
 trouve à la fois des anguilles à croissance faible et des anguilles à croissance
 rapide sur les mêmes stations. Pour une anguille, une croissance négative de 5
 mm a été calculée, cette anguille a également perdu beaucoup de poids. Une autre
-anguille a perdu 5 mm en un an après avoir grandi les trois années précédentes.
+anguille a perdu 2 mm en un an après avoir grandi les trois années précédentes.
+
+Le fort pourcentage de recapture (32 \%) est à noter.
+Il indique que les anguilles de plus de 30 cm sont globalement
+sédentaires.
 
 En utilisant les données de croissance des affluents, l'âge des anguilles est
 probablement de l'ordre de 20 ans, alors qu'il ne serait que de 12 ans sur les
@@ -1113,12 +1116,7 @@ la ré-interprétation des stries contenues dans une bande sombre au centre de l
 mm par an, soit une croissance beaucoup plus forte que celle mesurée dans les
 affluents en marquage recapture. Dans le lot d'anguilles capturées, la majorité
 présente des âges de 7 à 15 ans plus conforme avec la croissance de 50 mm par an
-décrite par Daverat.
-
-
-Le fort pourcentage de recapture (32 \%) est à noter.
-Il indique que les anguilles de plus de 30 cm sont globalement
-sédentaires.\\ 
+décrite par Daverat.\\ 
 
  \\ \mediumskip
 
@@ -1148,10 +1146,10 @@ mettent en doute cette hypothèse.
 Le précédent rapport ne constatait pas d'effet des quantités importantes de
 civelles ayant colonisé le bassin, grâce aux opérations de transport ou au
 franchissement du barrage. Ce rapport sera plus nuancé, on perçoit des
-modifications, qui ne sont pas la hauteur attendue, et surtout qui mettent
-plusieurs années pour pouvoir être observés sur les affluents. La question de
+modifications, qui ne sont pas à la hauteur attendue, et surtout qui mettent
+plusieurs années pour pouvoir être observées sur les affluents. La question de
 la croissance des jeunes anguilles est ici centrale et nous devrions analyser
-en détail les résultats de suivi des opérations de transport qui apporteront
+en détail les résultats de suivi des opérations de transport qui apporteraient
 ici des informations précieuses. 
 
 \section*{Remerciements} 
@@ -1184,7 +1182,7 @@ effectuer les pêches.
 \includegraphics[width=0.8\textwidth]{dens_age_annee_dist.pdf}
 \caption[Densité par âge et distance.]{Tendance des
 densités en fonction de l'âge des anguilles (reconstituée à l'aide d'une clé
-taille âge) et la distance à la mer pour les pêches électriques de 1998 à 2021.
+taille âge) et la distance à la mer pour les pêches électriques de 1998 à 2023.
 La courbe en rouge indique le seuil du plan de gestion.}
 \label{dens_age_annee_dist}
 \end{figure}
@@ -1205,7 +1203,7 @@ fonction des stations.}
 \centering
  \includegraphics[width=0.8\textwidth]{dens_annee_riviere}
 \caption[Tendance des densités par rivières]{Tendance des densités sur les
-différentes rivières du bassin versant de la Vilaine.}
+différents affluants du bassin versant de la Vilaine.}
 \label{dens_annee_riviere}
 \end{figure}
 
@@ -1256,15 +1254,15 @@ mélange de civelles et de jeunes anguilles jaunes. Ces données sont comparées
     
     A partir de la mise en place du plan de gestion anguille,  le recrutement
     fluvial de civelles s'est d'abord effondré avant d'augmenter fortement de
-    2012 à 2014, avec ensuite un seul bon recrutement en 2016.
+    2012 à 2014, avec ensuite seulement deux bons recrutements, en 2016 et 2023.
     
     On observe bien en réponse une augmentation des abondances de jeunes
     classes d'âge sur l'aval et l'intermédiaire du bassin (zone < 50 km et
-    50-100 km), à partir de 2013 :  les densités augmentent globalement sans
-    toutefois atteindre les niveaux de densité
+    50-100 km) avec à partir de 2013, les densités qui augmentent globalement
+    sans toutefois atteindre les niveaux de densité
     observés sur la période 1998-2002. Les biomasses sont en déclin sur les
     parties intermédiaires et amont et en augmentation 
-    sur les trois dernières années sur la partie aval.
+    de 2018 à 2021 sur la partie aval.
     
     Enfin, les pêches électriques sont aussi l'occasion d'une opération de
     marquage-recapture qui permet d'obtenir de précieuses informations sur la
@@ -1285,19 +1283,19 @@ mélange de civelles et de jeunes anguilles jaunes. Ces données sont comparées
   Densities are collected on small tributaries located at increasing distance
   from the estuary. They have first increased from 1998 to 2001  with the re-opening of a
   migratory pathway for eel in the Vilaine watershed in 1995. They have then
-  diminished rapidly from 2003 untill a low level in 2011, and
+  diminished rapidly from 2003 until a low level in 2011, and
   this trend is a consequence of the degradation of glass eel fluvial
   recruitment. At this
   time, temptative transport operations have not buffered the decline.
   
   From the beginning of implementation of the eel management plan, glass eel
   fluvial recruitment in the Vilaine has first collapsed before largely
-  increasing from 2012 to 2014. After this there is one good recruitment year
-  in 2016.
-  We do observe an increase in young age classes in the downstream par of the basin (area <50
-  km and 50-100 km) from 2013 : densities show an overall increasing trend
+  increasing from 2012 to 2014. After this there are only two good recruitment
+  years, in 2016 and 2023.
+  We do observe an increase in young age classes in the downstream part of the
+  basin (area <50 km and 50-100 km) from 2013 : densities show an overall increasing trend
   without reaching the levels observed during the 1998-2002 period. Biomasses are declining on
-  intermediate and upstream sectors and increasing for the last three years on
+  intermediate and upstream sectors and increasing from 2018 to 2021 on
   the downstream sector. 
     
   Finally, electrofishing operations are also offering the means for a
@@ -1306,8 +1304,8 @@ mélange de civelles et de jeunes anguilles jaunes. Ces données sont comparées
  synthetized. 
  
  The whole result are discussed, in the perspective of the regional plan of
- management of migratory species and to understand the eel stock dynamics a the
- scale of the vilaine watershed.
+ management of migratory species and to understand the eel stock dynamics at the
+ scale of the Vilaine watershed.
 \end{itshape}
 
 
@@ -1318,7 +1316,7 @@ mélange de civelles et de jeunes anguilles jaunes. Ces données sont comparées
      \textit{anguille, pêche électrique, marquage, pit-tag}\par 
     \vspace{8mm}    
      \textbf{\textit{Keywords:}}\par
-     \textit{yellow eel, electrofishing, marking recapture, pit-tag}  
+     \textit{eel, electrofishing, marking recapture, pit-tag}  
 \end{tcolorbox}
 
 
