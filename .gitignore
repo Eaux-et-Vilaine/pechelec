@@ -62,3 +62,7 @@ rsconnect/
 .project
 
 
+/.dbeaver/
+/electrofishing.code-workspace
+/importaspe.html.md
+/importaspe.html

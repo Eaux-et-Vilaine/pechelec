@@ -1,0 +1,40 @@
+---
+title: "Import from WAMA to Aspe"
+subtitle: "Development version"
+author: "Briand Cédric"
+date: last-modified
+date-format: "DD-MM-YYYY"
+description: "Script to map Aspe and WAMA"
+title-block-banner: "images/diaspara_bandeau.png"
+title-block-banner-color: "white"
+format:
+ html:
+  self-contained: true
+  smooth-scroll: true
+  fontcolor: black
+  toc: true
+  toc-location: left
+  toc-title: Summary
+  toc-depth: 3
+execute: 
+ keep-md: true
+reference-location: document
+
+---
+
+
+Notes cedric
+draft currently set draft in pechelec and vignette in Aspe
+I've added the include code file extension to aspe/vignette
+copied from server 07/04/2025 to pechelec/data/wama.mdb
+Set up a connection in dbveaver to pechelec/data/
+Files for import in `M:\pechelec\ASPE_import` including tuto and dic
+
+
+File to create :
+Operation = Peup (fichier pêche complète) 1 ligne = 1 operation
+Observation (OBS) mesures individuelles
+
+
+
+
