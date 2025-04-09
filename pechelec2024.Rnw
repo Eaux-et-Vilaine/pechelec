@@ -993,7 +993,8 @@ serie[2:ncol(serie)] <- apply(serie[2:ncol(serie)], 2, function(x)
   as.numeric(x))
 col_with_number <- grep("[_n]{2}$", colnames(serie))
 ## je ramène à des vrais effectifs
-serie[, col_with_number] <- round(serie[, col_with_number] * 10^6)
+serie[, col_with_number] <- 
+serie[, col_with_number] <- round(as.numeric(serie[, col_with_number]) * 10^6)
 ## pour plus de sûreté on va chercher les résultats du rapport passe
 serie[, "passe_total_n"] <- vvv$CIV$data$Ngl
 serie$passe_relachees_n <- rowSums(
@@ -2207,14 +2208,14 @@ marq$recapt <- FALSE
 marq <- marq[order(marq$date), ]
 
 marq <- marq[!is.na(marq$annee), ]
-nrow(marq) # 740 #800 (2023) (2024)
-marq$station[!is.element(marq$station, summary_station$station)]
+nrow(marq) # 740 #800 (2023) 838 (2024)
+stopifnot(nrow(marq$station[!is.element(marq$station, summary_station$station)])==0)
 marq <- merge(marq, summary_station, by = "station")
 # 725
 marqr <- marq$marque[duplicated(marq$marque)]
 marq$action <- "pose"
 marq[duplicated(marq$marque), "action"] <- "lecture"
-sum(marq$marque %in% marqr) #92 (2015) 126 (2016) 206(2017) 244(2018) 282(2020) ? (2021)
+sum(marq$marque %in% marqr) #92 (2015) 126 (2016) 206(2017) 244(2018) 282(2020) ? (2021) 343 (2024)
 marq2 <- marq[marq$marque %in% marqr, ]
 marq2 <- marq2[order(marq2$marque, marq2$date), ]
 
@@ -2357,10 +2358,10 @@ ggplot(croissance) + geom_boxplot(aes(x = annees, y = croissance_annuelle_mm, gr
   
   theme_bw()
 dev.off()
-t_test_croissance <- t.test(x = croissance$croissance_annuelle_mm[croissance$annees ==
-                                                                    2],
-                            y = croissance$croissance_annuelle_mm[croissance$annees == 4])
-densityplot(croissance$croissance_annuelle_mm)
+t_test_croissance <- t.test(
+    x = croissance$croissance_annuelle_mm[croissance$annees == 2],
+    y = croissance$croissance_annuelle_mm[croissance$annees == 4])
+lattice::densityplot(croissance$croissance_annuelle_mm)
 croissance$annees <- as.numeric(as.character(croissance$annees))
 g0 <- glm(croissance_annuelle_mm ~ classdist + taille0 + annees, data =
             croissance)
@@ -2369,6 +2370,7 @@ g2 <- glm(croissance_annuelle_mm ~ distance_mer + taille0 + annees, data =
             croissance)
 # en passant par un gam pas mieux l'effet de diminution de la croissance lors des deux premières années n'est pas significatif.
 gbest <- glm(croissance_annuelle_mm ~ station, data = croissance)
+
 anova(g0, g1, g2, test = "Chisq")
 Anova(g0, type = "III", test = "F")
 Anova(g1, type = "III", test = "F")
