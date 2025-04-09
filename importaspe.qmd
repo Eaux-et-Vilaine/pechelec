@@ -35,6 +35,23 @@ File to create :
 Operation = Peup (fichier pêche complète) 1 ligne = 1 operation
 Observation (OBS) mesures individuelles
 
+Espèce ciblée anguille sous Aspe
+La pente de la ligne d'eau au niveau du point de prélèvement
 
+Liste des stations x et Y pour les stations codifiées. Envoyer à Anthony.
+
+# Import operation
+
+```{r }
+#| label: connectacces
+#| echo: TRUE
+#| warning: FALSE
+#| message: FALSE
+# attention le fichier fonctionne sur un R 32 bits
+
+
+
+
+```
 
 
