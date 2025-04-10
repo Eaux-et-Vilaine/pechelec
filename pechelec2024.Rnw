@@ -367,7 +367,7 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 
 \begin{minipage}{\textwidth}
 \begin{center}
- \rotatebox{270}{\includegraphics[width=0.5\paperwidth]{peche.jpg}}
+ \rotatebox{270}{\includegraphics[width=0.5\paperwidth]{../peche.jpg}}
 \end{center}
 \end{minipage}
 
@@ -437,7 +437,7 @@ opts_knit$set(
 @
 
 << init,eval = TRUE,include = FALSE >>=
-rm(list = ls(all = TRUE)) # nettoyage complet
+#rm(list = ls(all = TRUE)) # nettoyage complet
 graphics.off()
 x11()
 load_library = function(necessary) {
@@ -617,7 +617,7 @@ reconstruite en 2006.
 \end{description}
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{carte2021_1.png}
+\includegraphics[width=0.5\textwidth]{../carte2021_1.png}
 \caption[Vue schématique du bassin de la Vilaine]{Vue schématique du bassin de
 la Vilaine, les trois zones colorées correspondent aux trois classes de
 distance de l'estuaire, <50 rkm, 50-100, >100 rkm. La station du Chevré
@@ -969,7 +969,7 @@ Année & Capture (t) & Source & Arrêt \\
 \normalsize
 \subsection{Recrutement fluvial}
 
-<<figure2recrutement,eval=TRUE, include=FALSE>>=
+<<loadseriesfromserver,eval=FALSE, include=FALSE>>=
 # formaté avec tidy_source
 if (!require("formatR"))
   install.packages("formatR")
@@ -993,8 +993,7 @@ serie[2:ncol(serie)] <- apply(serie[2:ncol(serie)], 2, function(x)
   as.numeric(x))
 col_with_number <- grep("[_n]{2}$", colnames(serie))
 ## je ramène à des vrais effectifs
-serie[, col_with_number] <- 
-serie[, col_with_number] <- round(as.numeric(serie[, col_with_number]) * 10^6)
+serie[, col_with_number] <- round(serie[, col_with_number] * 10^6)
 ## pour plus de sûreté on va chercher les résultats du rapport passe
 serie[, "passe_total_n"] <- vvv$CIV$data$Ngl
 serie$passe_relachees_n <- rowSums(
@@ -1024,9 +1023,9 @@ save(serie, file = str_c(datawd, "serie.Rdata"))
 
 cohort <- vvv$AGJ$cohort
 
+@
 
-
-
+<<figure2recrutement,eval=TRUE, include=FALSE>>=
 load(file = str_c(datawd, "serie.Rdata"))
 serie$passe_agj_cohorte <- round(rowSums(cohort[as.character(1996:(CY)), 2:6], na.rm = TRUE))
 
@@ -3098,7 +3097,7 @@ différents affluants du bassin versant de la Vilaine.}
 % C:\workspace\rapport_anguille\image\2024\recrutement_vilaine_europeen.png
 \begin{figure}[htpb]
 \centering
-\includegraphics[width=0.8\textwidth]{recrutement_vilaine_europeen.png}
+\includegraphics[width=0.8\textwidth]{../recrutement_vilaine_europeen.png}
 \caption{Indice de recrutement européen du WGEEL: moyenne géométrique des
 prédiction de recrutement (GLM) pour tous les sites en dehors de la mer du nord
 jusqu'à \Sexpr{CY}. Le modèle GLM ($recruit \sim area:year+site$) est calé sur
