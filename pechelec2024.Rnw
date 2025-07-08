@@ -778,6 +778,7 @@ load(file = str_c(datawdy, "pec.Rdata"))
 #nrow(pec)#427
 # quelles sont les stations "gardées"
 # calcul des densites de Carle et Strubb
+
 stationsrepetees <- as.character(pec$Id_PtPrelMetier)[strftime(pec$Op_Dtd, "%Y") ==
                                                         2007 | strftime(pec$Op_Dtd, "%Y") >= 2014]
 pec <- pec[as.character(pec$Id_PtPrelMetier) %in% stationsrepetees, ]
@@ -787,6 +788,20 @@ pec$mois <- strftime(pec$Op_Dtd, "%m")
 #pec[pec$annee==2002,"Id_PtPrelMetier"][order(pec[pec$annee==2002,"Id_PtPrelMetier"])]
 #pec[pec$annee==2003,"Id_PtPrelMetier"][order(pec[pec$annee==2003,"Id_PtPrelMetier"])]
 #pec[pec$annee==2021,"Id_PtPrelMetier"][order(pec[pec$annee==2021,"Id_PtPrelMetier"])]
+
+# problème avec le cable pas dans l'eau en première pêche
+# 32 première pêche 74 deuxième pêche donne un NCS de 1229
+# j'inverse premier et deuxième.
+# Eff1 <- pec[pec$Op_code=="20020000476","Eff1"] 74
+# Eff2 <- pec[pec$Op_code=="20020000476","Eff2"] 32
+#corrigé avec Brice
+pec[pec$Op_code=="20020000476","Eff1"] <- 80
+pec[pec$Op_code=="20020000476","Eff2"] <- 26
+# 50 % d'efficicacité pour des bonnes conditions de pêches et pas mal de petites
+# en 1998
+
+
+
 ######################################
 # CALCUL DES DENSITES DE CARLE ET STRUBB
 ######################################
@@ -863,7 +878,15 @@ levels(dens$classdist) <- c("<50rkm", "50-100rkm", ">100rkm")
 #save(dens,file=str_c(datawdy,"dens.Rdata"))
 #write.table(dens,file=str_c(datawdy,"dens.csv"),sep=";")
 #load(file=str_c(datawd,dens.Rdata"))
+
+# Vérification des corrections pour le Trévelo, correspond à l'efficacité moyenne (40 %)
+mean(dens[dens$Pm_Id_PointPrel ==  87684 & dens$Op_Dtd != "2024-09-18","eff"])
+dens[dens$Pm_Id_PointPrel ==  87684 & dens$Op_Dtd == "2024-09-18","eff"]
 dens <- chnames(dens, "code_iav", "station")
+# fix error 2023 2024 (inversion des stations 21 et 20 sur WAMA.
+dens[dens$annee %in% c(2023, 2024) & dens$station =="SEICH-150","code_histo"] <- "0435XX21"
+dens[dens$annee %in% c(2023, 2024) & dens$station =="SEICH-150","station"] <- "SEICH-149"
+
 save(dens, file = str_c(datawdy, "dens.Rdata"))
 @
 
@@ -3089,7 +3112,7 @@ fonction des stations.}
 \centering
  \includegraphics[width=0.8\textwidth]{dens_annee_riviere}
 \caption[Tendance des densités par rivières]{Tendance des densités sur les
-différents affluants du bassin versant de la Vilaine.}
+différents affluents du bassin versant de la Vilaine.}
 \label{dens_annee_riviere}
 \end{figure}
 
