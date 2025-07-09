@@ -332,8 +332,9 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 \newgeometry{margin=0cm}
 \begin{minipage}{\textwidth}
 \vspace{30pt}
-\hspace{30pt}
-\includegraphics[width=6cm,keepaspectratio=true]{/logo_EV1}
+\begin{center}
+\includegraphics[width=6cm,keepaspectratio=true]{../logo_EV1}
+\end{center}
 \end{minipage}
 
 %\vspace*{0cm}
@@ -355,7 +356,7 @@ pdfkeywords={anguille} {pêche électrique} {marquage} }
 \vspace{4mm}\noindent
 {\color{turquoise_EV}\rule{0.9\textwidth}{1.8pt}}\par
 \vspace{5mm}
-{\color{jaune_EV}{\Large \itshape{Léa Patau, Cédric Briand,
+{\color{jaune_EV}{\Large \itshape{Cédric Briand,
       Brice Sauvaget,
       Gérard Eriau\par   }}}
 \end{center}
@@ -985,7 +986,7 @@ Année & Capture (t) & Source & Arrêt \\
 2021 & 4.53 &  4  &  17 mars \\
 2022  & 5.40 & 4 & 19 mars \\ 
 2023  & 4.68 & 4 & 17 mars \\
-2024  &      &   &  TODO  \\
+2024  & 3.24 & 4  & 1 mars  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -993,6 +994,8 @@ Année & Capture (t) & Source & Arrêt \\
 \subsection{Recrutement fluvial}
 
 <<loadseriesfromserver,eval=FALSE, include=FALSE>>=
+# NOTE LE TABLEAU N'EST PROBABLEMENT PAS A JOUR. IL FAUDRAIT METTRE EN BASE PROPRE CES ELEEMENTS
+{}
 # formaté avec tidy_source
 if (!require("formatR"))
   install.packages("formatR")
@@ -1048,7 +1051,7 @@ cohort <- vvv$AGJ$cohort
 
 @
 
-<<figure2recrutement,eval=TRUE, include=FALSE>>=
+<<figure2recrutement,eval=FALSE, include=FALSE>>=
 load(file = str_c(datawd, "serie.Rdata"))
 serie$passe_agj_cohorte <- round(rowSums(cohort[as.character(1996:(CY)), 2:6], na.rm = TRUE))
 
@@ -1371,18 +1374,11 @@ quelycmax <- which.max(recagjcohort)
 @
 Le recrutement fluvial vers le bassin versant
 est composé majoritairement du stade civelle, variant annuellement de
-\Sexpr{sn(recciv[quelcmin],2)} en \Sexpr{serie[,"annee"][quelcmin]} à
-\Sexpr{sn(recciv[quelcmax],3)} millions de civelle par an en 
-\Sexpr{serie[,"annee"][quelcmax]}. 
-Le nombre d'anguilles jaunes comptées sur les passes a varié de
-\Sexpr{sn(recagj[quelymin],0)} à  \Sexpr{sn(recagj[quelymax],0)}
-entre la plus mauvaise année \Sexpr{serie[,"annee"][quelymin]} et la meilleure
-\Sexpr{serie[,"annee"][quelymax]}. Les données reportées pour le recrutement
-d'anguilles jaunes sur le bassin sont présentées différemment avec un calcul par
-cohorte, qui prend en compte l'âge des anguilles lors de leur passage. Les
-effectifs d'anguilles jaunes varient alors entre
-\Sexpr{sn(recagjcohort[quelycmin])} et \Sexpr{sn(recagjcohort[quelycmax])} 
-(Figure \ref{figure2recrutement}) \citep{briand_gestion_2017}.
+$11~203$ civelles  (soit $2.6 kg$) en $2011$ à
+$4~727~345$ (soit $1.6t$) en $2014$. 
+Le nombre d'anguilles jaunes comptées sur les passes a varié de $1~016$
+à $145~103$ entre la plus mauvaise année -$2015$- et la
+meilleure année -$2013$.
 Entre 2000 et 2005, les captures lors des pêches expérimentales pour
 transfert en amont du barrage ont lissé la chute du recrutement fluvial sans la
 compenser pleinement (Figure \ref{figure2recrutement}). L'augmentation de la
@@ -1395,16 +1391,14 @@ d'exploitation des civelles en estuaire.
 Après 2012, les variations du recrutement fluvial reflètent les tendances du
 recrutement (Figure \ref{figure_recrutement}), les transports, les variations
 du taux d'exploitation de la pêcherie, et les manoeuvres d'écluse au barrage
-d'Arzal. En pratique, le recrutement fluvial est aujourd'hui proche des
-niveaux faibles observés entre 2000 et 2005. La même figure est reportée en kg
+d'Arzal. La même figure est reportée en kg
 pour les civelles (Figure \ref{figure2recrutement_kg}).
 Entre 1996 et 2005, \citet{briand_dynamique_2009} a estimé l'efficacité de la
 passe entre 3 et 16\% à l'aide d'opérations de marquage-recapture. En faisant
 l'hypothèse d'une efficacité de la passe de 10 \% après 2005, le taux
 d'exploitation annuel de la pêcherie varie entre 22.7\% (2012--2013) et 98.1\%
-(2009-2010). Les deux dernières années le taux d'exploitation serait remonté autour de 79\%
-(2019--2020) et 83 \%. En moyenne, il est de 67\% et ce taux est donc supérieur
-à la cible de gestion fixée par le règlement européen (40 \% d'échappement soit
+(2009-2010). En moyenne, le taux d'exploitation est de 67\% et ce taux
+est donc supérieur à la cible de gestion fixée par le règlement européen (40 \% d'échappement soit
 60\% de taux d'exploitation). Une telle cible de gestion ne serait appliquable
 que si on avait restauré le stock et qu'aucune autre mortalité anthropique
 (turbines, pêche amateur au stade jaune) n'était appliquée à l'anguille au
@@ -2066,8 +2060,8 @@ Après un minimum de \Sexpr{tableau2["2011",3]}
 jusqu'en 2014 à \Sexpr{tableau2["2014",3]}
 (+-\Sexpr{tableau2["2014",4]}) anguille.m$^{-2}$
 (Tableau \ref{tableau2_dens_eff_annee} et Figure \ref{dens_annee}).
-Entre 2015 et 2021, elle varie entre \Sexpr{tableau2["2017",3]} en
-2017 et \Sexpr{tableau2["2018",3]} en 2018.
+Entre 2015 et 2024, elle varie entre \Sexpr{tableau2["2017",3]} en
+2017 et \Sexpr{tableau2["2024",3]} en 2024.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
@@ -2558,9 +2552,6 @@ différente entre les stations.}
 \end{figure}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{}
 %\subsection{Effet du transport}
 <<brouillon,eval=FALSE, include=FALSE>>=
 # pour une rivière donnée
@@ -2940,8 +2931,8 @@ continue sur les secteurs intermédiaires et amont. Elles augmentent en aval mai
 restent en deçà des valeurs observées entre 1998 et 2002 (Figures
 \ref{biom_annee} et \ref{biom_annee_dist}).
 
-Les densités de 2017 et 2019 laissent suspecter un effet de l'étiage sévère sur
-certaines stations aval, où les recaptures ont été très faibles 
+Les densités de 2017, 2019 et 2022 laissent suspecter un effet de l'étiage
+sévère sur certaines stations aval, où les recaptures ont été très faibles 
 (ruisseau de la Bouloterie, Canut Nord et Arzal, ruisseau des
 Arches proches de la rupture d'écoulement).
 
@@ -3040,9 +3031,9 @@ importante du début des suivis après 1998, les transports de civelles et les
 augmentations massives de recrutement sur les passes certaines années ont permis
 une augmentation des densités dans les secteurs aval et les prémices d'une
 augmentation sont constatés dans certains secteurs amont. 
-La forte diminution du recrutement fluvial dans les 4 dernières années ne se
-traduit pas par un effet notable sur les densités d'anguilles, y compris quand
-on regarde la conversion en une structure en âge par des clés taille-âge.
+Les variations de recrutement fluvial ne se
+traduisent pas par un effet notable sur les densités d'anguilles, y compris
+quand on regarde la conversion en une structure en âge par des clés taille-âge.
 Il est à noter que globalement, les densités sont cohérentes dans leur tendance d'une année sur 
 l'autre et qu'en conséquence les tendances
 obtenues sont assez crédibles, elles sont par ailleurs généralement refletées
